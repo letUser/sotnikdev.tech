@@ -2,41 +2,66 @@
 import { ref } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
 import { useDark, useToggle } from '@vueuse/core'
+import moonIcon from './assets/moon.svg'
 
+// dark/light theme util
 const isDark = useDark() //true or false
 const toggleDark = useToggle(isDark)
+
+// state for theme switcher
 const darkMode = ref(isDark.value)
-const activeIndex = ref('1')
+
+// curr active menu item
+const activeMenuItem = ref()
+
+/**
+ * Menu item click handler
+ * @param $event - state of event
+ * @return void
+ */
+function setActiveMenu($event: Event): void {
+  if (!$event?.target) throw new Error('App.vue -> setActiveMenu -> $el.target is NULL')
+
+  // remove active class from prev clicked elem
+  activeMenuItem.value?.classList.remove('active')
+
+  const { target } = $event
+
+  if (target instanceof HTMLElement) {
+    // add active class to curr clicked elem
+    target.classList.add('active')
+
+    // save link to the curr clicked elem
+    activeMenuItem.value = target
+  }
+}
 </script>
 
 <template>
   <html>
     <header>
       <div class="menu-wrapper">
-        <el-menu :default-active="activeIndex" mode="horizontal" :ellipsis="false">
-          <el-menu-item index="1"><RouterLink to="/">About</RouterLink></el-menu-item>
-          <el-menu-item index="2"><RouterLink to="/">Item 2</RouterLink></el-menu-item>
-          <el-menu-item index="3"><RouterLink to="/">Item 3</RouterLink></el-menu-item>
-          <el-sub-menu index="4">
-            <template #title>Item four</template>
-            <el-menu-item index="4-1">item one</el-menu-item>
-            <el-menu-item index="4-2">item two</el-menu-item>
-            <el-menu-item index="4-3">item three</el-menu-item>
-          </el-sub-menu>
-        </el-menu>
+        <nav @click.prevent="setActiveMenu">
+          <RouterLink :index="1" to="/">About</RouterLink>
+          <RouterLink :index="2" to="/">About</RouterLink>
+          <RouterLink :index="3" to="/">About</RouterLink>
+        </nav>
 
-        <div>
-          <el-switch v-model="darkMode" @change="toggleDark">
-            <template #active-action>
-              <span class="custom-active-action">D</span>
-            </template>
-            <template #inactive-action>
-              <span class="custom-inactive-action">L</span>
-            </template>
-          </el-switch>
+        <div class="menu-item">
+          <el-switch
+            v-model="darkMode"
+            @change="toggleDark"
+            style="
+              --el-switch-on-color: var(--color-background-mute);
+              --el-switch-off-color: var(--vt-c-white-mute);
+              --el-switch-border-color: var(--color-border);
+            "
+            :active-action-icon="moonIcon"
+            :inactive-action-icon="Sunny"
+          />
         </div>
 
-        <div>Contacts</div>
+        <div class="menu-item">Contacts</div>
       </div>
 
       <!-- <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" /> -->
@@ -49,8 +74,32 @@ const activeIndex = ref('1')
 <style scoped lang="scss">
 .menu-wrapper {
   display: flex;
-  justify-content: space-between;
-  padding: 1rem 2rem;
-  background-color: hsla(0, 0%, 100%, 0.1);
+  justify-content: right;
+  align-items: center;
+  padding: 0 2rem;
+  border-bottom: 2px solid var(--color-border);
+
+  .menu-item {
+    padding: 0 0.75rem;
+  }
+
+  nav {
+    display: flex;
+    height: 3rem;
+
+    a {
+      height: 100%;
+      line-height: 100%;
+      text-decoration: none;
+      color: inherit;
+      vertical-align: middle;
+      padding: 0 0.75rem;
+
+      &.active {
+        color: var(--el-color-primary-dark-1);
+        border-bottom: 2px solid var(--el-color-primary-dark-1);
+      }
+    }
+  }
 }
 </style>
