@@ -5,7 +5,7 @@ import { useDark, useToggle } from '@vueuse/core'
 import type { DropdownInstance } from 'element-plus'
 import MoonIcon from './components/icons/MoonIcon.vue'
 import SunIcon from './components/icons/SunIcon.vue'
-import { ArrowDown, ArrowUp } from '@element-plus/icons-vue'
+import { ArrowDown, ArrowUp, PhoneFilled, Promotion, Message } from '@element-plus/icons-vue'
 
 // dark/light theme util
 const isDark = useDark() //true or false
@@ -92,20 +92,38 @@ function handleContactsHover(state: boolean): undefined {
         >
           <span> Contacts </span>
 
-          <el-dropdown ref="dropdown" trigger="contextmenu" :teleported="false">
+          <el-dropdown
+            ref="dropdown"
+            trigger="contextmenu"
+            :teleported="false"
+            popper-class="contacts-list"
+          >
             <span class="contacts-arrow"
-              ><el-icon v-show="!contactsExpanded">
+              ><el-icon v-if="!contactsExpanded">
                 <arrow-down />
               </el-icon>
-              <el-icon v-show="contactsExpanded"> <arrow-up /> </el-icon
+              <el-icon v-else> <arrow-up /> </el-icon
             ></span>
             <template #dropdown>
               <el-dropdown-menu>
-                <el-dropdown-item>Action 1</el-dropdown-item>
-                <el-dropdown-item>Action 2</el-dropdown-item>
-                <el-dropdown-item>Action 3</el-dropdown-item>
-                <el-dropdown-item disabled>Action 4</el-dropdown-item>
-                <el-dropdown-item divided>Action 5</el-dropdown-item>
+                <el-dropdown-item title="Call me"
+                  ><el-icon><phone-filled /></el-icon>
+                  <a href="tel:+16042451101" class="dropdown-link">
+                    +1 604-245-1101
+                  </a></el-dropdown-item
+                >
+                <el-dropdown-item title="DM me"
+                  ><el-icon><promotion /></el-icon>
+                  <a target="_blank" href="https://t.me/letUser" class="dropdown-link">
+                    @letUser
+                  </a></el-dropdown-item
+                >
+                <el-dropdown-item title="Email me"
+                  ><el-icon><message /></el-icon>
+                  <a href="mailto:work.sotnik@gmail.com" class="dropdown-link">
+                    work.sotnik@gmail.com</a
+                  ></el-dropdown-item
+                >
               </el-dropdown-menu>
             </template>
           </el-dropdown>
@@ -156,6 +174,11 @@ function handleContactsHover(state: boolean): undefined {
   }
 
   .theme-switch {
+    .el-switch {
+      cursor: pointer;
+      animation: fade 0.5s;
+    }
+
     .custom-action {
       width: 100%;
       height: 100%;
@@ -167,6 +190,14 @@ function handleContactsHover(state: boolean): undefined {
 
       &.inactive {
         border: 1px solid var(--color-border);
+      }
+    }
+
+    &:hover {
+      .el-switch {
+        .custom-action {
+          animation: pulse 2s infinite;
+        }
       }
     }
   }
@@ -189,7 +220,45 @@ function handleContactsHover(state: boolean): undefined {
 
     &-arrow {
       outline: none;
+
+      > i {
+        animation: fade 0.5s;
+      }
     }
+
+    .contacts-list {
+      .dropdown-link {
+        text-decoration: none;
+        color: inherit;
+        font-family: Helvetica;
+      }
+    }
+  }
+}
+
+@keyframes fade {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 var(--color-border);
+  }
+
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 3px var(--el-color-primary-dark-1);
+  }
+
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 var(--color-border);
   }
 }
 </style>
