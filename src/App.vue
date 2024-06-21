@@ -23,10 +23,10 @@ const dropdown = ref<DropdownInstance>()
 
 /**
  * Menu item click handler
- * @param $event - state of event
- * @return void
+ * @param {Event} $event - state of event
+ * @return {undefined} undefined
  */
-function setActiveMenu($event: Event): void {
+function setActiveMenu($event: Event): undefined {
   if (!$event?.target) throw new Error('App.vue -> setActiveMenu -> $el.target is NULL')
 
   // remove active class from prev clicked elem
@@ -41,6 +41,18 @@ function setActiveMenu($event: Event): void {
     // save link to the curr clicked elem
     activeMenuItem.value = target
   }
+}
+
+/**
+ * Contacts dropdown hover handler
+ * @param {boolean} state - flag "is hover"
+ * @return {undefined} undefined
+ */
+function handleContactsHover(state: boolean): undefined {
+  contactsExpanded.value = state
+
+  if (state) dropdown.value?.handleOpen()
+  else dropdown.value?.handleClose()
 }
 </script>
 
@@ -73,23 +85,20 @@ function setActiveMenu($event: Event): void {
           </el-switch>
         </div>
 
-        <div class="contacts menu-item">
-          <span
-            @mouseenter="
-              contactsExpanded = !contactsExpanded;
-              dropdown?.handleOpen()
-            "
-            @mouseleave="
-              contactsExpanded = !contactsExpanded;
-              dropdown?.handleClose()
-            "
-            >Contacts<el-icon v-show="!contactsExpanded" class="el-icon--right">
-              <arrow-down />
-            </el-icon>
-            <el-icon v-show="contactsExpanded" class="el-icon--right"> <arrow-up /> </el-icon
-          ></span>
+        <div
+          class="contacts menu-item"
+          @mouseenter="handleContactsHover(true)"
+          @mouseleave="handleContactsHover(false)"
+        >
+          <span> Contacts </span>
 
-          <el-dropdown ref="dropdown" trigger="contextmenu" style="margin-right: 30px">
+          <el-dropdown ref="dropdown" trigger="contextmenu" :teleported="false">
+            <span class="contacts-arrow"
+              ><el-icon v-show="!contactsExpanded">
+                <arrow-down />
+              </el-icon>
+              <el-icon v-show="contactsExpanded"> <arrow-up /> </el-icon
+            ></span>
             <template #dropdown>
               <el-dropdown-menu>
                 <el-dropdown-item>Action 1</el-dropdown-item>
@@ -101,7 +110,6 @@ function setActiveMenu($event: Event): void {
             </template>
           </el-dropdown>
         </div>
-        <el-dropdown @visible-change="contactsExpanded = !contactsExpanded"> </el-dropdown>
       </div>
 
       <!-- <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" /> -->
@@ -115,11 +123,13 @@ function setActiveMenu($event: Event): void {
 .menu-wrapper {
   display: flex;
   justify-content: right;
-  align-items: center;
+  align-items: stretch;
   padding: 0 2rem;
   border-bottom: 2px solid var(--color-border);
 
   .menu-item {
+    display: inherit;
+    align-items: center;
     padding: 0 0.75rem;
   }
 
@@ -133,6 +143,10 @@ function setActiveMenu($event: Event): void {
       text-decoration: none;
       color: inherit;
       padding: 0 0.75rem;
+
+      &:hover {
+        color: var(--el-color-primary-dark-1);
+      }
 
       &.active {
         color: var(--el-color-primary-dark-1);
@@ -161,7 +175,19 @@ function setActiveMenu($event: Event): void {
     outline: none;
     cursor: pointer;
 
-    .el-dropdown-link {
+    &:hover {
+      color: var(--el-color-primary-dark-1);
+
+      .contacts-arrow {
+        color: var(--el-color-primary-dark-1);
+      }
+    }
+
+    > span {
+      margin-right: 5px;
+    }
+
+    &-arrow {
       outline: none;
     }
   }
