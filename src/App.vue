@@ -1,10 +1,13 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
 import { useDark, useToggle } from '@vueuse/core'
+import { ElMessage } from 'element-plus'
 import type { DropdownInstance } from 'element-plus'
 import MoonIcon from './components/icons/MoonIcon.vue'
 import SunIcon from './components/icons/SunIcon.vue'
+import GitHub from './components/icons/GitHub.vue'
+import LinkedIn from './components/icons/LinkedIn.vue'
 import { ArrowDown, ArrowUp, PhoneFilled, Promotion, Message } from '@element-plus/icons-vue'
 
 // dark/light theme util
@@ -20,6 +23,14 @@ const activeMenuItem = ref()
 // curr state for contacts dropdown
 const contactsExpanded = ref(false)
 const dropdown = ref<DropdownInstance>()
+
+const LIbadgeKey = ref(0)
+const LIbadgeLoading = ref(false)
+const isLIblocked = ref(false)
+
+onMounted(() => {
+  setTimeout(() => updateLinkedInScript(), 1000)
+})
 
 /**
  * Menu item click handler
@@ -44,6 +55,15 @@ function setActiveMenu($event: Event): undefined {
 }
 
 /**
+ * Dark mode switcher handler
+ * @return {undefined} undefined
+ */
+function handleToggleDark(): undefined {
+  toggleDark()
+  if (!isLIblocked.value) updateLinkedInScript()
+}
+
+/**
  * Contacts dropdown hover handler
  * @param {boolean} state - flag "is hover"
  * @return {undefined} undefined
@@ -53,6 +73,51 @@ function handleContactsHover(state: boolean): undefined {
 
   if (state) dropdown.value?.handleOpen()
   else dropdown.value?.handleClose()
+}
+
+function updateLinkedInScript() {
+  LIbadgeLoading.value = true
+
+  const prevScript = document.getElementById('linked-in-script')
+  prevScript?.remove()
+
+  const script = document.createElement('script')
+  script.src = 'https://platform.linkedin.com/badges/js/profile.js'
+  script.async = true
+  script.defer = true
+  script.type = 'text/javascript'
+  script.id = 'linked-in-script'
+
+  document.head.appendChild(script)
+
+  script.onerror = () => {
+    isLIblocked.value = true
+    ElMessage({
+      message: 'Looks like we can not establish connection with LinkedIn.',
+      type: 'warning',
+      plain: true,
+      duration: 6000
+    })
+  }
+
+  script.onload = () => {
+    const badgeScript = document.body.lastChild
+
+    if (badgeScript instanceof HTMLScriptElement) {
+      if (badgeScript.src.includes('badges.linkedin.com')) {
+        badgeScript.onload = () => {
+          LIbadgeLoading.value = false
+
+        //   const badge = document.getElementById('LIbadge')
+        //   const iframe = badge?.firstChild
+        //   const html = iframe?.document
+          //console.log(html)
+        }
+      }
+    }
+  }
+
+  LIbadgeKey.value++
 }
 </script>
 
@@ -69,7 +134,7 @@ function handleContactsHover(state: boolean): undefined {
         <div class="theme-switch menu-item">
           <el-switch
             v-model="darkMode"
-            @change="toggleDark"
+            @change="handleToggleDark"
             style="
               --el-switch-on-color: var(--color-background-mute);
               --el-switch-off-color: var(--vt-c-white-mute);
@@ -83,6 +148,26 @@ function handleContactsHover(state: boolean): undefined {
               <span class="custom-action inactive"><SunIcon /></span>
             </template>
           </el-switch>
+        </div>
+
+        <div class="menu-item social">
+          <a
+            class="social-link"
+            target="_blank"
+            href="https://github.com/letUser"
+            title="Go to GitHub"
+            ><el-icon :size="24"><git-hub /></el-icon
+          ></a>
+        </div>
+
+        <div v-if="isLIblocked" class="menu-item social">
+          <a
+            class="social-link"
+            target="_blank"
+            href="https://www.linkedin.com/in/sotnik/"
+            title="Go to LinkedIn"
+            ><el-icon :size="22"><linked-in /></el-icon
+          ></a>
         </div>
 
         <div
@@ -129,9 +214,22 @@ function handleContactsHover(state: boolean): undefined {
           </el-dropdown>
         </div>
       </div>
-
-      <!-- <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" /> -->
     </header>
+
+    <div v-show="!LIbadgeLoading" class="linkedin-popper">
+      <div
+        :key="LIbadgeKey"
+        id="LIbadge"
+        class="li-badge badge-base LI-profile-badge"
+        data-locale="en_US"
+        data-size="large"
+        :data-theme="darkMode ? 'dark' : 'light'"
+        data-type="HORIZONTAL"
+        data-vanity="sotnik"
+        data-version="v1"
+        style=""
+      />
+    </div>
 
     <RouterView />
   </html>
@@ -202,6 +300,18 @@ function handleContactsHover(state: boolean): undefined {
     }
   }
 
+  .social {
+    &-link {
+      text-decoration: none;
+      color: inherit;
+      height: 1.5rem;
+
+      &:hover {
+        color: var(--el-color-primary-dark-1);
+      }
+    }
+  }
+
   .contacts {
     outline: none;
     cursor: pointer;
@@ -236,6 +346,19 @@ function handleContactsHover(state: boolean): undefined {
   }
 }
 
+.linkedin-popper {
+  width: fit-content;
+  height: fit-content;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  overflow: hidden;
+
+  .li-badge {
+    animation: slide 1.5s;
+  }
+}
+
 @keyframes fade {
   0% {
     opacity: 0;
@@ -259,6 +382,16 @@ function handleContactsHover(state: boolean): undefined {
   100% {
     transform: scale(0.95);
     box-shadow: 0 0 0 0 var(--color-border);
+  }
+}
+
+@keyframes slide {
+  0% {
+    transform: translateX(100%);
+  }
+
+  100% {
+    transform: translateX(0%);
   }
 }
 </style>

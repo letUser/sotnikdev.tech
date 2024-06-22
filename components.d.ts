@@ -15,10 +15,15 @@ declare module 'vue' {
     ElMenuItem: typeof import('element-plus/es')['ElMenuItem']
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
     ElSwitch: typeof import('element-plus/es')['ElSwitch']
+    GitHub: typeof import('./src/components/icons/GitHub.vue')['default']
+    LinkedIn: typeof import('./src/components/icons/LinkedIn.vue')['default']
     MoonIcon: typeof import('./src/components/icons/MoonIcon.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SunIcon: typeof import('./src/components/icons/SunIcon.vue')['default']
     Welcome: typeof import('./src/components/Welcome.vue')['default']
+  }
+  export interface ComponentCustomProperties {
+    vLoading: typeof import('element-plus/es')['ElLoadingDirective']
   }
 }
