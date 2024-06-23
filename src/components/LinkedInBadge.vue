@@ -43,7 +43,8 @@ function updLIScript(): void {
     isLIblocked.value = true
     emit('changeLIblocked')
     ElMessage({
-      message: 'Looks like we can not establish connection with LinkedIn.',
+      message:
+        'Oops. We can not connect to LinkedIn. Adding a specific button to the navigation menu.',
       type: 'warning',
       plain: true,
       duration: 6000

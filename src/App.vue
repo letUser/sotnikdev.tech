@@ -30,18 +30,4 @@ function onUpdLIScript(): void {
   </html>
 </template>
 
-<style scoped lang="scss">
-.menu-wrapper {
-  display: flex;
-  justify-content: right;
-  align-items: stretch;
-  padding: 0 2rem;
-  border-bottom: 2px solid var(--color-border);
-
-  .menu-item {
-    display: inherit;
-    align-items: center;
-    padding: 0 0.75rem;
-  }
-}
-</style>
+<style scoped lang="scss"></style>

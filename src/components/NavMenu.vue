@@ -41,7 +41,7 @@ function setActiveMenu($event: Event): void {
 
     <DarkModeSwitch class="menu-item" @updLIScript="$emit('updLIScript')" />
 
-    <SocialLinks class="menu-item" />
+    <SocialLinks class="menu-item menu-item-no-padding" />
 
     <ContactsDropdown class="menu-item" />
   </div>
@@ -59,6 +59,10 @@ function setActiveMenu($event: Event): void {
     display: inherit;
     align-items: center;
     padding: 0 0.75rem;
+
+    &-no-padding {
+      padding: 0;
+    }
   }
 
   nav {
