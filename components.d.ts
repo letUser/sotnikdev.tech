@@ -7,6 +7,8 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    ContactsDropdown: typeof import('./src/components/navigation/ContactsDropdown.vue')['default']
+    DarkModeSwitch: typeof import('./src/components/navigation/DarkModeSwitch.vue')['default']
     ElDropdown: typeof import('element-plus/es')['ElDropdown']
     ElDropdownItem: typeof import('element-plus/es')['ElDropdownItem']
     ElDropdownMenu: typeof import('element-plus/es')['ElDropdownMenu']
@@ -16,10 +18,19 @@ declare module 'vue' {
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
     ElSwitch: typeof import('element-plus/es')['ElSwitch']
     GitHub: typeof import('./src/components/icons/GitHub.vue')['default']
+    IndexNav: typeof import('./src/components/navigation/IndexNav.vue')['default']
+    LIbadge: typeof import('./src/components/LIbadge.vue')['default']
     LinkedIn: typeof import('./src/components/icons/LinkedIn.vue')['default']
+    LinkedInBadge: typeof import('./src/components/LinkedInBadge.vue')['default']
     MoonIcon: typeof import('./src/components/icons/MoonIcon.vue')['default']
+    Navigation: typeof import('./src/components/navigation/Navigation.vue')['default']
+    NavigationMain: typeof import('./src/components/navigation/NavigationMain.vue')['default']
+    NavIndex: typeof import('./src/components/navigation/NavIndex.vue')['default']
+    NavMain: typeof import('./src/components/navigation/NavMain.vue')['default']
+    NavMenu: typeof import('./src/components/NavMenu.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SocialLinks: typeof import('./src/components/navigation/SocialLinks.vue')['default']
     SunIcon: typeof import('./src/components/icons/SunIcon.vue')['default']
     Welcome: typeof import('./src/components/Welcome.vue')['default']
   }

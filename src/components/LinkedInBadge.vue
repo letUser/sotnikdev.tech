@@ -1,0 +1,137 @@
+<script setup lang="ts">
+import { ref, onMounted } from 'vue'
+import { useDark } from '@vueuse/core'
+import { ElMessage } from 'element-plus'
+
+const emit = defineEmits(['changeLIblocked'])
+
+// fetch LinkedIn badge in 5sec after app creation
+onMounted(() => {
+  setTimeout(() => updLIScript(), 1000)
+})
+
+const isDark = useDark() //true or false
+const LIbadgeKey = ref(0)
+const LIbadgeLoading = ref(false)
+const isLIblocked = ref(false)
+
+/**
+ * External HTML with LinkedIn badge loader |
+ * Forced reload is triggered by dark mode switcher
+ * @return {void} void
+ */
+function updLIScript(): void {
+  // start loading process
+  LIbadgeLoading.value = true
+
+  // delete prev script and external badge with different color scheme
+  const prevScript = document.getElementById('linked-in-script')
+  prevScript?.remove()
+
+  // create new script with curr color scheme
+  const script = document.createElement('script')
+  script.src = 'https://platform.linkedin.com/badges/js/profile.js'
+  script.async = true
+  script.defer = true
+  script.type = 'text/javascript'
+  script.id = 'linked-in-script'
+
+  document.head.appendChild(script)
+
+  // if script is unavailable
+  script.onerror = () => {
+    isLIblocked.value = true
+    emit('changeLIblocked')
+    ElMessage({
+      message: 'Looks like we can not establish connection with LinkedIn.',
+      type: 'warning',
+      plain: true,
+      duration: 6000
+    })
+  }
+
+  // if script is loaded
+  script.onload = () => {
+    const badgeScript = document.body.lastChild as HTMLScriptElement
+
+    // check script for right address
+    if (badgeScript?.src?.includes('badges.linkedin.com')) {
+      // if second script is loaded
+      badgeScript.onload = async () => {
+        // dig into external HTML and change styles step by step
+        const badgeWrapper = document.getElementById('LIbadge')
+        let iframe = badgeWrapper?.firstChild as HTMLIFrameElement
+        iframe.style.borderRadius = '3px'
+        const body = iframe?.contentWindow?.document.body
+        if (body) body.style.overflow = 'hidden'
+        const profile = body?.getElementsByClassName('profile-badge')
+
+        // awaiting DIV creation in external HTML
+        const intervalId = setInterval(() => {
+          if (profile?.length) {
+            clearInterval(intervalId)
+            const badge = profile[0] as HTMLElement
+            badge.style.marginLeft = '0'
+            badge.style.borderRadius = '0'
+            badge.style.width = '100%'
+            badge.style.height = '100%'
+            badge.style.zIndex = '-1'
+
+            // end loading process
+            LIbadgeLoading.value = false
+          }
+        }, 100)
+      }
+    }
+  }
+
+  LIbadgeKey.value++
+}
+
+// share variables and functions with ancestor
+defineExpose({ updLIScript })
+</script>
+
+<template>
+  <div v-show="!LIbadgeLoading" class="linkedin-popper">
+    <div
+      :key="LIbadgeKey"
+      id="LIbadge"
+      class="li-badge badge-base LI-profile-badge"
+      data-locale="en_US"
+      data-size="large"
+      :data-theme="isDark ? 'dark' : 'light'"
+      data-type="HORIZONTAL"
+      data-vanity="sotnik"
+      data-version="v1"
+    />
+  </div>
+</template>
+
+<style scoped lang="scss">
+.linkedin-popper {
+  margin: 0 4px 10px 0;
+  width: fit-content;
+  height: fit-content;
+  position: absolute;
+  overflow: hidden;
+  bottom: 0;
+  right: 0;
+
+  .li-badge {
+    animation: slide 1.5s;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+  }
+}
+
+@keyframes slide {
+  0% {
+    transform: translateX(100%);
+  }
+
+  100% {
+    transform: translateX(0%);
+  }
+}
+</style>
