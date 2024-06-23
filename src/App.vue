@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, nextTick } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
 import { useDark, useToggle } from '@vueuse/core'
 import { ElMessage } from 'element-plus'
@@ -35,9 +35,9 @@ onMounted(() => {
 /**
  * Menu item click handler
  * @param {Event} $event - state of event
- * @return {undefined} undefined
+ * @return {void} void
  */
-function setActiveMenu($event: Event): undefined {
+function setActiveMenu($event: Event): void {
   if (!$event?.target) throw new Error('App.vue -> setActiveMenu -> $el.target is NULL')
 
   // remove active class from prev clicked elem
@@ -56,9 +56,9 @@ function setActiveMenu($event: Event): undefined {
 
 /**
  * Dark mode switcher handler
- * @return {undefined} undefined
+ * @return {void} void
  */
-function handleToggleDark(): undefined {
+function handleToggleDark(): void {
   toggleDark()
   if (!isLIblocked.value) updateLinkedInScript()
 }
@@ -66,21 +66,29 @@ function handleToggleDark(): undefined {
 /**
  * Contacts dropdown hover handler
  * @param {boolean} state - flag "is hover"
- * @return {undefined} undefined
+ * @return {void} void
  */
-function handleContactsHover(state: boolean): undefined {
+function handleContactsHover(state: boolean): void {
   contactsExpanded.value = state
 
   if (state) dropdown.value?.handleOpen()
   else dropdown.value?.handleClose()
 }
 
-function updateLinkedInScript() {
+/**
+ * External HTML with LinkedIn badge loader |
+ * Forced reload is triggered by dark mode switcher
+ * @return {void} void
+ */
+function updateLinkedInScript(): void {
+  // start loading process
   LIbadgeLoading.value = true
 
+  // delete prev script and external badge with different color scheme
   const prevScript = document.getElementById('linked-in-script')
   prevScript?.remove()
 
+  // create new script with curr color scheme
   const script = document.createElement('script')
   script.src = 'https://platform.linkedin.com/badges/js/profile.js'
   script.async = true
@@ -90,6 +98,7 @@ function updateLinkedInScript() {
 
   document.head.appendChild(script)
 
+  // if script is unavailable
   script.onerror = () => {
     isLIblocked.value = true
     ElMessage({
@@ -100,19 +109,37 @@ function updateLinkedInScript() {
     })
   }
 
+  // if script is loaded
   script.onload = () => {
-    const badgeScript = document.body.lastChild
+    const badgeScript = document.body.lastChild as HTMLScriptElement
 
-    if (badgeScript instanceof HTMLScriptElement) {
-      if (badgeScript.src.includes('badges.linkedin.com')) {
-        badgeScript.onload = () => {
-          LIbadgeLoading.value = false
+    // check script for right address
+    if (badgeScript?.src?.includes('badges.linkedin.com')) {
+      // if second script is loaded
+      badgeScript.onload = async () => {
+        // dig into external HTML and change styles step by step
+        const badgeWrapper = document.getElementById('LIbadge')
+        let iframe = badgeWrapper?.firstChild as HTMLIFrameElement
+        iframe.style.borderRadius = '3px'
+        const body = iframe?.contentWindow?.document.body
+        if (body) body.style.overflow = 'hidden'
+        const profile = body?.getElementsByClassName('profile-badge')
 
-        //   const badge = document.getElementById('LIbadge')
-        //   const iframe = badge?.firstChild
-        //   const html = iframe?.document
-          //console.log(html)
-        }
+        // awaiting DIV creation in external HTML
+        const intervalId = setInterval(() => {
+          if (profile?.length) {
+            clearInterval(intervalId)
+            const badge = profile[0] as HTMLElement
+            badge.style.marginLeft = '0'
+            badge.style.borderRadius = '0'
+            badge.style.width = '100%'
+            badge.style.height = '100%'
+            badge.style.zIndex = '-1'
+
+            // end loading process
+            LIbadgeLoading.value = false
+          }
+        }, 100)
       }
     }
   }
@@ -227,7 +254,6 @@ function updateLinkedInScript() {
         data-type="HORIZONTAL"
         data-vanity="sotnik"
         data-version="v1"
-        style=""
       />
     </div>
 
@@ -347,15 +373,18 @@ function updateLinkedInScript() {
 }
 
 .linkedin-popper {
+  margin: 0 4px 10px 0;
   width: fit-content;
   height: fit-content;
   position: absolute;
+  overflow: hidden;
   bottom: 0;
   right: 0;
-  overflow: hidden;
 
   .li-badge {
     animation: slide 1.5s;
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
   }
 }
 
