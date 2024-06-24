@@ -72,7 +72,7 @@ function updLIScript(): void {
             LIbadgeLoading.value = false
 
             // create animations query
-            createAnimationsQuery(badgeScript)
+            createAnimationsQuery(badgeWrapper)
           }
         }, 100)
       }
@@ -168,7 +168,7 @@ function transferIconCloseFromBadge(): void {
  * Start timeouts for badge animations
  * @return {void} void
  */
-function createAnimationsQuery(badgeWrapper: HTMLElement): void {
+function createAnimationsQuery(badgeWrapper: HTMLElement | null): void {
   if (badgeWrapper) {
     if (firstLoad.value) {
       setTimeout(() => {
@@ -178,12 +178,12 @@ function createAnimationsQuery(badgeWrapper: HTMLElement): void {
 
       setTimeout(() => {
         badgeWrapper.classList.remove('li-badge--pulse')
-        badgeWrapper.classList.add('li-badge--opacity-75')
+        badgeWrapper.classList.add('li-badge--opacity-35')
         firstLoad.value = false
       }, 8000)
     } else {
       setTimeout(() => {
-        badgeWrapper.classList.add('li-badge--opacity-75')
+        badgeWrapper.classList.add('li-badge--opacity-35')
       }, 2000)
     }
   }
@@ -238,8 +238,9 @@ defineExpose({ updLIScript })
       animation: pulse 2s infinite;
     }
 
-    &--opacity-75 {
-      opacity: 0.75;
+    &--opacity-35 {
+      opacity: 0.35;
+      transition: opacity 2s;
     }
   }
 }
