@@ -1,13 +1,11 @@
 <script setup lang="ts">
-import { ref, provide, readonly } from 'vue'
+import { ref } from 'vue'
 import { RouterView } from 'vue-router'
 import NavMenu from './components/NavMenu.vue'
 import LinkedInBadge from './components/LinkedInBadge.vue'
 
 // ref to LinkedInBadge component
 const LIbadge = ref()
-const isLIblocked = ref(false)
-provide('isLIblocked', readonly(isLIblocked))
 
 /**
  * Handle trigger from "DarkModeSwitch.vue" child component
@@ -26,7 +24,7 @@ function onUpdLIScript(): void {
 
     <RouterView />
 
-    <LinkedInBadge ref="LIbadge" @changeLIblocked="isLIblocked = true" />
+    <LinkedInBadge ref="LIbadge" />
   </html>
 </template>
 

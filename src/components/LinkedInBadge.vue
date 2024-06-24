@@ -1,19 +1,27 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, nextTick } from 'vue'
 import { useDark } from '@vueuse/core'
 import { Close } from '@element-plus/icons-vue'
+import SourceLinkedInBadge from './legacy/SourceLinkedInBadge.vue'
 
-const emit = defineEmits(['changeLIblocked'])
+const emit = defineEmits(['destroyLIbadge'])
 
 // fetch LinkedIn badge in 5sec after app creation
 onMounted(() => {
-  setTimeout(() => updLIScript(), 1000)
+  // if LinkedIn wasn't closed by user, then...
+  if (!isLIclosed.value) {
+    // if LinkedIn wasn't blocked by region, then fetch the script
+    if (!isLIblocked.value) setTimeout(() => updLIScript(), 1000)
+    // if LinkedIn is blocked by region, then start animation for twin-component
+    else createAnimationsQuery(document.getElementById('legacyLIbadge'))
+  }
 })
 
 const isDark = useDark() //true or false
 const LIbadgeKey = ref(0)
 const LIbadgeLoading = ref(false)
-const isLIblocked = ref(Boolean(sessionStorage.getItem('sotnikdev.tech:changeLIblocked')))
+const isLIblocked = ref(Boolean(sessionStorage.getItem('sotnikdev.tech:isLIblocked')))
+const isLIclosed = ref(Boolean(sessionStorage.getItem('sotnikdev.tech:isLIclosed')))
 const firstLoad = ref(true)
 const closeIcon = ref<(Node & { $el: HTMLElement }) | null>()
 
@@ -23,10 +31,11 @@ const closeIcon = ref<(Node & { $el: HTMLElement }) | null>()
  * @return {void} void
  */
 function updLIScript(): void {
+  // return if LinkedIn is blocked or closed
+  if (isLIblocked.value || isLIclosed.value) return
+
   // start loading process
   LIbadgeLoading.value = true
-
-  if (isLIblocked.value) return
 
   // delete prev script and external badge with different color scheme
   removeBadge()
@@ -119,8 +128,23 @@ function createScript(): HTMLScriptElement {
  */
 function blockBadgeRequest(): void {
   isLIblocked.value = true
-  emit('changeLIblocked')
-  sessionStorage.setItem('sotnikdev.tech:changeLIblocked', 'true')
+  sessionStorage.setItem('sotnikdev.tech:isLIblocked', 'true')
+
+  //end loading process
+  LIbadgeLoading.value = false
+
+  // wait DOM update and start animation query
+  nextTick(() => createAnimationsQuery(document.getElementById('legacyLIbadge')))
+}
+
+/**
+ * Handle closing of LinkedIn badge by user
+ * @return {void} void
+ */
+function closeBadge(): void {
+  isLIclosed.value = true
+  emit('destroyLIbadge')
+  sessionStorage.setItem('sotnikdev.tech:isLIclosed', 'true')
 }
 
 /**
@@ -144,7 +168,7 @@ function createCloseIcon(badge: HTMLElement): void {
 
     if (!iconNode.onclick) {
       iconNode.onclick = () => {
-        blockBadgeRequest()
+        closeBadge()
         removeBadge()
       }
     }
@@ -179,6 +203,7 @@ function createAnimationsQuery(badgeWrapper: HTMLElement | null): void {
       setTimeout(() => {
         badgeWrapper.classList.remove('li-badge--pulse')
         badgeWrapper.classList.add('li-badge--opacity-35')
+
         firstLoad.value = false
       }, 8000)
     } else {
@@ -194,11 +219,17 @@ defineExpose({ updLIScript })
 </script>
 
 <template>
-  <div v-show="!LIbadgeLoading" class="linkedin-popper">
+  <div v-if="!isLIclosed" v-show="!LIbadgeLoading" class="linkedin-popper">
     <el-icon style="display: none" ref="closeIcon" :size="16">
       <close />
     </el-icon>
+    <SourceLinkedInBadge
+      v-if="isLIblocked"
+      class="li-badge li-badge--slide li-badge--legacy"
+      id="legacyLIbadge"
+    />
     <div
+      v-else
       :key="LIbadgeKey"
       id="LIbadge"
       class="li-badge li-badge--slide badge-base LI-profile-badge"
@@ -225,6 +256,11 @@ defineExpose({ updLIScript })
   .li-badge {
     border: 1px solid var(--color-border);
     border-radius: 8px;
+
+    &--legacy {
+      width: 335px;
+      height: 305px;
+    }
 
     &:hover {
       opacity: 1;

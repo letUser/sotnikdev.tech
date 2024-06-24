@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { ref, provide, inject } from 'vue'
-import type { Ref } from 'vue'
+import { ref, provide } from 'vue'
 import { useDark, useToggle } from '@vueuse/core'
 import MoonIcon from '../icons/MoonIcon.vue'
 import SunIcon from '../icons/SunIcon.vue'
@@ -15,8 +14,6 @@ const toggleDark = useToggle(isDark)
 const darkMode = ref(isDark.value)
 provide('darkMode', darkMode)
 
-const isLIblocked = inject<Ref>('isLIblocked')
-
 /**
  * Dark mode switcher handler
  * @return {void} void
@@ -25,7 +22,7 @@ function handleToggleDark(): void {
   toggleDark()
 
   // if LinkedIn is not blocked - fetch badge with new color scheme
-  if (!isLIblocked?.value) emit('updLIScript')
+  emit('updLIScript')
 }
 </script>
 
