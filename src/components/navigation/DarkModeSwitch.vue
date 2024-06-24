@@ -23,6 +23,8 @@ const isLIblocked = inject<Ref>('isLIblocked')
  */
 function handleToggleDark(): void {
   toggleDark()
+
+  // if LinkedIn is not blocked - fetch badge with new color scheme
   if (!isLIblocked?.value) emit('updLIScript')
 }
 </script>

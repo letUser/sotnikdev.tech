@@ -14,6 +14,7 @@ const isDark = useDark() //true or false
 const LIbadgeKey = ref(0)
 const LIbadgeLoading = ref(false)
 const isLIblocked = ref(false)
+const firstLoad = ref(true)
 
 /**
  * External HTML with LinkedIn badge loader |
@@ -47,7 +48,8 @@ function updLIScript(): void {
         'Oops. We can not connect to LinkedIn. Adding a specific button to the navigation menu.',
       type: 'warning',
       plain: true,
-      duration: 6000
+      showClose: true,
+      duration: 12000
     })
   }
 
@@ -62,7 +64,7 @@ function updLIScript(): void {
         // dig into external HTML and change styles step by step
         const badgeWrapper = document.getElementById('LIbadge')
         let iframe = badgeWrapper?.firstChild as HTMLIFrameElement
-        iframe.style.borderRadius = '3px'
+        iframe.style.borderRadius = '7px'
         const body = iframe?.contentWindow?.document.body
         if (body) body.style.overflow = 'hidden'
         const profile = body?.getElementsByClassName('profile-badge')
@@ -76,10 +78,28 @@ function updLIScript(): void {
             badge.style.borderRadius = '0'
             badge.style.width = '100%'
             badge.style.height = '100%'
-            badge.style.zIndex = '-1'
 
             // end loading process
             LIbadgeLoading.value = false
+
+            if (badgeWrapper) {
+              if (firstLoad.value) {
+                setTimeout(() => {
+                  badgeWrapper.classList.remove('li-badge--slide')
+                  badgeWrapper.classList.add('li-badge--pulse')
+                }, 2000)
+
+                setTimeout(() => {
+                  badgeWrapper.classList.remove('li-badge--pulse')
+                  badgeWrapper.classList.add('li-badge--opacity-75')
+                  firstLoad.value = false
+                }, 8000)
+              } else {
+                setTimeout(() => {
+                  badgeWrapper.classList.add('li-badge--opacity-75')
+                }, 2000)
+              }
+            }
           }
         }, 100)
       }
@@ -98,7 +118,7 @@ defineExpose({ updLIScript })
     <div
       :key="LIbadgeKey"
       id="LIbadge"
-      class="li-badge badge-base LI-profile-badge"
+      class="li-badge li-badge--slide badge-base LI-profile-badge"
       data-locale="en_US"
       data-size="large"
       :data-theme="isDark ? 'dark' : 'light'"
@@ -120,9 +140,24 @@ defineExpose({ updLIScript })
   right: 0;
 
   .li-badge {
-    animation: slide 1.5s;
     border: 1px solid var(--color-border);
-    border-radius: 4px;
+    border-radius: 8px;
+
+    &:hover {
+      opacity: 1;
+    }
+
+    &--slide {
+      animation: slide 1.5s;
+    }
+
+    &--pulse {
+      animation: pulse 2s infinite;
+    }
+
+    &--opacity-75 {
+      opacity: 0.75;
+    }
   }
 }
 
@@ -133,6 +168,20 @@ defineExpose({ updLIScript })
 
   100% {
     transform: translateX(0%);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+
+  70% {
+    transform: scale(0.95);
+  }
+
+  100% {
+    transform: scale(1);
   }
 }
 </style>
