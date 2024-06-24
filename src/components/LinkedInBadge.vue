@@ -6,14 +6,20 @@ import SourceLinkedInBadge from './legacy/SourceLinkedInBadge.vue'
 
 const emit = defineEmits(['destroyLIbadge'])
 
-// fetch LinkedIn badge in 5sec after app creation
+// fetch LinkedIn badge in 6sec after app creation
 onMounted(() => {
   // if LinkedIn wasn't closed by user, then...
   if (!isLIclosed.value) {
     // if LinkedIn wasn't blocked by region, then fetch the script
-    if (!isLIblocked.value) setTimeout(() => updLIScript(), 1000)
+    if (!isLIblocked.value) setTimeout(() => updLIScript(), 6000)
     // if LinkedIn is blocked by region, then start animation for twin-component
-    else createAnimationsQuery(document.getElementById('legacyLIbadge'))
+    else {
+      LIbadgeLoading.value = true
+      setTimeout(() => {
+        createAnimationsQuery(document.getElementById('legacyLIbadge'))
+        LIbadgeLoading.value = false
+      }, 6000)
+    }
   }
 })
 
@@ -167,10 +173,7 @@ function createCloseIcon(badge: HTMLElement): void {
     iconNode.style.cursor = 'pointer'
 
     if (!iconNode.onclick) {
-      iconNode.onclick = () => {
-        closeBadge()
-        removeBadge()
-      }
+      iconNode.onclick = onClose
     }
 
     badgeHeader.append(iconNode)
@@ -214,6 +217,15 @@ function createAnimationsQuery(badgeWrapper: HTMLElement | null): void {
   }
 }
 
+/**
+ * Handle click on close icon
+ * @return {void} void
+ */
+function onClose(): void {
+  closeBadge()
+  removeBadge()
+}
+
 // share variables and functions with ancestor
 defineExpose({ updLIScript })
 </script>
@@ -227,6 +239,7 @@ defineExpose({ updLIScript })
       v-if="isLIblocked"
       class="li-badge li-badge--slide li-badge--legacy"
       id="legacyLIbadge"
+      @onClose="onClose"
     />
     <div
       v-else

@@ -74,7 +74,7 @@ const isDark = useDark() //true or false
       </div>
 
       <i
-        data-v-f6f16221=""
+        @click="$emit('onClose')"
         class="el-icon"
         style="font-size: 16px; display: block; width: 16px; height: 16px; cursor: pointer"
         ><svg data-v-f6f16221="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
