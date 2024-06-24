@@ -1,10 +1,6 @@
 <script setup lang="ts">
-import { inject } from 'vue'
-import type { Ref } from 'vue'
 import GitHub from '../icons/GitHub.vue'
 import LinkedIn from '../icons/LinkedIn.vue'
-
-const isLIblocked = inject('isLIblocked') as Ref
 </script>
 
 <template>
@@ -20,7 +16,7 @@ const isLIblocked = inject('isLIblocked') as Ref
       ></a>
     </div>
 
-    <div v-if="isLIblocked" class="social">
+    <div class="social">
       <a
         class="social-link"
         target="_blank"

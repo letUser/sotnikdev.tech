@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import { useDark } from '@vueuse/core'
-import { ElMessage } from 'element-plus'
+import { Close } from '@element-plus/icons-vue'
 
 const emit = defineEmits(['changeLIblocked'])
 
@@ -15,6 +15,7 @@ const LIbadgeKey = ref(0)
 const LIbadgeLoading = ref(false)
 const isLIblocked = ref(false)
 const firstLoad = ref(true)
+const closeIcon = ref<(Node & { $el: HTMLElement }) | null>()
 
 /**
  * External HTML with LinkedIn badge loader |
@@ -43,14 +44,6 @@ function updLIScript(): void {
   script.onerror = () => {
     isLIblocked.value = true
     emit('changeLIblocked')
-    ElMessage({
-      message:
-        'Oops. We can not connect to LinkedIn. Adding a specific button to the navigation menu.',
-      type: 'warning',
-      plain: true,
-      showClose: true,
-      duration: 12000
-    })
   }
 
   // if script is loaded
@@ -78,6 +71,33 @@ function updLIScript(): void {
             badge.style.borderRadius = '0'
             badge.style.width = '100%'
             badge.style.height = '100%'
+
+            // add close button to the badge
+            const badgeHeader = badge.getElementsByClassName(
+              'profile-badge__header'
+            )[0] as HTMLElement
+            if (badgeHeader && closeIcon.value) {
+              badgeHeader.style.display = 'flex'
+              badgeHeader.style.flexDirection = 'row'
+              badgeHeader.style.justifyContent = 'space-between'
+              badgeHeader.style.alignItems = 'center'
+
+              const iconNode = closeIcon.value.$el.parentNode?.childNodes[0] as HTMLElement
+              iconNode.style.width = '16px'
+              iconNode.style.height = '16px'
+              iconNode.style.display = 'block'
+              iconNode.style.cursor = 'pointer'
+
+              iconNode.onclick = () => {
+                isLIblocked.value = true
+                emit('changeLIblocked')
+
+                script.remove()
+                LIbadgeLoading.value = true
+              }
+
+              badgeHeader.append(iconNode)
+            }
 
             // end loading process
             LIbadgeLoading.value = false
@@ -115,6 +135,9 @@ defineExpose({ updLIScript })
 
 <template>
   <div v-show="!LIbadgeLoading" class="linkedin-popper">
+    <el-icon style="display: none" ref="closeIcon" :size="16">
+      <close />
+    </el-icon>
     <div
       :key="LIbadgeKey"
       id="LIbadge"
