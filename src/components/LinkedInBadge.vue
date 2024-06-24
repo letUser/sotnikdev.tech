@@ -13,7 +13,7 @@ onMounted(() => {
 const isDark = useDark() //true or false
 const LIbadgeKey = ref(0)
 const LIbadgeLoading = ref(false)
-const isLIblocked = ref(false)
+const isLIblocked = ref(Boolean(sessionStorage.getItem('sotnikdev.tech:changeLIblocked')))
 const firstLoad = ref(true)
 const closeIcon = ref<(Node & { $el: HTMLElement }) | null>()
 
@@ -26,25 +26,16 @@ function updLIScript(): void {
   // start loading process
   LIbadgeLoading.value = true
 
+  if (isLIblocked.value) return
+
   // delete prev script and external badge with different color scheme
-  const prevScript = document.getElementById('linked-in-script')
-  prevScript?.remove()
+  removeBadge()
 
   // create new script with curr color scheme
-  const script = document.createElement('script')
-  script.src = 'https://platform.linkedin.com/badges/js/profile.js'
-  script.async = true
-  script.defer = true
-  script.type = 'text/javascript'
-  script.id = 'linked-in-script'
-
-  document.head.appendChild(script)
+  const script = createScript()
 
   // if script is unavailable
-  script.onerror = () => {
-    isLIblocked.value = true
-    emit('changeLIblocked')
-  }
+  script.onerror = () => blockBadgeRequest()
 
   // if script is loaded
   script.onload = () => {
@@ -66,6 +57,8 @@ function updLIScript(): void {
         const intervalId = setInterval(() => {
           if (profile?.length) {
             clearInterval(intervalId)
+
+            // dig into LinkedIn badge and change styles
             const badge = profile[0] as HTMLElement
             badge.style.marginLeft = '0'
             badge.style.borderRadius = '0'
@@ -73,60 +66,127 @@ function updLIScript(): void {
             badge.style.height = '100%'
 
             // add close button to the badge
-            const badgeHeader = badge.getElementsByClassName(
-              'profile-badge__header'
-            )[0] as HTMLElement
-            if (badgeHeader && closeIcon.value) {
-              badgeHeader.style.display = 'flex'
-              badgeHeader.style.flexDirection = 'row'
-              badgeHeader.style.justifyContent = 'space-between'
-              badgeHeader.style.alignItems = 'center'
-
-              const iconNode = closeIcon.value.$el.parentNode?.childNodes[0] as HTMLElement
-              iconNode.style.width = '16px'
-              iconNode.style.height = '16px'
-              iconNode.style.display = 'block'
-              iconNode.style.cursor = 'pointer'
-
-              iconNode.onclick = () => {
-                isLIblocked.value = true
-                emit('changeLIblocked')
-
-                script.remove()
-                LIbadgeLoading.value = true
-              }
-
-              badgeHeader.append(iconNode)
-            }
+            createCloseIcon(badge)
 
             // end loading process
             LIbadgeLoading.value = false
 
-            if (badgeWrapper) {
-              if (firstLoad.value) {
-                setTimeout(() => {
-                  badgeWrapper.classList.remove('li-badge--slide')
-                  badgeWrapper.classList.add('li-badge--pulse')
-                }, 2000)
-
-                setTimeout(() => {
-                  badgeWrapper.classList.remove('li-badge--pulse')
-                  badgeWrapper.classList.add('li-badge--opacity-75')
-                  firstLoad.value = false
-                }, 8000)
-              } else {
-                setTimeout(() => {
-                  badgeWrapper.classList.add('li-badge--opacity-75')
-                }, 2000)
-              }
-            }
+            // create animations query
+            createAnimationsQuery(badgeScript)
           }
         }, 100)
       }
     }
   }
 
+  // update LinkedIn badge component
   LIbadgeKey.value++
+}
+
+/**
+ * Handle removing of LinkedIn script
+ * @return {void} void
+ */
+function removeBadge(): void {
+  // to save the component with icon close transfer it out from badge component
+  transferIconCloseFromBadge()
+
+  const prevScript = document.getElementById('linked-in-script')
+  prevScript?.remove()
+  LIbadgeLoading.value = true
+}
+
+/**
+ * Create new LinkedIn script with current theme color
+ * @return {HTMLScriptElement} created script for LinkedIn
+ */
+function createScript(): HTMLScriptElement {
+  const script = document.createElement('script')
+  script.src = 'https://platform.linkedin.com/badges/js/profile.js'
+  script.async = true
+  script.defer = true
+  script.type = 'text/javascript'
+  script.id = 'linked-in-script'
+
+  document.head.appendChild(script)
+
+  return script
+}
+
+/**
+ * Handle blocking of LinkedIn script fetching
+ * @return {void} void
+ */
+function blockBadgeRequest(): void {
+  isLIblocked.value = true
+  emit('changeLIblocked')
+  sessionStorage.setItem('sotnikdev.tech:changeLIblocked', 'true')
+}
+
+/**
+ * Creating close icon for badge
+ * @return {void} void
+ */
+function createCloseIcon(badge: HTMLElement): void {
+  const badgeHeader = badge.getElementsByClassName('profile-badge__header')[0] as HTMLElement
+
+  if (badgeHeader && closeIcon.value) {
+    badgeHeader.style.display = 'flex'
+    badgeHeader.style.flexDirection = 'row'
+    badgeHeader.style.justifyContent = 'space-between'
+    badgeHeader.style.alignItems = 'center'
+
+    const iconNode = closeIcon.value.$el as HTMLElement
+    iconNode.style.width = '16px'
+    iconNode.style.height = '16px'
+    iconNode.style.display = 'block'
+    iconNode.style.cursor = 'pointer'
+
+    if (!iconNode.onclick) {
+      iconNode.onclick = () => {
+        blockBadgeRequest()
+        removeBadge()
+      }
+    }
+
+    badgeHeader.append(iconNode)
+  }
+}
+
+/**
+ * Remove icon from badge component and prepend it into initial place on badge destruction
+ * @return {void} void
+ */
+function transferIconCloseFromBadge(): void {
+  const iconNode = closeIcon.value?.$el as HTMLElement
+  iconNode.style.display = 'none'
+  const badgePopper = document.getElementById('LIbadge')?.parentNode
+  badgePopper?.prepend(iconNode)
+}
+
+/**
+ * Start timeouts for badge animations
+ * @return {void} void
+ */
+function createAnimationsQuery(badgeWrapper: HTMLElement): void {
+  if (badgeWrapper) {
+    if (firstLoad.value) {
+      setTimeout(() => {
+        badgeWrapper.classList.remove('li-badge--slide')
+        badgeWrapper.classList.add('li-badge--pulse')
+      }, 2000)
+
+      setTimeout(() => {
+        badgeWrapper.classList.remove('li-badge--pulse')
+        badgeWrapper.classList.add('li-badge--opacity-75')
+        firstLoad.value = false
+      }, 8000)
+    } else {
+      setTimeout(() => {
+        badgeWrapper.classList.add('li-badge--opacity-75')
+      }, 2000)
+    }
+  }
 }
 
 // share variables and functions with ancestor
