@@ -7,6 +7,7 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    BrandImage: typeof import('./src/components/icons/BrandImage.vue')['default']
     ContactsDropdown: typeof import('./src/components/navigation/ContactsDropdown.vue')['default']
     DarkModeSwitch: typeof import('./src/components/navigation/DarkModeSwitch.vue')['default']
     ElDropdown: typeof import('element-plus/es')['ElDropdown']
