@@ -7,7 +7,9 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
-    BrandImage: typeof import('./src/components/icons/BrandImage.vue')['default']
+    BrandImageMain: typeof import('./src/components/icons/BrandImageMain.vue')['default']
+    BrandImageMobile: typeof import('./src/components/icons/BrandImageMobile.vue')['default']
+    BrandImageModal: typeof import('./src/components/icons/BrandImageModal.vue')['default']
     BrandImageWrapper: typeof import('./src/components/BrandImageWrapper.vue')['default']
     ContactsDropdown: typeof import('./src/components/navigation/ContactsDropdown.vue')['default']
     DarkModeSwitch: typeof import('./src/components/navigation/DarkModeSwitch.vue')['default']
@@ -20,17 +22,10 @@ declare module 'vue' {
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
     ElSwitch: typeof import('element-plus/es')['ElSwitch']
     GitHub: typeof import('./src/components/icons/GitHub.vue')['default']
-    IndexNav: typeof import('./src/components/navigation/IndexNav.vue')['default']
     LegacyLinkedInBadge: typeof import('./src/components/legacy/LegacyLinkedInBadge.vue')['default']
-    LIbadge: typeof import('./src/components/LIbadge.vue')['default']
     LinkedIn: typeof import('./src/components/icons/LinkedIn.vue')['default']
     LinkedInBadge: typeof import('./src/components/LinkedInBadge.vue')['default']
-    LocalLinkedInBadge: typeof import('./src/components/LocalLinkedInBadge.vue')['default']
     MoonIcon: typeof import('./src/components/icons/MoonIcon.vue')['default']
-    Navigation: typeof import('./src/components/navigation/Navigation.vue')['default']
-    NavigationMain: typeof import('./src/components/navigation/NavigationMain.vue')['default']
-    NavIndex: typeof import('./src/components/navigation/NavIndex.vue')['default']
-    NavMain: typeof import('./src/components/navigation/NavMain.vue')['default']
     NavMenu: typeof import('./src/components/NavMenu.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']

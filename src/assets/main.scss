@@ -1,0 +1,33 @@
+@import './base.css';
+
+.brand-image {
+  --bi-glow-color: #ffffff;
+  --bi-brand-color: #3f85ed;
+  --bi-background-color: #e4efff;
+  --bi-components-color: #ffffff;
+  --bi-side-components-color: #ffffff;
+  --bi-header-text-color: #bdd8ff;
+  --bi-menu-text-color: #91beff;
+  --bi-text-color: #eff5ff;
+  --bi-round-remainder-color: #98bdf2;
+  --bi-graph-divider-color: #ffffff;
+  --bi-graph-value-color: #75adff;
+
+  &.dark {
+    --bi-glow-color: #3f85ed;
+    --bi-brand-color: #3f85ed;
+    --bi-background-color: #0d1014;
+    --bi-components-color: #14181e;
+    --bi-side-components-color: #1e2835;
+    --bi-header-text-color: #5f7ca5;
+    --bi-menu-text-color: #5f7ca5;
+    --bi-text-color: #313c4b;
+    --bi-round-remainder-color: #2f5790;
+    --bi-graph-divider-color: #1d242c;
+    --bi-graph-value-color: #75adff;
+  }
+
+  .shadowbox {
+    filter: drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.15));
+  }
+}

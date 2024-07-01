@@ -1,4 +1,4 @@
-import './assets/main.css'
+import './assets/main.scss'
 import 'element-plus/theme-chalk/dark/css-vars.css'
 import 'element-plus/theme-chalk/src/message.scss'
 
