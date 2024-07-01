@@ -6,9 +6,9 @@ const props = defineProps<{
 
 <template>
   <svg
-    width="667"
-    height="415"
-    viewBox="0 0 667 415"
+    width="173"
+    height="112"
+    viewBox="0 0 173 112"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     :class="{ 'brand-image': true, dark: props.isDark }"

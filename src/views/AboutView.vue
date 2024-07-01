@@ -19,7 +19,13 @@ function onMouseMove($ev: MouseEvent): void {
       const child = container.firstChild as HTMLElement
 
       if (child) {
-        child.style.transform = `rotateX(${($ev.clientY - centerY) / 32}deg) rotateY(${(($ev.clientX - centerX) / 64) * -1}deg)`
+        child.style.transform = `rotateX(${(($ev.clientY - centerY) / 64) * -1}deg) rotateY(${($ev.clientX - centerX) / 64}deg)`
+
+        const modal = child.firstChild as HTMLElement
+        const mobile = child.lastChild as HTMLElement
+
+        modal.style.transform = `translateX(${($ev.clientX - centerX) / 64}px) translateY(${($ev.clientY - centerY) / 64}px)`
+        mobile.style.transform = `translateX(${($ev.clientX - centerX) / 64}px) translateY(${($ev.clientY - centerY) / 64}px)`
       }
     }
   }
@@ -30,6 +36,7 @@ function onMouseMove($ev: MouseEvent): void {
   <main>
     <div @mousemove="onMouseMove">
       <BrandImageWrapper id="brand-image-wrapper" />
+      <div style="height: 1000px" />
     </div>
   </main>
 </template>

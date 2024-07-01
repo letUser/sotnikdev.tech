@@ -6,9 +6,9 @@ const props = defineProps<{
 
 <template>
   <svg
-    width="667"
-    height="415"
-    viewBox="0 0 667 415"
+    width="94"
+    height="167"
+    viewBox="0 0 94 167"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     :class="{ 'brand-image': true, dark: props.isDark }"
@@ -32,7 +32,7 @@ const props = defineProps<{
       d="M7 152C7 149.791 8.79086 148 11 148H83C85.2091 148 87 149.791 87 152V156C87 158.209 85.2091 160 83 160H11C8.79086 160 7 158.209 7 156V152Z"
       fill="var(--bi-background-color)"
     />
-    <path d="M7 19H87V151H7V19Z" fill="#1E2835" />
+    <path d="M7 19H87V151H7V19Z" fill="var(--bi-side-components-color)" />
     <path
       d="M83 13C83 14.1046 82.1046 15 81 15C79.8954 15 79 14.1046 79 13C79 11.8954 79.8954 11 81 11C82.1046 11 83 11.8954 83 13Z"
       fill="#FD873B"

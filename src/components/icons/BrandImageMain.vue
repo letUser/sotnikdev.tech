@@ -6,9 +6,9 @@ const props = defineProps<{
 
 <template>
   <svg
-    width="667"
-    height="415"
-    viewBox="0 0 667 415"
+    width="628"
+    height="396"
+    viewBox="0 0 628 396"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
     :class="{ 'brand-image': true, dark: props.isDark }"
@@ -277,7 +277,7 @@ const props = defineProps<{
           result="hardAlpha"
         />
         <feOffset />
-        <feGaussianBlur stdDeviation="12.352" />
+        <feGaussianBlur stdDeviation="8.352" />
         <feColorMatrix
           type="matrix"
           values="0 0 0 0 0.247059 0 0 0 0 0.521569 0 0 0 0 0.929412 0 0 0 1 0"

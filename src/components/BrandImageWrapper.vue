@@ -10,15 +10,17 @@ const isDark = useDark() //true or false
 
 <template>
   <div class="brand-image-wrapper">
-    <el-icon class="brand-image-wrapper-main">
-      <brand-image-main :isDark="isDark" />
-    </el-icon>
-    <el-icon class="brand-image-wrapper-modal">
-      <brand-image-modal :isDark="isDark" />
-    </el-icon>
-    <el-icon class="brand-image-wrapper-mobile">
-      <brand-image-mobile :isDark="isDark" />
-    </el-icon>
+    <div class="brand-image-wrapper-jumbotron">
+      <el-icon class="brand-image-wrapper-jumbotron-modal">
+        <brand-image-modal :isDark="isDark" />
+      </el-icon>
+      <el-icon class="brand-image-wrapper-jumbotron-main">
+        <brand-image-main :isDark="isDark" />
+      </el-icon>
+      <el-icon class="brand-image-wrapper-jumbotron-mobile">
+        <brand-image-mobile :isDark="isDark" />
+      </el-icon>
+    </div>
   </div>
 </template>
 
@@ -28,30 +30,38 @@ const isDark = useDark() //true or false
   justify-content: center;
   animation: fade 0.5s;
 
-  &-main {
-    position: relative;
-    width: 700px;
-    height: 450px;
-    font-size: 700px;
-
-    svg {
-      height: 450px;
+  &-jumbotron {
+    &-modal {
+      position: absolute;
+      width: 180px;
+      height: 120px;
+      font-size: 200px;
+      left: 0px;
+      bottom: 0px;
+      z-index: 2;
     }
-  }
 
-  &-modal {
-    position: relative;
-    width: 700px;
-    height: 200px;
-    font-size: 700px;
+    &-main {
+      position: relative;
+      width: 630px;
+      height: 490px;
+      font-size: 640px;
+      z-index: 1;
 
-    svg {
-      height: 150px;
+      svg {
+        height: 400px;
+      }
     }
-  }
 
-  &-mobile {
-    position: relative;
+    &-mobile {
+      position: absolute;
+      width: 100px;
+      height: 180px;
+      font-size: 200px;
+      right: 0px;
+      bottom: 0px;
+      z-index: 2;
+    }
   }
 }
 
