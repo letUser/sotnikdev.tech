@@ -1,11 +1,15 @@
 <script setup lang="ts">
+import { useDark } from '@vueuse/core'
 import BrandImage from './icons/BrandImage.vue'
+
+// dark/light theme util
+const isDark = useDark() //true or false
 </script>
 
 <template>
   <div class="brand-image">
     <el-icon class="brand-image-wrapper">
-      <brand-image />
+      <brand-image :isDark="isDark" />
     </el-icon>
   </div>
 </template>
@@ -17,12 +21,12 @@ import BrandImage from './icons/BrandImage.vue'
   animation: fade 0.5s;
 
   &-wrapper {
-    width: 653px;
-    height: 385px;
-    font-size: 653px;
+    width: 700px;
+    height: 450px;
+    font-size: 700px;
 
     svg {
-      height: 385px;
+      height: 450px;
     }
   }
 

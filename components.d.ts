@@ -8,6 +8,7 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     BrandImage: typeof import('./src/components/icons/BrandImage.vue')['default']
+    BrandImageWrapper: typeof import('./src/components/BrandImageWrapper.vue')['default']
     ContactsDropdown: typeof import('./src/components/navigation/ContactsDropdown.vue')['default']
     DarkModeSwitch: typeof import('./src/components/navigation/DarkModeSwitch.vue')['default']
     ElDropdown: typeof import('element-plus/es')['ElDropdown']
@@ -36,7 +37,6 @@ declare module 'vue' {
     SocialLinks: typeof import('./src/components/navigation/SocialLinks.vue')['default']
     SourceLinkedInBadge: typeof import('./src/components/legacy/SourceLinkedInBadge.vue')['default']
     SunIcon: typeof import('./src/components/icons/SunIcon.vue')['default']
-    Welcome: typeof import('./src/components/Welcome.vue')['default']
   }
   export interface ComponentCustomProperties {
     vLoading: typeof import('element-plus/es')['ElLoadingDirective']
