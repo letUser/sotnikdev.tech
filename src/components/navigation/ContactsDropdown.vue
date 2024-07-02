@@ -83,10 +83,6 @@ function handleContactsHover(state: boolean): void {
 
   &-arrow {
     outline: none;
-
-    > i {
-      animation: fade 0.5s;
-    }
   }
 
   .contacts-list {
@@ -94,15 +90,6 @@ function handleContactsHover(state: boolean): void {
       text-decoration: none;
       color: inherit;
     }
-  }
-}
-
-@keyframes fade {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
   }
 }
 </style>

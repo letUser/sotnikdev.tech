@@ -17,12 +17,8 @@ declare module 'vue' {
     ElDropdownItem: typeof import('element-plus/es')['ElDropdownItem']
     ElDropdownMenu: typeof import('element-plus/es')['ElDropdownMenu']
     ElIcon: typeof import('element-plus/es')['ElIcon']
-    ElMenu: typeof import('element-plus/es')['ElMenu']
-    ElMenuItem: typeof import('element-plus/es')['ElMenuItem']
-    ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
     ElSwitch: typeof import('element-plus/es')['ElSwitch']
     GitHub: typeof import('./src/components/icons/GitHub.vue')['default']
-    LegacyLinkedInBadge: typeof import('./src/components/legacy/LegacyLinkedInBadge.vue')['default']
     LinkedIn: typeof import('./src/components/icons/LinkedIn.vue')['default']
     LinkedInBadge: typeof import('./src/components/LinkedInBadge.vue')['default']
     MoonIcon: typeof import('./src/components/icons/MoonIcon.vue')['default']
@@ -32,8 +28,5 @@ declare module 'vue' {
     SocialLinks: typeof import('./src/components/navigation/SocialLinks.vue')['default']
     SourceLinkedInBadge: typeof import('./src/components/legacy/SourceLinkedInBadge.vue')['default']
     SunIcon: typeof import('./src/components/icons/SunIcon.vue')['default']
-  }
-  export interface ComponentCustomProperties {
-    vLoading: typeof import('element-plus/es')['ElLoadingDirective']
   }
 }

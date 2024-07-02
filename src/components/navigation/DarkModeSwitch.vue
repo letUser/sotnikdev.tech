@@ -51,7 +51,6 @@ function handleToggleDark(): void {
 .theme-switch {
   .el-switch {
     cursor: pointer;
-    animation: fade 0.5s;
   }
 
   .custom-action {
@@ -70,15 +69,6 @@ function handleToggleDark(): void {
         animation: pulse 2s infinite;
       }
     }
-  }
-}
-
-@keyframes fade {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
   }
 }
 

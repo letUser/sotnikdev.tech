@@ -40,21 +40,11 @@ import LinkedIn from '../icons/LinkedIn.vue'
       color: inherit;
       height: 1.5rem;
       padding: 0 0.75rem;
-      animation: fade 0.5s;
 
       &:hover {
         color: var(--el-color-primary);
       }
     }
-  }
-}
-
-@keyframes fade {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
   }
 }
 </style>

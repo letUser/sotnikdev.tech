@@ -28,7 +28,6 @@ const isDark = useDark() //true or false
 .brand-image-wrapper {
   display: flex;
   justify-content: center;
-  animation: fade 0.5s;
 
   &-jumbotron {
     position: relative;
@@ -67,15 +66,6 @@ const isDark = useDark() //true or false
       z-index: 2;
       transition: 0.3s ease-out;
     }
-  }
-}
-
-@keyframes fade {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
   }
 }
 </style>
