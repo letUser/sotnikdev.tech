@@ -1,12 +1,30 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { RouterLink } from 'vue-router'
+import { ref, watch } from 'vue'
+import { RouterLink, useRoute } from 'vue-router'
 import DarkModeSwitch from './navigation/DarkModeSwitch.vue'
 import SocialLinks from './navigation/SocialLinks.vue'
 import ContactsDropdown from './navigation/ContactsDropdown.vue'
 
 // curr active menu item
 const activeMenuItem = ref()
+
+// current route
+const route = useRoute()
+
+// route watcher to monitor route changes and set the correct menu item
+watch(route, (route) => {
+  if (route?.name) {
+    const target = document.getElementById(`nav-${String(route.name)}`)
+
+    if (target instanceof HTMLElement) {
+      // using timeout to catch needed element
+      setTimeout(() => {
+        target.classList.add('active')
+        activeMenuItem.value = target
+      }, 50)
+    }
+  }
+})
 
 /**
  * Menu item click handler
@@ -34,12 +52,11 @@ function setActiveMenu($event: Event): void {
 <template>
   <div class="menu-wrapper">
     <nav @click.prevent="setActiveMenu">
-      <RouterLink :index="1" to="/">About</RouterLink>
-      <RouterLink :index="2" to="/">About</RouterLink>
-      <RouterLink :index="3" to="/">About</RouterLink>
+      <RouterLink id="nav-summary" :index="1" to="/summary">Summary</RouterLink>
+      <RouterLink id="nav-portfolio" :index="2" to="/portfolio">Portfolio</RouterLink>
     </nav>
 
-    <DarkModeSwitch class="menu-item" @updLIScript="$emit('updLIScript')" />
+    <DarkModeSwitch class="menu-item" />
 
     <SocialLinks class="menu-item menu-item-no-padding" />
 
@@ -54,6 +71,8 @@ function setActiveMenu($event: Event): void {
   align-items: stretch;
   padding: 0 2rem;
   border-bottom: 1px solid var(--el-border-color);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
 
   .menu-item {
     display: inherit;

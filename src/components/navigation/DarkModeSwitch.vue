@@ -4,8 +4,6 @@ import { useDark, useToggle } from '@vueuse/core'
 import MoonIcon from '../icons/MoonIcon.vue'
 import SunIcon from '../icons/SunIcon.vue'
 
-const emit = defineEmits(['updLIScript'])
-
 // dark/light theme util
 const isDark = useDark() //true or false
 const toggleDark = useToggle(isDark)
@@ -13,24 +11,13 @@ const toggleDark = useToggle(isDark)
 // state for theme switcher
 const darkMode = ref(isDark.value)
 provide('darkMode', darkMode)
-
-/**
- * Dark mode switcher handler
- * @return {void} void
- */
-function handleToggleDark(): void {
-  toggleDark()
-
-  // if LinkedIn is not blocked - fetch badge with new color scheme
-  emit('updLIScript')
-}
 </script>
 
 <template>
   <div class="theme-switch menu-item">
     <el-switch
       v-model="darkMode"
-      @change="handleToggleDark"
+      @change="toggleDark"
       style="
         --el-switch-on-color: var(--el-bg-color-overlay);
         --el-switch-off-color: var(--el-fill-color-dark);

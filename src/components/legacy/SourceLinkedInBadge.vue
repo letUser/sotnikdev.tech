@@ -166,6 +166,8 @@ const isDark = useDark() //true or false
   margin-left: 0px;
   width: 100%;
   height: 100%;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
 
   &__header {
     padding: 12px 16px;

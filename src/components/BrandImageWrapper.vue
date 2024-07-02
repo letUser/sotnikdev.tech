@@ -47,7 +47,7 @@ const isDark = useDark() //true or false
     &-main {
       position: relative;
       width: 630px;
-      height: 490px;
+      height: 380px;
       font-size: 640px;
       z-index: 1;
 
