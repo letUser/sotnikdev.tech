@@ -267,7 +267,7 @@ defineExpose({ updLIScript })
   right: 0;
 
   .li-badge {
-    border: 1px solid var(--color-border);
+    border: 1px solid var(--el-border-color);
     border-radius: 8px;
 
     &--legacy {

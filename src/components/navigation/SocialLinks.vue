@@ -43,7 +43,7 @@ import LinkedIn from '../icons/LinkedIn.vue'
       animation: fade 0.5s;
 
       &:hover {
-        color: var(--el-color-primary-dark-1);
+        color: var(--el-color-primary);
       }
     }
   }

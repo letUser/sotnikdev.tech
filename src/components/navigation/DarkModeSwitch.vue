@@ -32,9 +32,9 @@ function handleToggleDark(): void {
       v-model="darkMode"
       @change="handleToggleDark"
       style="
-        --el-switch-on-color: var(--color-background-mute);
-        --el-switch-off-color: var(--vt-c-white-mute);
-        --el-switch-border-color: var(--color-border);
+        --el-switch-on-color: var(--el-bg-color-overlay);
+        --el-switch-off-color: var(--el-fill-color-dark);
+        --el-switch-border-color: var(--el-border-color);
       "
     >
       <template #active-action>
@@ -62,10 +62,6 @@ function handleToggleDark(): void {
     &.active {
       background-color: var(--el-color-base-background);
     }
-
-    &.inactive {
-      border: 1px solid var(--color-border);
-    }
   }
 
   &:hover {
@@ -89,17 +85,17 @@ function handleToggleDark(): void {
 @keyframes pulse {
   0% {
     transform: scale(0.95);
-    box-shadow: 0 0 0 0 var(--color-border);
+    box-shadow: 0 0 0 0 var(--el-color-primary);
   }
 
   70% {
     transform: scale(1);
-    box-shadow: 0 0 0 3px var(--el-color-primary-dark-1);
+    box-shadow: 0 0 0 3px var(--el-color-primary-dark-2);
   }
 
   100% {
     transform: scale(0.95);
-    box-shadow: 0 0 0 0 var(--color-border);
+    box-shadow: 0 0 0 0 var(--el-color-primary);
   }
 }
 </style>

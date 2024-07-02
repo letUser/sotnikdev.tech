@@ -12,7 +12,7 @@
 <style scoped lang="scss">
 svg {
   path {
-    fill: #606266;
+    fill: var(--el-text-color-regular);
   }
 }
 </style>

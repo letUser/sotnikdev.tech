@@ -53,7 +53,7 @@ function setActiveMenu($event: Event): void {
   justify-content: right;
   align-items: stretch;
   padding: 0 2rem;
-  border-bottom: 2px solid var(--color-border);
+  border-bottom: 1px solid var(--el-border-color);
 
   .menu-item {
     display: inherit;
@@ -77,12 +77,12 @@ function setActiveMenu($event: Event): void {
       padding: 0 0.75rem;
 
       &:hover {
-        color: var(--el-color-primary-dark-1);
+        color: var(--el-color-primary);
       }
 
       &.active {
-        color: var(--el-color-primary-dark-1);
-        border-bottom: 2px solid var(--el-color-primary-dark-1);
+        color: var(--el-color-primary);
+        border-bottom: 2px solid var(--el-color-primary);
       }
     }
   }

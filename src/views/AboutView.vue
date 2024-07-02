@@ -37,11 +37,40 @@ function onMouseMove($ev: MouseEvent): void {
 
 <template>
   <main>
-    <div @mousemove="onMouseMove">
+    <div class="section-about" @mousemove="onMouseMove">
+      <div class="section-about-name">
+        <h1>Dan Sotnik</h1>
+        <p>A Software Developer</p>
+      </div>
       <BrandImageWrapper id="brand-image-wrapper" />
-      <div style="height: 1000px" />
+      <div style="width: 500px; height: 1000px" />
     </div>
   </main>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.section-about {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 40px 40px 0;
+
+  &-name {
+    > h1 {
+      font-weight: bolder;
+      font-size: 48px;
+    }
+
+    > p {
+      margin-top: 16px;
+      font-size: 24px;
+    }
+  }
+}
+
+@media screen and (min-width: 960px) {
+  .section-about {
+    padding: 80px 40px 0;
+  }
+}
+</style>

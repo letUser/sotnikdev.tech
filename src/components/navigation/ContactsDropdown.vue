@@ -70,10 +70,10 @@ function handleContactsHover(state: boolean): void {
   cursor: pointer;
 
   &:hover {
-    color: var(--el-color-primary-dark-1);
+    color: var(--el-color-primary);
 
     .contacts-arrow {
-      color: var(--el-color-primary-dark-1);
+      color: var(--el-color-primary);
     }
   }
 
@@ -93,7 +93,6 @@ function handleContactsHover(state: boolean): void {
     .dropdown-link {
       text-decoration: none;
       color: inherit;
-      font-family: Helvetica;
     }
   }
 }

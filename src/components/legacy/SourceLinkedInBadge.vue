@@ -210,7 +210,7 @@ const isDark = useDark() //true or false
           text-decoration: none;
 
           &:hover {
-            color: var(--el-color-primary-dark-1);
+            color: var(--el-color-primary);
           }
         }
       }
@@ -237,7 +237,7 @@ const isDark = useDark() //true or false
           text-decoration: none;
 
           &:hover {
-            color: var(--el-color-primary-dark-1);
+            color: var(--el-color-primary);
           }
         }
       }
@@ -287,8 +287,8 @@ const isDark = useDark() //true or false
     border-radius: 24px;
 
     &--light {
-      color: var(--el-color-primary-dark-1);
-      box-shadow: inset 0 0 0 1px var(--el-color-primary-dark-1);
+      color: var(--el-color-primary);
+      box-shadow: inset 0 0 0 1px var(--el-color-primary);
     }
 
     &--dark {
@@ -298,14 +298,14 @@ const isDark = useDark() //true or false
 
     &:hover {
       background-color: rgba(255, 255, 255, 0.1);
-      color: var(--el-color-primary-dark-1);
+      color: var(--el-color-primary);
       -webkit-box-shadow:
         inset 0 0 0 1px rgba(255, 255, 255, 0.7),
-        inset 0 0 0 2px var(--el-color-primary-dark-1),
+        inset 0 0 0 2px var(--el-color-primary),
         inset 0 0 0 1px rgba(0, 0, 0, 0);
       box-shadow:
         inset 0 0 0 1px rgba(255, 255, 255, 0.7),
-        inset 0 0 0 2px var(--el-color-primary-dark-1),
+        inset 0 0 0 2px var(--el-color-primary),
         inset 0 0 0 1px rgba(0, 0, 0, 0);
     }
   }
