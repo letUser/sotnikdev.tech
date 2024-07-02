@@ -1,12 +1,17 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
+import { useDark } from '@vueuse/core'
 import { RouterLink, useRoute } from 'vue-router'
 import DarkModeSwitch from './navigation/DarkModeSwitch.vue'
 import SocialLinks from './navigation/SocialLinks.vue'
 import ContactsDropdown from './navigation/ContactsDropdown.vue'
+import DsLogo from './icons/DsLogo.vue'
 
 // curr active menu item
 const activeMenuItem = ref()
+
+// dark/light theme util
+const isDark = useDark() //true or false
 
 // current route
 const route = useRoute()
@@ -51,57 +56,69 @@ function setActiveMenu($event: Event): void {
 
 <template>
   <div class="menu-wrapper">
-    <nav @click.prevent="setActiveMenu">
-      <RouterLink id="nav-summary" :index="1" to="/summary">Summary</RouterLink>
-      <RouterLink id="nav-portfolio" :index="2" to="/portfolio">Portfolio</RouterLink>
-    </nav>
+    <el-icon :size="38">
+      <ds-logo :isDark="isDark" />
+    </el-icon>
 
-    <DarkModeSwitch class="menu-item" />
+    <div class="menu">
+      <nav @click.prevent="setActiveMenu">
+        <RouterLink id="nav-summary" :index="1" to="/summary">Summary</RouterLink>
+        <RouterLink id="nav-portfolio" :index="2" to="/portfolio">Portfolio</RouterLink>
+      </nav>
 
-    <SocialLinks class="menu-item menu-item-no-padding" />
+      <DarkModeSwitch class="menu-item" />
 
-    <ContactsDropdown class="menu-item" />
+      <SocialLinks class="menu-item menu-item-no-padding" />
+
+      <ContactsDropdown class="menu-item" />
+    </div>
   </div>
 </template>
 
 <style lang="scss">
 .menu-wrapper {
   display: flex;
-  justify-content: right;
-  align-items: stretch;
+  justify-content: space-between;
+  align-items: center;
   padding: 0 2rem;
   border-bottom: 1px solid var(--el-border-color);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
 
-  .menu-item {
-    display: inherit;
-    align-items: center;
-    padding: 0 0.75rem;
-
-    &-no-padding {
-      padding: 0;
-    }
-  }
-
-  nav {
+  .menu {
     display: flex;
-    height: 3rem;
+    justify-items: right;
+    align-items: stretch;
 
-    a {
-      display: flex;
+    .menu-item {
+      display: inherit;
       align-items: center;
-      text-decoration: none;
-      color: inherit;
       padding: 0 0.75rem;
 
-      &:hover {
-        color: var(--el-color-primary);
+      &-no-padding {
+        padding: 0;
       }
+    }
 
-      &.active {
-        color: var(--el-color-primary);
-        border-bottom: 2px solid var(--el-color-primary);
+    nav {
+      display: flex;
+      height: 3rem;
+
+      a {
+        display: flex;
+        align-items: center;
+        text-decoration: none;
+        color: inherit;
+        padding: 0 0.75rem;
+
+        &:hover {
+          color: var(--el-color-primary);
+        }
+
+        &.active {
+          color: var(--el-color-primary);
+          border-bottom: 2px solid var(--el-color-primary);
+        }
       }
     }
   }

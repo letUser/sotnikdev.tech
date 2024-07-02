@@ -103,7 +103,6 @@ import DockerLogo from './icons/DockerLogo.vue'
   position: relative;
 
   &-title {
-    font-weight: 600;
     margin-bottom: 2rem;
   }
 

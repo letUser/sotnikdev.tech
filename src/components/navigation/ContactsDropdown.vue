@@ -68,6 +68,8 @@ function handleContactsHover(state: boolean): void {
 .contacts {
   outline: none;
   cursor: pointer;
+  -webkit-user-select: none;
+  user-select: none;
 
   &:hover {
     color: var(--el-color-primary);

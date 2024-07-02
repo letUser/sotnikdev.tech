@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import BrandImageWrapper from '../components/BrandImageWrapper.vue'
 import SkillSection from '../components/SkillSection.vue'
+import SummaryInfo from '../components/SummaryInfo.vue'
 
 /**
  * Handle Mouse Move event for Route scope
@@ -47,6 +48,8 @@ function onMouseMove($ev: MouseEvent): void {
       <BrandImageWrapper id="brand-image-wrapper" />
 
       <SkillSection />
+
+      <SummaryInfo />
     </div>
   </main>
 </template>
@@ -60,7 +63,7 @@ function onMouseMove($ev: MouseEvent): void {
   text-align: center;
 
   > div {
-    margin-bottom: 4rem;
+    margin-bottom: 5rem;
   }
 
   &-name {
