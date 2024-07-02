@@ -56,6 +56,8 @@ function onMouseMove($ev: MouseEvent): void {
   padding: 40px 40px 0;
 
   &-name {
+    text-align: center;
+
     > h1 {
       font-weight: bolder;
       font-size: 48px;
@@ -64,6 +66,7 @@ function onMouseMove($ev: MouseEvent): void {
     > p {
       margin-top: 16px;
       font-size: 24px;
+      color: var(--el-text-color-regular);
     }
   }
 }
