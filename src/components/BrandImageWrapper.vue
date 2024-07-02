@@ -31,6 +31,9 @@ const isDark = useDark() //true or false
   animation: fade 0.5s;
 
   &-jumbotron {
+    position: relative;
+    transition: 0.3s ease-out;
+
     &-modal {
       position: absolute;
       width: 180px;
@@ -39,6 +42,7 @@ const isDark = useDark() //true or false
       left: 0px;
       bottom: 0px;
       z-index: 2;
+      transition: 0.3s ease-out;
     }
 
     &-main {
@@ -61,6 +65,7 @@ const isDark = useDark() //true or false
       right: 0px;
       bottom: 0px;
       z-index: 2;
+      transition: 0.3s ease-out;
     }
   }
 }

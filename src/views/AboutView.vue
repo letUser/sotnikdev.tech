@@ -19,13 +19,16 @@ function onMouseMove($ev: MouseEvent): void {
       const child = container.firstChild as HTMLElement
 
       if (child) {
-        child.style.transform = `rotateX(${(($ev.clientY - centerY) / 64) * -1}deg) rotateY(${($ev.clientX - centerX) / 64}deg)`
+        const Xpos = ($ev.clientX - centerX) / 64
+        const Ypos = ($ev.clientY - centerY) / 64
+
+        child.style.transform = `rotateX(${Ypos * -1}deg) rotateY(${Xpos}deg)`
 
         const modal = child.firstChild as HTMLElement
         const mobile = child.lastChild as HTMLElement
 
-        modal.style.transform = `translateX(${($ev.clientX - centerX) / 64}px) translateY(${($ev.clientY - centerY) / 64}px)`
-        mobile.style.transform = `translateX(${($ev.clientX - centerX) / 64}px) translateY(${($ev.clientY - centerY) / 64}px)`
+        modal.style.transform = `translateX(${Xpos}px) translateY(${Ypos * -1}px)`
+        mobile.style.transform = `translateX(${Xpos}px) translateY(${Ypos * -1}px)`
       }
     }
   }
