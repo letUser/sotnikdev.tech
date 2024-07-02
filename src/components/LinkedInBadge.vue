@@ -1,16 +1,34 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import SourceLinkedInBadge from './legacy/SourceLinkedInBadge.vue'
+import initResizeObserver from '../utils/resizeObserver'
 
 // show LinkedIn badge in 6sec after app creation
 onMounted(() => {
   // if LinkedIn wasn't closed by user, then...
   if (!isLIclosed.value) {
-    LIbadgeLoading.value = true
-    setTimeout(() => {
-      createAnimationsQuery(document.getElementById('legacyLIbadge'))
-      LIbadgeLoading.value = false
-    }, 6000)
+    // if window width over 960, then...
+    if (window.innerWidth > 960) {
+      LIbadgeLoading.value = true
+      setTimeout(() => {
+        createAnimationsQuery(document.getElementById('legacyLIbadge'))
+        LIbadgeLoading.value = false
+      }, 6000)
+      // ...else, then...
+    } else {
+      const html = document.querySelector('html') as Element
+
+      // track window width to control Badge component
+      initResizeObserver(html, (height: number, width: number, resizeObserver: ResizeObserver) => {
+        // if window width over 960 start animation and remove observer
+        if (width > 960) {
+          createAnimationsQuery(document.getElementById('legacyLIbadge'))
+          LIbadgeLoading.value = false
+
+          resizeObserver.unobserve(html)
+        }
+      })
+    }
   }
 })
 
@@ -60,7 +78,7 @@ function createAnimationsQuery(badgeWrapper: HTMLElement | null): void {
   margin: 0 4px 10px 0;
   width: fit-content;
   height: fit-content;
-  position: absolute;
+  position: fixed;
   overflow: hidden;
   bottom: 0;
   right: 0;
@@ -92,6 +110,12 @@ function createAnimationsQuery(badgeWrapper: HTMLElement | null): void {
         opacity 1s,
         backdrop-filter 1s;
     }
+  }
+}
+
+@media screen and (max-width: 960px) {
+  .linkedin-popper {
+    display: none;
   }
 }
 
