@@ -82,8 +82,10 @@ function setActiveMenu($event: Event): void {
   align-items: center;
   padding: 0 2rem;
   border-bottom: 1px solid var(--el-border-color);
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
+  background-image: radial-gradient(transparent 1px, var(--bg-color) 1px);
+  background-size: 4px 4px;
+  backdrop-filter: saturate(50%) blur(4px);
+  -webkit-backdrop-filter: saturate(50%) blur(4px);
 
   .menu {
     display: flex;

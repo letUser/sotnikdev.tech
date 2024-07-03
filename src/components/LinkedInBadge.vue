@@ -2,6 +2,7 @@
 import { ref, onMounted } from 'vue'
 import SourceLinkedInBadge from './legacy/SourceLinkedInBadge.vue'
 import initResizeObserver from '../utils/resizeObserver'
+import { ArrowLeft } from '@element-plus/icons-vue'
 
 // show LinkedIn badge in 6sec after app creation
 onMounted(() => {
@@ -9,11 +10,11 @@ onMounted(() => {
   if (!isLIclosed.value) {
     // if window width over 960, then...
     if (window.innerWidth > 960) {
-      LIbadgeLoading.value = true
       setTimeout(() => {
-        createAnimationsQuery(document.getElementById('legacyLIbadge'))
-        LIbadgeLoading.value = false
-      }, 6000)
+        isBadgeHidden.value = false
+        createAnimationsQuery()
+      }, 1000)
+
       // ...else, then...
     } else {
       const html = document.querySelector('html') as Element
@@ -22,8 +23,8 @@ onMounted(() => {
       initResizeObserver(html, (height: number, width: number, resizeObserver: ResizeObserver) => {
         // if window width over 960 start animation and remove observer
         if (width > 960) {
-          createAnimationsQuery(document.getElementById('legacyLIbadge'))
-          LIbadgeLoading.value = false
+          isBadgeHidden.value = false
+          createAnimationsQuery()
 
           resizeObserver.unobserve(html)
         }
@@ -32,8 +33,8 @@ onMounted(() => {
   }
 })
 
-const LIbadgeLoading = ref(false)
 const isLIclosed = ref(Boolean(sessionStorage.getItem('sotnikdev.tech:isLIclosed')))
+const isBadgeHidden = ref(true)
 
 /**
  * Handle closing of LinkedIn badge by user
@@ -48,25 +49,56 @@ function closeBadge(): void {
  * Start timeouts for badge animations
  * @return {void} void
  */
-function createAnimationsQuery(badgeWrapper: HTMLElement | null): void {
-  if (badgeWrapper) {
-    setTimeout(() => {
-      badgeWrapper.classList.remove('li-badge--slide')
-      badgeWrapper.classList.add('li-badge--pulse')
-    }, 2000)
+function createAnimationsQuery(): void {
+  const badgeWrapper = document.getElementById('legacyLIbadge') as HTMLElement
 
+  if (badgeWrapper) {
+    // in 1 sec
     setTimeout(() => {
-      badgeWrapper.classList.remove('li-badge--pulse')
-      badgeWrapper.classList.add('li-badge--opacity-20')
-    }, 8000)
+      //start pulse animation
+      badgeWrapper.classList.add('li-badge--pulse')
+
+      // in 4 sec
+      setTimeout(() => {
+        //end pulse animation
+        badgeWrapper.classList.remove('li-badge--pulse')
+
+        // set mouse leave event to handle badge hidding process
+        const parent = badgeWrapper.parentElement as HTMLElement
+        parent.onmouseleave = () => (isBadgeHidden.value = true)
+
+        // in 2 sec
+        setTimeout(() => {
+          //hide badge
+          isBadgeHidden.value = true
+        }, 2000)
+      }, 4000)
+    }, 1000)
   }
 }
 </script>
 
 <template>
-  <div v-if="!isLIclosed" v-show="!LIbadgeLoading" class="linkedin-popper">
+  <div
+    v-if="!isLIclosed"
+    :class="{
+      'linkedin-popper': true,
+      'linkedin-popper--visible': !isBadgeHidden,
+      'linkedin-popper--hidden': isBadgeHidden
+    }"
+  >
+    <div
+      :class="{
+        'linkedin-popper-bookmark': true,
+        'linkedin-popper-bookmark--hidden': !isBadgeHidden
+      }"
+    >
+      <div class="linkedin-popper-bookmark-icons" @mouseenter="isBadgeHidden = false">
+        <el-icon :size="20"><arrow-left /></el-icon>
+      </div>
+    </div>
     <SourceLinkedInBadge
-      class="li-badge li-badge--slide li-badge--legacy"
+      class="li-badge li-badge--legacy"
       id="legacyLIbadge"
       @onClose="closeBadge"
     />
@@ -75,7 +107,8 @@ function createAnimationsQuery(badgeWrapper: HTMLElement | null): void {
 
 <style scoped lang="scss">
 .linkedin-popper {
-  margin: 0 4px 10px 0;
+  margin: 0 0 10px 0;
+  display: flex;
   width: fit-content;
   height: fit-content;
   position: fixed;
@@ -83,9 +116,20 @@ function createAnimationsQuery(badgeWrapper: HTMLElement | null): void {
   bottom: 0;
   right: 0;
 
+  &--visible {
+    transform: translateX(0);
+    transition: transform 1s ease-in;
+  }
+
+  &--hidden {
+    transform: translateX(92%);
+    transition: transform 1s ease-in;
+  }
+
   .li-badge {
     border: 1px solid var(--el-border-color);
     border-radius: 8px;
+    position: sticky;
 
     &--legacy {
       width: 335px;
@@ -96,19 +140,29 @@ function createAnimationsQuery(badgeWrapper: HTMLElement | null): void {
       opacity: 1;
     }
 
-    &--slide {
-      animation: slide 1.5s;
-    }
-
     &--pulse {
       animation: pulse 2s infinite;
     }
+  }
 
-    &--opacity-20 {
-      opacity: 0.2;
-      transition:
-        opacity 1s,
-        backdrop-filter 1s;
+  &-bookmark {
+    display: flex;
+    justify-content: flex-end;
+    align-items: baseline;
+    opacity: 1;
+    transition: opacity 3s ease-in-out;
+
+    &--hidden {
+      opacity: 0;
+      transition: opacity 0.35s ease-in-out;
+    }
+
+    &-icons {
+      cursor: pointer;
+      border: 1px solid var(--el-border-color-darker);
+      border-radius: 25px 0 0 25px;
+      background-color: var(--el-bg-color-overlay);
+      padding: 4px;
     }
   }
 }
@@ -116,16 +170,6 @@ function createAnimationsQuery(badgeWrapper: HTMLElement | null): void {
 @media screen and (max-width: 960px) {
   .linkedin-popper {
     display: none;
-  }
-}
-
-@keyframes slide {
-  0% {
-    transform: translateX(100%);
-  }
-
-  100% {
-    transform: translateX(0%);
   }
 }
 

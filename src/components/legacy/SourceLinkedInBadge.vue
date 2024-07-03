@@ -150,7 +150,7 @@ const isDark = useDark() //true or false
   font-weight: 400;
   line-height: 1;
   direction: ltr;
-  margin: 0;
+  margin: 0 4px 0 0;
   font-size: 100%;
   vertical-align: baseline;
   background: transparent;
@@ -163,11 +163,10 @@ const isDark = useDark() //true or false
   padding: 0;
   background-color: inherit;
   color: inherit;
-  margin-left: 0px;
   width: 100%;
   height: 100%;
-  backdrop-filter: blur(5px);
-  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: saturate(50%) blur(4px);
+  -webkit-backdrop-filter: saturate(50%) blur(4px);
 
   &__header {
     padding: 12px 16px;
