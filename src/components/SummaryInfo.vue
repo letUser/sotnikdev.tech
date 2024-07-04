@@ -7,13 +7,6 @@ import { RouterLink } from 'vue-router'
     <h2 class="summary-wrapper-title">Summary</h2>
 
     <div class="summary">
-      <p class="summary-text">
-        LinkedIn Top Voice Senior Software Developer with 5 years experience in developing SaaS
-        FinTech software applications and GIS systems, conducting testing & debugging, and
-        spearheading code reviews. Well-versed in implementing cloud microservices, and security
-        features, optimizing application performance, and maintaining technical documentation
-      </p>
-
       <div class="summary-cards">
         <el-card shadow="hover" class="summary-cards-item">
           <template #header><h3>Cloud Native SaaS & PaaS</h3></template>
@@ -80,10 +73,7 @@ import { RouterLink } from 'vue-router'
   }
 
   .summary {
-    &-text {
-      margin-bottom: 2rem;
-      text-align: justify;
-    }
+    width: 100%;
 
     &-cards {
       display: grid;

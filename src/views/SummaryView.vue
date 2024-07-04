@@ -42,7 +42,7 @@ function onMouseMove($ev: MouseEvent): void {
     <div class="section-summary" @mousemove="onMouseMove">
       <div class="section-summary-name">
         <h1>Dan Sotnik</h1>
-        <p>A Software Developer</p>
+        <p>A LinkedIn Top Voice Software Developer with over 5 years of experience</p>
       </div>
 
       <BrandImageWrapper id="brand-image-wrapper" />
@@ -57,7 +57,7 @@ function onMouseMove($ev: MouseEvent): void {
 <style scoped lang="scss">
 .section-summary {
   display: flex;
-  align-items: center;
+  align-items: stretch;
   flex-direction: column;
   padding: 40px 40px 0;
   text-align: center;
