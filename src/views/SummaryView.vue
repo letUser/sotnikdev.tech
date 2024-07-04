@@ -59,7 +59,7 @@ function onMouseMove($ev: MouseEvent): void {
   display: flex;
   align-items: stretch;
   flex-direction: column;
-  padding: 40px 40px 0;
+  padding: 80px 40px 0;
   text-align: center;
 
   > div {
