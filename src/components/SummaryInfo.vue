@@ -138,8 +138,22 @@ import { RouterLink } from 'vue-router'
 
 <style lang="scss">
 .el-card {
-  .el-card__footer {
+  &__footer {
     padding: 0;
+  }
+
+  &:hover {
+    .el-timeline {
+      &-item {
+        &__tail {
+          border-color: var(--el-color-primary-light-7);
+        }
+
+        &__node {
+          background-color: var(--el-color-primary-light-3);
+        }
+      }
+    }
   }
 }
 </style>
