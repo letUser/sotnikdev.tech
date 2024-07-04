@@ -170,14 +170,7 @@ const isDark = useDark() //true or false
 
   &__header {
     padding: 12px 16px;
-
-    &--dark {
-      background-color: #38434f;
-    }
-
-    &--light {
-      background-color: #e9e5df;
-    }
+    background-color: var(--el-bg-color-overlay);
 
     &-logo-icon {
       width: 84px;
@@ -186,7 +179,7 @@ const isDark = useDark() //true or false
       color: inherit;
 
       &--light {
-        color: #0a66c2;
+        color: var(--el-color-primary);
       }
     }
   }
