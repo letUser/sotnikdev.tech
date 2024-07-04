@@ -39,8 +39,8 @@ function onMouseMove($ev: MouseEvent): void {
 
 <template>
   <main>
-    <div class="section-about" @mousemove="onMouseMove">
-      <div class="section-about-name">
+    <div class="section-summary" @mousemove="onMouseMove">
+      <div class="section-summary-name">
         <h1>Dan Sotnik</h1>
         <p>A Software Developer</p>
       </div>
@@ -55,7 +55,7 @@ function onMouseMove($ev: MouseEvent): void {
 </template>
 
 <style scoped lang="scss">
-.section-about {
+.section-summary {
   display: flex;
   align-items: center;
   flex-direction: column;

@@ -62,8 +62,8 @@ function setActiveMenu($event: Event): void {
 
     <div class="menu">
       <nav @click.prevent="setActiveMenu">
-        <RouterLink id="nav-summary" :index="1" to="/summary">Summary</RouterLink>
-        <RouterLink id="nav-portfolio" :index="2" to="/portfolio">Portfolio</RouterLink>
+        <router-link id="nav-summary" :index="1" to="/summary">Summary</router-link>
+        <router-link id="nav-portfolio" :index="2" to="/portfolio">Portfolio</router-link>
       </nav>
 
       <DarkModeSwitch class="menu-item" />
