@@ -22,6 +22,8 @@ declare module 'vue' {
     ElDropdownMenu: typeof import('element-plus/es')['ElDropdownMenu']
     ElIcon: typeof import('element-plus/es')['ElIcon']
     ElSwitch: typeof import('element-plus/es')['ElSwitch']
+    ElTimeline: typeof import('element-plus/es')['ElTimeline']
+    ElTimelineItem: typeof import('element-plus/es')['ElTimelineItem']
     GitHub: typeof import('./src/components/icons/GitHub.vue')['default']
     LinkedIn: typeof import('./src/components/icons/LinkedIn.vue')['default']
     LinkedInBadge: typeof import('./src/components/LinkedInBadge.vue')['default']

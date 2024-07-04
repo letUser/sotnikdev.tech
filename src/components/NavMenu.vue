@@ -82,7 +82,7 @@ function setActiveMenu($event: Event): void {
   align-items: center;
   padding: 0 2rem;
   border-bottom: 1px solid var(--el-border-color);
-  background-image: radial-gradient(transparent 1px, var(--bg-color) 1px);
+  background-image: radial-gradient(transparent 1px, var(--el-bg-color) 1px);
   background-size: 4px 4px;
   backdrop-filter: saturate(50%) blur(4px);
   -webkit-backdrop-filter: saturate(50%) blur(4px);

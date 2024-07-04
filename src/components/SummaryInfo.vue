@@ -15,13 +15,40 @@
 
     <div class="summary-cards">
       <el-card shadow="hover" class="summary-cards-item">
-        <template #header>Cloud Native SaaS & PaaS</template>
+        <template #header><h3>Cloud Native SaaS & PaaS</h3></template>
+        <div class="summary-cards-item-content">
+          <el-timeline class="card-custom-list" style="max-width: 460px">
+            <el-timeline-item>
+              SaaS and PaaS solutions design & development from scratch
+            </el-timeline-item>
+            <el-timeline-item>
+              DevOps, Compute, and AI services integration into projects
+            </el-timeline-item>
+            <el-timeline-item> On-premise servers migration to hybrid cloud </el-timeline-item>
+          </el-timeline>
+        </div>
       </el-card>
+
       <el-card shadow="hover" class="summary-cards-item">
-        <template #header>FinTech & Blockchain</template>
+        <template #header><h3>FinTech & Blockchain</h3></template>
+        <div class="summary-cards-item-content">
+          <el-timeline class="card-custom-list" style="max-width: 460px">
+            <el-timeline-item> Analytics and monitoring tools development </el-timeline-item>
+            <el-timeline-item> Smart contracts design and tracking </el-timeline-item>
+            <el-timeline-item> Web security practices implementation </el-timeline-item>
+          </el-timeline>
+        </div>
       </el-card>
+
       <el-card shadow="hover" class="summary-cards-item">
-        <template #header>GIS & spatial systems</template>
+        <template #header><h3>GIS & spatial systems</h3></template>
+        <div class="summary-cards-item-content">
+          <el-timeline class="card-custom-list" style="max-width: 460px">
+            <el-timeline-item> GIS systems full cycle design & development </el-timeline-item>
+            <el-timeline-item> Complex maps realization via OpenLayers or Leaf </el-timeline-item>
+            <el-timeline-item> Modern PostgreSQL and PostGIS features integration </el-timeline-item>
+          </el-timeline>
+        </div>
       </el-card>
     </div>
   </div>
@@ -47,9 +74,25 @@
 
       &-item {
         width: 480px;
+        transition: none;
 
         &:hover {
           transform: translateY(-10px);
+        }
+
+        &-content {
+          text-align: justify;
+          display: flex;
+          flex-direction: column;
+
+          .card-custom-list {
+            max-width: 460px;
+            padding: 0;
+
+            .el-timeline-item {
+              padding-bottom: 4px;
+            }
+          }
         }
       }
     }

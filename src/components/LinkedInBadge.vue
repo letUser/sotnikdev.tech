@@ -35,6 +35,7 @@ onMounted(() => {
 
 const isLIclosed = ref(Boolean(sessionStorage.getItem('sotnikdev.tech:isLIclosed')))
 const isBadgeHidden = ref(true)
+const noDisplay = ref(true)
 
 /**
  * Handle closing of LinkedIn badge by user
@@ -67,6 +68,9 @@ function createAnimationsQuery(): void {
         const parent = badgeWrapper.parentElement as HTMLElement
         parent.onmouseleave = () => (isBadgeHidden.value = true)
 
+        // remove 'display: none' from bookmark
+        noDisplay.value = false
+
         // in 2 sec
         setTimeout(() => {
           //hide badge
@@ -90,7 +94,8 @@ function createAnimationsQuery(): void {
     <div
       :class="{
         'linkedin-popper-bookmark': true,
-        'linkedin-popper-bookmark--hidden': !isBadgeHidden
+        'linkedin-popper-bookmark--hidden': !isBadgeHidden,
+        'linkedin-popper-bookmark--display-none': noDisplay
       }"
     >
       <div class="linkedin-popper-bookmark-icons" @mouseenter="isBadgeHidden = false">
@@ -155,6 +160,10 @@ function createAnimationsQuery(): void {
     &--hidden {
       opacity: 0;
       transition: opacity 0.35s ease-in-out;
+    }
+
+    &--display-none {
+      visibility: hidden;
     }
 
     &-icons {
