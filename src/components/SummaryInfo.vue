@@ -137,10 +137,12 @@ import { RouterLink } from 'vue-router'
       &-item {
         &__tail {
           border-color: var(--el-color-primary-light-7);
+          transition: border-color 0.5s;
         }
 
         &__node {
           background-color: var(--el-color-primary-light-3);
+          transition: background-color 0.5s;
         }
       }
     }
