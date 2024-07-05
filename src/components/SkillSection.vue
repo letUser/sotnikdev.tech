@@ -66,7 +66,7 @@ import DockerLogo from './icons/DockerLogo.vue'
 
       <div class="skills-item">
         <el-icon :size="48">
-          <postgres-logo />
+          <postrges-logo />
         </el-icon>
         <div class="skills-item-info">
           <h4 class="skills-item-info-name">PostgreSQL</h4>

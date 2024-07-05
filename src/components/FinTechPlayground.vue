@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import FinTechPlayground from '../components/FinTechPlayground.vue'
+import VirtTable from './fintech/VirtTable.vue'
 </script>
 
 <template>
   <div>
-    <FinTechPlayground />
+    FinTech Playground
+    <VirtTable />
   </div>
 </template>
 
