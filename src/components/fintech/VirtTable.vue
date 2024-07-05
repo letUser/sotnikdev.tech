@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, h } from 'vue'
 import { TableV2SortOrder } from 'element-plus'
 import type { SortBy } from 'element-plus'
+import { ElButton } from 'element-plus'
 
-const columns = generateColumns(10)
+const columns = generateColumns(8)
 const data = ref<any[]>([])
 const kls = ref<string>('')
 const sortState = ref<SortBy>({
@@ -13,8 +14,8 @@ const sortState = ref<SortBy>({
 const currIndex = ref(0)
 
 /** */
-function generateColumns(length = 10, prefix = 'column-', props?: any): any[] {
-  return Array.from({ length }).map((_, columnIndex) => ({
+function generateColumns(length = 8, prefix = 'column-', props?: any): any[] {
+  const cols = Array.from({ length }).map((_, columnIndex) => ({
     ...props,
     key: `${prefix}${columnIndex}`,
     dataKey: `${prefix}${columnIndex}`,
@@ -23,6 +24,24 @@ function generateColumns(length = 10, prefix = 'column-', props?: any): any[] {
     width: 150,
     sortable: !columnIndex
   }))
+
+  // add tool column for control
+  cols.push({
+    key: 'tools',
+    title: '',
+    // render button component
+    cellRenderer: ({ rowIndex }: { rowIndex: number }) => {
+      return h(
+        ElButton,
+        { size: 'small', type: 'danger', onClick: () => data.value.splice(rowIndex, 1) },
+        () => 'Delete'
+      )
+    },
+    width: 60,
+    align: 'center'
+  })
+
+  return cols
 }
 
 /** */
@@ -77,7 +96,7 @@ function cellProps({ columnIndex }: any) {
 }
 
 /** */
-function onSort(sortBy: SortBy) {
+function onSort(sortBy: SortBy): void {
   data.value = data.value.reverse()
   sortState.value = sortBy
 }
@@ -85,10 +104,14 @@ function onSort(sortBy: SortBy) {
 
 <template>
   <div class="virt-table-wrapper">
-    VirtTable
+    <h2>Virtualized Table</h2>
 
-    <el-button @click="generateData(columns, 100)"> Add 100 items </el-button>
-    <el-button type="primary" @click="generateData(columns, 100000)"> Add 100,000 items </el-button>
+    <div class="virt-table-buttons">
+      <el-button @click="generateData(columns, 100)"> Add 100 items </el-button>
+      <el-button type="primary" @click="generateData(columns, 100000)">
+        Add 100,000 items
+      </el-button>
+    </div>
 
     <el-auto-resizer>
       <template #default="{ height, width }">
@@ -115,9 +138,24 @@ function onSort(sortBy: SortBy) {
 </template>
 
 <style scoped lang="scss">
-.virt-table-wrapper {
-  height: 400px;
-  padding: 24px;
+.virt-table {
+  &-wrapper {
+    width: 1400px;
+    height: 500px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+
+    > h2 {
+      margin-top: 12px;
+    }
+  }
+
+  &-buttons {
+    display: flex;
+    justify-content: flex-end;
+    margin: 12px 0;
+  }
 }
 </style>
 

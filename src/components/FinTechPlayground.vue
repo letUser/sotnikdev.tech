@@ -4,7 +4,6 @@ import VirtTable from './fintech/VirtTable.vue'
 
 <template>
   <div>
-    FinTech Playground
     <VirtTable />
   </div>
 </template>
