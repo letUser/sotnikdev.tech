@@ -51,4 +51,7 @@ declare module 'vue' {
     VirtTable: typeof import('./src/components/fintech/VirtTable.vue')['default']
     VueLogo: typeof import('./src/components/icons/VueLogo.vue')['default']
   }
+  export interface ComponentCustomProperties {
+    vLoading: typeof import('element-plus/es')['ElLoadingDirective']
+  }
 }
