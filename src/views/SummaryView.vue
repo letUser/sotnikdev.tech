@@ -74,10 +74,4 @@ function onMouseMove($ev: MouseEvent): void {
     }
   }
 }
-
-@media screen and (min-width: 960px) {
-  .section-about {
-    padding: 80px 40px 0;
-  }
-}
 </style>

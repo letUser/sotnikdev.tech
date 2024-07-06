@@ -104,7 +104,7 @@ function setActiveMenu($event: Event): void {
 
     nav {
       display: flex;
-      height: 3rem;
+      height: var(--nav-bar-height);
 
       a {
         display: flex;

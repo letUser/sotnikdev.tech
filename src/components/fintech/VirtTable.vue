@@ -19,7 +19,7 @@ function generateColumns(length = 8, prefix = 'column-', props?: any): any[] {
     ...props,
     key: `${prefix}${columnIndex}`,
     dataKey: `${prefix}${columnIndex}`,
-    title: !columnIndex ? 'Row No.' : `Column ${columnIndex}`,
+    title: !columnIndex ? 'Row ID' : `Column ${columnIndex}`,
     align: !columnIndex ? 'center' : null,
     width: 150,
     sortable: !columnIndex
@@ -37,7 +37,7 @@ function generateColumns(length = 8, prefix = 'column-', props?: any): any[] {
         () => 'Delete'
       )
     },
-    width: 60,
+    width: 100,
     align: 'center'
   })
 
@@ -104,8 +104,6 @@ function onSort(sortBy: SortBy): void {
 
 <template>
   <div class="virt-table-wrapper">
-    <h2>Virtualized Table</h2>
-
     <div class="virt-table-buttons">
       <el-button @click="generateData(columns, 100)"> Add 100 items </el-button>
       <el-button type="primary" @click="generateData(columns, 100000)">
@@ -124,10 +122,10 @@ function onSort(sortBy: SortBy): void {
           :height="height"
           :sort-by="sortState"
           @column-sort="onSort"
-          fixed
+          class="virt-table"
         >
           <template #empty>
-            <div class="flex items-center justify-center h-100%">
+            <div>
               <el-empty />
             </div>
           </template>
@@ -140,15 +138,11 @@ function onSort(sortBy: SortBy): void {
 <style scoped lang="scss">
 .virt-table {
   &-wrapper {
-    width: 1400px;
-    height: 500px;
+    height: 100%;
     padding: 24px;
     display: flex;
     flex-direction: column;
-
-    > h2 {
-      margin-top: 12px;
-    }
+    overflow: hidden;
   }
 
   &-buttons {

@@ -8,6 +8,7 @@ export {}
 declare module 'vue' {
   export interface GlobalComponents {
     AwsLogo: typeof import('./src/components/icons/AwsLogo.vue')['default']
+    BIframe: typeof import('./src/components/fintech/BIframe.vue')['default']
     BrandImageMain: typeof import('./src/components/icons/BrandImageMain.vue')['default']
     BrandImageMobile: typeof import('./src/components/icons/BrandImageMobile.vue')['default']
     BrandImageModal: typeof import('./src/components/icons/BrandImageModal.vue')['default']
@@ -17,13 +18,14 @@ declare module 'vue' {
     DockerLogo: typeof import('./src/components/icons/DockerLogo.vue')['default']
     DsLogo: typeof import('./src/components/icons/DsLogo.vue')['default']
     ElAutoResizer: typeof import('element-plus/es')['ElAutoResizer']
-    ElButton: typeof import('element-plus/es')['ElButton']
     ElCard: typeof import('element-plus/es')['ElCard']
+    ElDivider: typeof import('element-plus/es')['ElDivider']
     ElDropdown: typeof import('element-plus/es')['ElDropdown']
     ElDropdownItem: typeof import('element-plus/es')['ElDropdownItem']
     ElDropdownMenu: typeof import('element-plus/es')['ElDropdownMenu']
     ElEmpty: typeof import('element-plus/es')['ElEmpty']
     ElIcon: typeof import('element-plus/es')['ElIcon']
+    ElSegmented: typeof import('element-plus/es')['ElSegmented']
     ElSwitch: typeof import('element-plus/es')['ElSwitch']
     ElTableV2: typeof import('element-plus/es')['ElTableV2']
     ElTimeline: typeof import('element-plus/es')['ElTimeline']
