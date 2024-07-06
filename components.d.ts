@@ -19,7 +19,6 @@ declare module 'vue' {
     DsLogo: typeof import('./src/components/icons/DsLogo.vue')['default']
     ElAutoResizer: typeof import('element-plus/es')['ElAutoResizer']
     ElCard: typeof import('element-plus/es')['ElCard']
-    ElDivider: typeof import('element-plus/es')['ElDivider']
     ElDropdown: typeof import('element-plus/es')['ElDropdown']
     ElDropdownItem: typeof import('element-plus/es')['ElDropdownItem']
     ElDropdownMenu: typeof import('element-plus/es')['ElDropdownMenu']

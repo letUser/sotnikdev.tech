@@ -13,7 +13,7 @@ onMounted(() => {
       setTimeout(() => {
         isBadgeHidden.value = false
         createAnimationsQuery()
-      }, 6000)
+      }, 4000)
 
       // ...else, then...
     } else {
