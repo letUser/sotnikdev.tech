@@ -15,7 +15,7 @@ const sortState = ref<SortBy>({
   order: TableV2SortOrder.DESC
 })
 const currIndex = ref(0)
-const exportDisable = ref(false)
+const exportLoading = ref(false)
 
 /** */
 function generateColumns(length = 8, prefix = 'column-', props?: any): any[] {
@@ -119,9 +119,9 @@ function onDeleteRow(rowIndex: number): void {
 
 /** */
 function exportExcel() {
-  exportDisable.value = true
+  exportLoading.value = true
 
-  const callback = () => (exportDisable.value = false)
+  const callback = () => (exportLoading.value = false)
 
   // call export util. arguments must have to be Not Proxy objects
   exportXLS(
@@ -134,20 +134,30 @@ function exportExcel() {
 
 <template>
   <div class="virt-table-wrapper">
-    <div class="virt-table-buttons">
-      <el-button @click="generateData(columns, 100)" :disabled="data.length > 536000">
-        Add 100 items
-      </el-button>
-      <el-button
-        type="primary"
-        @click="generateData(columns, 100000)"
-        :disabled="data.length > 436000"
-      >
-        Add 100,000 items
-      </el-button>
-      <el-button type="primary" @click="exportExcel" :disabled="exportDisable || !data.length">
-        Export XLS
-      </el-button>
+    <div class="virt-table-info">
+      <div class="virt-table-info-data">
+        <b>Total rows</b>: {{ data.length.toLocaleString('en-EN') }}
+      </div>
+      <div class="virt-table-info-buttons">
+        <el-button @click="generateData(columns, 100)" :disabled="data.length > 536000">
+          Add 100 items
+        </el-button>
+        <el-button
+          type="primary"
+          @click="generateData(columns, 100000)"
+          :disabled="data.length > 436000"
+        >
+          Add 100,000 items
+        </el-button>
+        <el-button
+          type="primary"
+          @click="exportExcel"
+          :disabled="!data.length"
+          :loading="exportLoading"
+        >
+          Export XLS
+        </el-button>
+      </div>
     </div>
 
     <el-auto-resizer>
@@ -185,10 +195,24 @@ function exportExcel() {
     overflow: hidden;
   }
 
-  &-buttons {
+  &-info {
     display: flex;
-    justify-content: flex-end;
-    margin: 12px 0;
+    justify-content: space-between;
+
+    &-data {
+      display: flex;
+      align-items: center;
+
+      > b {
+        font-weight: bolder;
+      }
+    }
+
+    &-buttons {
+      display: flex;
+      justify-content: flex-end;
+      margin: 12px 0;
+    }
   }
 }
 </style>

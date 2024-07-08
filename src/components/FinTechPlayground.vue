@@ -11,9 +11,9 @@ const options = ['BI integration', 'Performance', 'Option 3', 'Option 4']
 
 <template>
   <div class="fintech-playground">
-    <BIframe v-if="value === 'BI integration'" />
+    <BIframe v-show="value === 'BI integration'" />
 
-    <VirtTable v-if="value === 'Performance'" />
+    <VirtTable v-show="value === 'Performance'" />
 
     <div class="fintech-playground-segments-wrapper">
       <el-segmented class="fintech-playground-segments" v-model="value" :options="options" block />
