@@ -120,6 +120,7 @@ function createAnimationsQuery(): void {
   overflow: hidden;
   bottom: 0;
   right: 0;
+  z-index: var(--max-z-index);
 
   &--visible {
     transform: translateX(0);

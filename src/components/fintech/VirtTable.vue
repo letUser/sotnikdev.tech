@@ -1,10 +1,13 @@
 <script setup lang="ts">
+import 'element-plus/es/components/notification/style/css'
 import { ref, h } from 'vue'
 import { TableV2SortOrder } from 'element-plus'
 import type { SortBy } from 'element-plus'
 import { ElButton } from 'element-plus'
+import exportXLS from '../../utils/exportXLS'
 
 const columns = generateColumns(8)
+let rawData = [] as any[]
 const data = ref<any[]>([])
 const kls = ref<string>('')
 const sortState = ref<SortBy>({
@@ -12,6 +15,7 @@ const sortState = ref<SortBy>({
   order: TableV2SortOrder.DESC
 })
 const currIndex = ref(0)
+const exportDisable = ref(false)
 
 /** */
 function generateColumns(length = 8, prefix = 'column-', props?: any): any[] {
@@ -29,11 +33,12 @@ function generateColumns(length = 8, prefix = 'column-', props?: any): any[] {
   cols.push({
     key: 'tools',
     title: '',
+    dataKey: 'tools',
     // render button component
     cellRenderer: ({ rowIndex }: { rowIndex: number }) => {
       return h(
         ElButton,
-        { size: 'small', type: 'danger', onClick: () => data.value.splice(rowIndex, 1) },
+        { size: 'small', type: 'danger', onClick: () => onDeleteRow(rowIndex) },
         () => 'Delete'
       )
     },
@@ -55,7 +60,7 @@ function generateData(columns: any[], length = 100, prefix = 'row-'): void {
   }
 
   // add new data to existing
-  data.value = data.value.concat(
+  rawData = rawData.concat(
     Array.from({ length }).map((_, index) => {
       const rowIndex = currIndex.value + index
 
@@ -63,6 +68,8 @@ function generateData(columns: any[], length = 100, prefix = 'row-'): void {
         (rowData, column, columnIndex) => {
           if (!columnIndex) {
             rowData[column.dataKey] = rowIndex
+          } else if (column.key === 'tools') {
+            rowData[column.dataKey] = null
           } else {
             rowData[column.dataKey] = `Row ${rowIndex} - Col ${columnIndex}`
           }
@@ -76,6 +83,9 @@ function generateData(columns: any[], length = 100, prefix = 'row-'): void {
       )
     })
   )
+
+  // add new data to existing
+  data.value = rawData
 
   currIndex.value = currIndex.value + length
 }
@@ -100,14 +110,43 @@ function onSort(sortBy: SortBy): void {
   data.value = data.value.reverse()
   sortState.value = sortBy
 }
+
+/** */
+function onDeleteRow(rowIndex: number): void {
+  data.value.splice(rowIndex, 1)
+  rawData.splice(rowIndex, 1)
+}
+
+/** */
+function exportExcel() {
+  exportDisable.value = true
+
+  const callback = () => (exportDisable.value = false)
+
+  // call export util. arguments must have to be Not Proxy objects
+  exportXLS(
+    columns.slice(0, columns.length - 1), //remove 'tools' column
+    rawData,
+    callback
+  )
+}
 </script>
 
 <template>
   <div class="virt-table-wrapper">
     <div class="virt-table-buttons">
-      <el-button @click="generateData(columns, 100)"> Add 100 items </el-button>
-      <el-button type="primary" @click="generateData(columns, 100000)">
+      <el-button @click="generateData(columns, 100)" :disabled="data.length > 536000">
+        Add 100 items
+      </el-button>
+      <el-button
+        type="primary"
+        @click="generateData(columns, 100000)"
+        :disabled="data.length > 436000"
+      >
         Add 100,000 items
+      </el-button>
+      <el-button type="primary" @click="exportExcel" :disabled="exportDisable || !data.length">
+        Export XLS
       </el-button>
     </div>
 
@@ -123,6 +162,7 @@ function onSort(sortBy: SortBy): void {
           :sort-by="sortState"
           @column-sort="onSort"
           class="virt-table"
+          id="virt-table-id"
         >
           <template #empty>
             <div>

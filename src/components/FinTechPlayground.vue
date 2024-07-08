@@ -4,16 +4,16 @@ import BIframe from './fintech/BIframe.vue'
 
 import { ref } from 'vue'
 
-const value = ref('Performance')
+const value = ref('BI integration')
 
-const options = ['Performance', 'BI integration', 'Option 3', 'Option 4']
+const options = ['BI integration', 'Performance', 'Option 3', 'Option 4']
 </script>
 
 <template>
   <div class="fintech-playground">
-    <VirtTable v-if="value === 'Performance'" />
-
     <BIframe v-if="value === 'BI integration'" />
+
+    <VirtTable v-if="value === 'Performance'" />
 
     <div class="fintech-playground-segments-wrapper">
       <el-segmented class="fintech-playground-segments" v-model="value" :options="options" block />

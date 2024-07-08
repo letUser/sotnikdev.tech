@@ -86,5 +86,6 @@ function onFrameLoad() {
 <style>
 .el-loading-mask {
   transition: 1s ease-out;
+  z-index: var(--pre-max-z-index);
 }
 </style>
