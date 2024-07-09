@@ -4,6 +4,7 @@ import { ref, h } from 'vue'
 import { TableV2SortOrder } from 'element-plus'
 import type { SortBy } from 'element-plus'
 import { ElButton } from 'element-plus'
+import axios from 'axios'
 import exportXLS from '../../utils/exportXLS'
 
 const columns = generateColumns(8)
@@ -16,6 +17,7 @@ const sortState = ref<SortBy>({
 })
 const currIndex = ref(0)
 const exportLoading = ref(false)
+const exportLambdaLoading = ref(false)
 
 /** */
 function generateColumns(length = 8, prefix = 'column-', props?: any): any[] {
@@ -130,6 +132,22 @@ function exportExcel() {
     callback
   )
 }
+
+/** */
+async function exportExcelLambda() {
+  exportLambdaLoading.value = true
+
+  await axios({
+    method: 'post',
+    url: '/api/exportXLS',
+    data: {
+      columns: columns.slice(0, columns.length - 1), //remove 'tools' column
+      rows: rawData
+    }
+  })
+
+  exportLambdaLoading.value = false
+}
 </script>
 
 <template>
@@ -155,7 +173,15 @@ function exportExcel() {
           :disabled="!data.length"
           :loading="exportLoading"
         >
-          Export XLS
+          Export XLS (Client)
+        </el-button>
+        <el-button
+          type="primary"
+          @click="exportExcelLambda"
+          :disabled="!data.length"
+          :loading="exportLambdaLoading"
+        >
+          Export XLS (Cloud)
         </el-button>
       </div>
     </div>
