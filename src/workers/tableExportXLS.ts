@@ -7,7 +7,7 @@ self.onmessage = (event) => {
  * @param {any[]} columns table columns
  * @param {any[]} rows table data
  */
-export default function tableExportXLS(columns: any[], rows: any[]) {
+function tableExportXLS(columns: any[], rows: any[]) {
   let template = '<table><thead><tr>'
 
   // create columns and append it to table as a header
