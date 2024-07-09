@@ -29,8 +29,11 @@ export default defineConfig({
     proxy: {
       '/api': {
         target: 'https://d5dt6p5vcdddtv25ckhs.apigw.yandexcloud.net',
-        changeOrigin: true,
-        secure: false
+        changeOrigin: true
+      },
+      '/bucket': {
+        target: 'https://storage.yandexcloud.net/sotnikdev-export-xls-bucket/',
+        changeOrigin: true
       }
     }
   }

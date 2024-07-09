@@ -19,6 +19,9 @@ const currIndex = ref(0)
 const exportLoading = ref(false)
 const exportLambdaLoading = ref(false)
 
+// generate initial table data
+generateData(columns, 10000)
+
 /** */
 function generateColumns(length = 8, prefix = 'column-', props?: any): any[] {
   const cols = Array.from({ length }).map((_, columnIndex) => ({
@@ -109,13 +112,12 @@ function cellProps({ columnIndex }: any) {
 
 /** */
 function onSort(sortBy: SortBy): void {
-  data.value = data.value.reverse()
+  rawData = rawData.reverse()
   sortState.value = sortBy
 }
 
 /** */
 function onDeleteRow(rowIndex: number): void {
-  data.value.splice(rowIndex, 1)
   rawData.splice(rowIndex, 1)
 }
 
@@ -176,6 +178,7 @@ async function exportExcelLambda() {
           Export XLS (Client)
         </el-button>
         <el-button
+          v-if="false"
           type="primary"
           @click="exportExcelLambda"
           :disabled="!data.length"
@@ -244,17 +247,13 @@ async function exportExcelLambda() {
 </style>
 
 <style lang="scss">
-.hovering-col-0 [data-key='hovering-col-0'],
 .hovering-col-1 [data-key='hovering-col-1'],
 .hovering-col-2 [data-key='hovering-col-2'],
 .hovering-col-3 [data-key='hovering-col-3'],
 .hovering-col-4 [data-key='hovering-col-4'],
 .hovering-col-5 [data-key='hovering-col-5'],
 .hovering-col-6 [data-key='hovering-col-6'],
-.hovering-col-7 [data-key='hovering-col-7'],
-.hovering-col-8 [data-key='hovering-col-8'],
-.hovering-col-9 [data-key='hovering-col-9'],
-.hovering-col-10 [data-key='hovering-col-10'] {
+.hovering-col-7 [data-key='hovering-col-7'] {
   background: var(--el-table-row-hover-bg-color);
 }
 
