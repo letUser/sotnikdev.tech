@@ -5,6 +5,7 @@ import { TableV2SortOrder } from 'element-plus'
 import type { SortBy } from 'element-plus'
 import { ElButton } from 'element-plus'
 import axios from 'axios'
+import PO_exportXLS from '../popovers/PO_exportXLS.vue'
 import exportXLS from '../../utils/exportXLS'
 
 const columns = generateColumns(8)
@@ -159,8 +160,8 @@ async function exportExcelLambda() {
         <b>Total rows</b>: {{ data.length.toLocaleString('en-EN') }}
       </div>
       <div class="virt-table-info-buttons">
-        <el-button @click="generateData(columns, 100)" :disabled="data.length > 536000">
-          Add 100 items
+        <el-button @click="generateData(columns, 1000)" :disabled="data.length > 536000">
+          Add 1,000 items
         </el-button>
         <el-button
           type="primary"
@@ -169,16 +170,8 @@ async function exportExcelLambda() {
         >
           Add 100,000 items
         </el-button>
+        <PO_exportXLS :data="data" :exportLoading="exportLoading" @exportExcel="exportExcel" />
         <el-button
-          type="primary"
-          @click="exportExcel"
-          :disabled="!data.length"
-          :loading="exportLoading"
-        >
-          Export XLS (Client)
-        </el-button>
-        <el-button
-          v-if="false"
           type="primary"
           @click="exportExcelLambda"
           :disabled="!data.length"
