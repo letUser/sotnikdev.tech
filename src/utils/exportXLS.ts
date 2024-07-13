@@ -3,7 +3,7 @@ import { ElNotification, ElMessage } from 'element-plus'
 import WorkerTableExportXLS from '../workers/tableExportXLS?worker'
 
 /**
- * Initiate ResizeObserver on html element and remove it after one trigger
+ * Export function that takes columns and rows and sends them to the Worker for .xls formatting
  * @param {any[]} columns NON-PROXY array of columns
  * @param {any[]} rows NON-PROXY array of rows
  * @param {Function} callback callback method
