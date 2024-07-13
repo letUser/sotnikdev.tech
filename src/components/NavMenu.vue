@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
 import { useDark } from '@vueuse/core'
 import { RouterLink, useRoute } from 'vue-router'
 import DarkModeSwitch from './navigation/DarkModeSwitch.vue'
@@ -7,50 +6,11 @@ import SocialLinks from './navigation/SocialLinks.vue'
 import ContactsDropdown from './navigation/ContactsDropdown.vue'
 import DsLogo from './icons/DsLogo.vue'
 
-// curr active menu item
-const activeMenuItem = ref()
-
 // dark/light theme util
 const isDark = useDark() //true or false
 
 // current route
 const route = useRoute()
-
-// route watcher to monitor route changes and set the correct menu item
-watch(route, (route) => {
-  if (route?.name) {
-    const target = document.getElementById(`nav-${String(route.name)}`)
-
-    if (target instanceof HTMLElement) {
-      // using timeout to catch needed element
-      setTimeout(() => {
-        target.classList.add('active')
-        activeMenuItem.value = target
-      }, 50)
-    }
-  }
-})
-
-/**
- * Menu item click handler
- * @param {Event} $event - state of event
- */
-const setActiveMenu = ($event: Event) => {
-  if (!$event?.target) throw new Error('App.vue -> setActiveMenu -> $el.target is NULL')
-
-  // remove active class from prev clicked elem
-  activeMenuItem.value?.classList.remove('active')
-
-  const { target } = $event
-
-  if (target instanceof HTMLElement) {
-    // add active class to curr clicked elem
-    target.classList.add('active')
-
-    // save link to the curr clicked elem
-    activeMenuItem.value = target
-  }
-}
 </script>
 
 <template>
@@ -60,10 +20,18 @@ const setActiveMenu = ($event: Event) => {
     </el-icon>
 
     <div class="menu">
-      <nav @click.prevent="setActiveMenu">
-        <router-link id="nav-summary" :index="1" to="/summary">Summary</router-link>
-        <router-link id="nav-portfolio" :index="2" to="/portfolio">Portfolio</router-link>
-      </nav>
+      <el-menu class="nav-menu" :default-active="route.name">
+        <el-menu-item index="summary"
+          ><router-link id="nav-summary" :index="1" to="/summary"
+            >Summary</router-link
+          ></el-menu-item
+        >
+        <el-menu-item index="portfolio"
+          ><router-link id="nav-portfolio" :index="2" to="/portfolio"
+            >Portfolio</router-link
+          ></el-menu-item
+        >
+      </el-menu>
 
       <DarkModeSwitch class="menu-item" />
 
@@ -101,24 +69,29 @@ const setActiveMenu = ($event: Event) => {
       }
     }
 
-    nav {
+    .nav-menu {
       display: flex;
+      align-items: center;
       height: var(--nav-bar-height);
+      border-right: none;
 
-      a {
-        display: flex;
-        align-items: center;
-        text-decoration: none;
-        color: inherit;
+      .el-menu-item {
+        background-color: transparent;
         padding: 0 0.75rem;
+
+        &.is-active {
+          color: var(--el-color-primary);
+          border-bottom: 2px solid var(--el-color-primary);
+        }
 
         &:hover {
           color: var(--el-color-primary);
         }
 
-        &.active {
-          color: var(--el-color-primary);
-          border-bottom: 2px solid var(--el-color-primary);
+        a {
+          text-decoration: none;
+          color: inherit;
+          padding: 0;
         }
       }
     }

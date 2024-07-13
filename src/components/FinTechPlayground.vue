@@ -1,28 +1,20 @@
 <script setup lang="ts">
 import VirtTable from './fintech/VirtTable.vue'
 import BIframe from './fintech/BIframe.vue'
-
-import { ref } from 'vue'
-
-const value = ref('Performance')
-
-const options = ['Performance', 'BI integration']
 </script>
 
 <template>
-  <div class="fintech-playground">
-    <VirtTable v-show="value === 'Performance'" />
+  <div>
+    <div class="playground-fintech">
+      <VirtTable />
 
-    <BIframe v-show="value === 'BI integration'" />
-
-    <div class="fintech-playground-segments-wrapper">
-      <el-segmented class="fintech-playground-segments" v-model="value" :options="options" block />
+      <BIframe />
     </div>
   </div>
 </template>
 
 <style scoped lang="scss">
-.fintech-playground {
+.playground-fintech {
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -38,7 +30,7 @@ const options = ['Performance', 'BI integration']
 }
 
 @media screen and (min-width: 1280px) {
-  .fintech-playground {
+  .playground-fintech {
     &-segments {
       width: 50%;
 

@@ -45,7 +45,7 @@ import { RouterLink } from 'vue-router'
         </el-card>
 
         <el-card shadow="hover" class="summary-cards-item">
-          <template #header><h3>GIS & spatial systems</h3></template>
+          <template #header><h3>GIS & Spatial systems</h3></template>
 
           <div class="summary-cards-item-content">
             <el-timeline class="card-custom-list">

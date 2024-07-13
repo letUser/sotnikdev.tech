@@ -23,7 +23,7 @@ const props = defineProps<{
         :loading="props.exportLoading"
       >
         <el-icon :size="16"><Document /></el-icon>
-        <span>.xls - client</span>
+        <span>Export .xls</span>
       </el-button>
     </template>
     <template #default>
