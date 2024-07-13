@@ -3,7 +3,7 @@ import { useRoute } from 'vue-router'
 import LeftMenu from '../components/LeftMenu.vue'
 import VirtTable from '../components/fintech/VirtTable.vue'
 import BIframe from '../components/fintech/BIframe.vue'
-import Map from '../components/gis/Map.vue'
+//import MapDemo from '../components/gis/MapDemo.vue'
 
 // current route
 const route = useRoute()
