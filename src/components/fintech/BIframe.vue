@@ -13,7 +13,6 @@ const loading = ref(true)
 /**
  * debounce function which invoke only once a second to prevent abuse via theme-mode switcher
  * @param {boolean} mode - true if dark theme and false if light theme
- * @return {void}
  */
 const changeDarkMode = useDebounceFn((mode) => {
   // reload iframe only if themes are not equal
@@ -32,9 +31,8 @@ watch(isDark, (mode) => {
 
 /**
  * iframe loaded event handler
- * @return {void}
  */
-function onFrameLoad() {
+const onFrameLoad = () => {
   setTimeout(() => (loading.value = false), 1000)
 }
 </script>

@@ -34,9 +34,8 @@ watch(route, (route) => {
 /**
  * Menu item click handler
  * @param {Event} $event - state of event
- * @return {void} void
  */
-function setActiveMenu($event: Event): void {
+const setActiveMenu = ($event: Event) => {
   if (!$event?.target) throw new Error('App.vue -> setActiveMenu -> $el.target is NULL')
 
   // remove active class from prev clicked elem

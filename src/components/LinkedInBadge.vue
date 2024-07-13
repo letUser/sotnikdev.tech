@@ -39,18 +39,16 @@ const noDisplay = ref(true)
 
 /**
  * Handle closing of LinkedIn badge by user
- * @return {void} void
  */
-function closeBadge(): void {
+const closeBadge = () => {
   isLIclosed.value = true
   sessionStorage.setItem('sotnikdev.tech:isLIclosed', 'true')
 }
 
 /**
  * Start timeouts for badge animations
- * @return {void} void
  */
-function createAnimationsQuery(): void {
+const createAnimationsQuery = () => {
   const badgeWrapper = document.getElementById('legacyLIbadge') as HTMLElement
 
   if (badgeWrapper) {

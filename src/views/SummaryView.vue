@@ -6,9 +6,8 @@ import SummaryInfo from '../components/SummaryInfo.vue'
 /**
  * Handle Mouse Move event for Route scope
  * @param {MouseEvent} $ev event
- * @return {void} void
  */
-function onMouseMove($ev: MouseEvent): void {
+const onMouseMove = ($ev: MouseEvent) => {
   const container = document.getElementById('brand-image-wrapper') as HTMLElement
 
   if ($ev.view) {

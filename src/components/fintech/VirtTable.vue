@@ -23,7 +23,13 @@ const exportLambdaLoading = ref(false)
 // generate initial table data
 generateData(columns, 10000)
 
-/** */
+/**
+ * Function to build columns array for the table
+ * @param {number} length number of columns
+ * @param {string} prefix prefix for column name
+ * @param {object} props additional data for column object
+ * @returns {any[]} array of columns
+ */
 function generateColumns(length = 8, prefix = 'column-', props?: any): any[] {
   const cols = Array.from({ length }).map((_, columnIndex) => ({
     ...props,
@@ -55,7 +61,13 @@ function generateColumns(length = 8, prefix = 'column-', props?: any): any[] {
   return cols
 }
 
-/** */
+/**
+ * Function to build rows array with cells & data for the table
+ * @param {any[]} columns array of columns
+ * @param {number} length number of rows
+ * @param {string} prefix prefix for row name
+ * @returns {void}
+ */
 function generateData(columns: any[], length = 100, prefix = 'row-'): void {
   // drop sort ordering to default
   if (sortState.value.order === TableV2SortOrder.ASC) {
@@ -96,8 +108,11 @@ function generateData(columns: any[], length = 100, prefix = 'row-'): void {
   currIndex.value = currIndex.value + length
 }
 
-/** */
-function cellProps({ columnIndex }: any) {
+/**
+ * Hovering by mouse on a row handler
+ * @param {any} props data of the hovered row object
+ */
+const cellProps = ({ columnIndex }: any) => {
   const key = `hovering-col-${columnIndex}`
 
   return {
@@ -111,19 +126,27 @@ function cellProps({ columnIndex }: any) {
   }
 }
 
-/** */
-function onSort(sortBy: SortBy): void {
+/**
+ * Column sorting handler
+ * @param {SortBy} sortBy table sorting data
+ */
+const onSort = (sortBy: SortBy) => {
   rawData = rawData.reverse()
   sortState.value = sortBy
 }
 
-/** */
-function onDeleteRow(rowIndex: number): void {
+/**
+ * Delete row handler
+ * @param {number} rowIndex deleting row index
+ */
+const onDeleteRow = (rowIndex: number) => {
   data.value.splice(rowIndex, 1)
 }
 
-/** */
-function exportExcel() {
+/**
+ * Export .xls on a client side handler
+ */
+const exportExcel = () => {
   exportLoading.value = true
 
   const callback = () => (exportLoading.value = false)
@@ -136,8 +159,10 @@ function exportExcel() {
   )
 }
 
-/** */
-async function exportExcelLambda() {
+/**
+ * Export .xls via Cloud handler
+ */
+const exportExcelLambda = async () => {
   exportLambdaLoading.value = true
 
   await axios({
@@ -257,3 +282,4 @@ async function exportExcelLambda() {
   pointer-events: none;
 }
 </style>
+: number: string: number: string: void

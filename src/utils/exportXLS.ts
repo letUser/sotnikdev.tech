@@ -84,6 +84,7 @@ function createTemplate(table: string, worksheet: string): string {
  * Function for XLS download
  * @param {string} data prepared data for download
  * @param {string} fileName specific file name
+ * @return {void}
 */
 function downloadTable(data: string, fileName: string): void {
   const link = document.createElement('a')

@@ -10,9 +10,8 @@ const dropdown = ref<DropdownInstance>()
 /**
  * Contacts dropdown hover handler
  * @param {boolean} state - flag "is hover"
- * @return {void} void
  */
-function handleContactsHover(state: boolean): void {
+const handleContactsHover = (state: boolean) => {
   contactsExpanded.value = state
 
   if (state) dropdown.value?.handleOpen()

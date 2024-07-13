@@ -33,6 +33,7 @@ declare module 'vue' {
     ElTimeline: typeof import('element-plus/es')['ElTimeline']
     ElTimelineItem: typeof import('element-plus/es')['ElTimelineItem']
     FinTechPlayground: typeof import('./src/components/FinTechPlayground.vue')['default']
+    GisPlayground: typeof import('./src/components/GisPlayground.vue')['default']
     GitHub: typeof import('./src/components/icons/GitHub.vue')['default']
     LinkedIn: typeof import('./src/components/icons/LinkedIn.vue')['default']
     LinkedInBadge: typeof import('./src/components/LinkedInBadge.vue')['default']
