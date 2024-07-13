@@ -22,9 +22,9 @@ import GisPlayground from '../components/GisPlayground.vue'
   display: flex;
 
   .playground {
-    width: 100%;
+    width: calc(100vw - var(--left-menu-width));
+    height: calc(100vh - var(--nav-bar-height));
     padding: var(--page-vertical-padding) var(--page-horizontal-padding);
-    height: calc(100vh - var(--nav-bar-height) + 1px); //1px - border size
   }
 }
 </style>

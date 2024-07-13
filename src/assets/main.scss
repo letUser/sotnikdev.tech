@@ -7,6 +7,8 @@
   --nav-bar-height: 48px;
   --page-vertical-padding: 80px;
   --page-horizontal-padding: 40px;
+  --left-menu-width: 240px;
+  --scroll-width: 6px;
   --max-z-index: 9;
   --pre-max-z-index: 8;
 }
@@ -30,7 +32,11 @@
 }
 
 *::-webkit-scrollbar {
-  width: 6px;
+  width: var(--scroll-width);
+}
+
+#app {
+  width: calc(100vw - var(--scroll-width));
 }
 
 header {

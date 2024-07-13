@@ -44,6 +44,7 @@ const route = useRoute()
 
 <style lang="scss">
 .menu-wrapper {
+  height: var(--nav-bar-height);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -53,6 +54,9 @@ const route = useRoute()
   background-size: 4px 4px;
   backdrop-filter: saturate(50%) blur(4px);
   -webkit-backdrop-filter: saturate(50%) blur(4px);
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
 
   .menu {
     display: flex;
@@ -78,6 +82,7 @@ const route = useRoute()
       .el-menu-item {
         background-color: transparent;
         padding: 0 0.75rem;
+        height: inherit;
 
         &.is-active {
           color: var(--el-color-primary);

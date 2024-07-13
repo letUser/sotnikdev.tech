@@ -6,7 +6,7 @@ import { useRoute, useRouter } from 'vue-router'
 const route = useRoute()
 const router = useRouter()
 
-// if there is no hash add default
+// if there is no hash - set default
 if (!route.hash?.length) {
   router.replace('#performance')
 }
@@ -19,7 +19,7 @@ const onSelect = (key: string) => {
 </script>
 
 <template>
-  <el-menu :default-active="route.hash" :collapse="isCollapse" @select="onSelect">
+  <el-menu class="left-menu" :default-active="route.hash" :collapse="isCollapse" @select="onSelect">
     <el-sub-menu index="1">
       <template #title>
         <span>Cloud Native SaaS & PaaS</span>
@@ -45,4 +45,8 @@ const onSelect = (key: string) => {
   </el-menu>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+.left-menu {
+  width: var(--left-menu-width);
+}
+</style>
