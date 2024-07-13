@@ -45,15 +45,13 @@ const onFrameLoad = () => {
     element-loading-text="Loading..."
   >
     <Transition name="iframe-fade">
-      <KeepAlive>
-        <iframe
-          v-show="!loading"
-          class="BI-frame"
-          title="BI-integration"
-          :src="`https://datalens.yandex/lbqnpzipxjbs8?_lang=en&_theme=${darkMode ? 'dark' : 'light'}`"
-          @load="onFrameLoad()"
-        ></iframe>
-      </KeepAlive>
+      <iframe
+        v-show="!loading"
+        class="BI-frame"
+        title="BI-integration"
+        :src="`https://datalens.yandex/lbqnpzipxjbs8?_lang=en&_theme=${darkMode ? 'dark' : 'light'}`"
+        @load="onFrameLoad()"
+      ></iframe>
     </Transition>
   </div>
 </template>
