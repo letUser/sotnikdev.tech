@@ -1,14 +1,18 @@
 <script setup lang="ts">
+import { useRoute } from 'vue-router'
 import VirtTable from './fintech/VirtTable.vue'
 import BIframe from './fintech/BIframe.vue'
+
+// current route
+const route = useRoute()
 </script>
 
 <template>
   <div>
     <div class="playground-fintech">
-      <VirtTable />
-
-      <BIframe />
+      <VirtTable v-if="route.hash === '#performance'" />
+      <!-- Use v-show here to cache HTML (temp solution) TODO: find out how we can save iframe instance after first v-if trigger -->
+      <BIframe v-show="route.hash === '#bi-integration'" />
     </div>
   </div>
 </template>

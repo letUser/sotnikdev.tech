@@ -1,20 +1,11 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import Map from './gis/Map.vue'
-
-const value = ref('Map')
-
-const options = ['Map']
 </script>
 
 <template>
   <div>
     <div class="playground-gis">
-      <Map v-show="value === 'Map'" />
-
-      <div class="playground-gis-segments-wrapper">
-        <el-segmented class="playground-gis-segments" v-model="value" :options="options" block />
-      </div>
+      <Map />
     </div>
   </div>
 </template>

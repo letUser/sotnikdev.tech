@@ -37,6 +37,7 @@ declare module 'vue' {
     ElTabs: typeof import('element-plus/es')['ElTabs']
     ElTimeline: typeof import('element-plus/es')['ElTimeline']
     ElTimelineItem: typeof import('element-plus/es')['ElTimelineItem']
+    ElWatermark: typeof import('element-plus/es')['ElWatermark']
     FinTechPlayground: typeof import('./src/components/FinTechPlayground.vue')['default']
     GisPlayground: typeof import('./src/components/GisPlayground.vue')['default']
     GitHub: typeof import('./src/components/icons/GitHub.vue')['default']
