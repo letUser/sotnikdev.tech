@@ -6,7 +6,7 @@ import { ref } from 'vue'
 
 const value = ref('Performance')
 
-const options = ['Performance', 'BI integration', 'Option 3', 'Option 4']
+const options = ['Performance', 'BI integration']
 </script>
 
 <template>

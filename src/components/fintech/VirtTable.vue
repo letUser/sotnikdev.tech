@@ -119,7 +119,7 @@ function onSort(sortBy: SortBy): void {
 
 /** */
 function onDeleteRow(rowIndex: number): void {
-  rawData.splice(rowIndex, 1)
+  data.value.splice(rowIndex, 1)
 }
 
 /** */
