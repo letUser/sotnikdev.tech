@@ -172,6 +172,7 @@ async function exportExcelLambda() {
         </el-button>
         <PO_exportXLS :data="data" :exportLoading="exportLoading" @exportExcel="exportExcel" />
         <el-button
+          v-if="false"
           type="primary"
           @click="exportExcelLambda"
           :disabled="!data.length"
