@@ -24,7 +24,7 @@ import { RouterLink } from 'vue-router'
           </div>
 
           <template #footer>
-            <router-link to="/portfolio">View Examples</router-link>
+            <router-link to="/portfolio#saas">View Examples</router-link>
           </template>
         </el-card>
 
@@ -40,7 +40,7 @@ import { RouterLink } from 'vue-router'
           </div>
 
           <template #footer>
-            <router-link to="/portfolio">View Examples</router-link>
+            <router-link to="/portfolio#performance">View Examples</router-link>
           </template>
         </el-card>
 
@@ -58,7 +58,7 @@ import { RouterLink } from 'vue-router'
           </div>
 
           <template #footer>
-            <router-link to="/portfolio">View Examples</router-link>
+            <router-link to="/portfolio#map">View Examples</router-link>
           </template>
         </el-card>
       </div>
