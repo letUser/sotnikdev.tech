@@ -11,6 +11,10 @@ if (!route.hash?.length) {
   router.replace('#performance')
 }
 
+// array that contains indexes of currently active sub-menus
+const opened = ['cloud', 'fintech', 'gis']
+
+// whether the menu is collapsed (available only in vertical mode)
 const isCollapse = ref(false)
 
 const onSelect = (key: string) => {
@@ -19,8 +23,14 @@ const onSelect = (key: string) => {
 </script>
 
 <template>
-  <el-menu class="left-menu" :default-active="route.hash" :collapse="isCollapse" @select="onSelect">
-    <el-sub-menu index="1">
+  <el-menu
+    class="left-menu"
+    :default-active="route.hash"
+    :default-openeds="opened"
+    :collapse="isCollapse"
+    @select="onSelect"
+  >
+    <el-sub-menu index="cloud">
       <template #title>
         <span>Cloud Native SaaS & PaaS</span>
       </template>
@@ -28,7 +38,7 @@ const onSelect = (key: string) => {
       <el-menu-item index="#paas">PaaS</el-menu-item>
     </el-sub-menu>
 
-    <el-sub-menu index="2">
+    <el-sub-menu index="fintech">
       <template #title>
         <span>FinTech & Blockchain</span>
       </template>
@@ -36,7 +46,7 @@ const onSelect = (key: string) => {
       <el-menu-item index="#bi-integration">BI integration</el-menu-item>
     </el-sub-menu>
 
-    <el-sub-menu index="3">
+    <el-sub-menu index="gis">
       <template #title>
         <span>GIS & Spatial systems</span>
       </template>
