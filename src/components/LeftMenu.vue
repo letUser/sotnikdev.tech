@@ -6,11 +6,8 @@ import { useRoute, useRouter } from 'vue-router'
 const route = useRoute()
 const router = useRouter()
 
-console.log(route.hash)
-
 // if there is no hash - set default
 if (!route.hash?.length) {
-  console.log(route.hash.length)
   router.replace('#performance')
 }
 
