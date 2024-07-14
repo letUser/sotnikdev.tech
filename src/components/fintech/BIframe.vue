@@ -60,13 +60,14 @@ const onFrameLoad = () => {
 .BI {
   width: 100%;
   height: 100%;
-  padding: 24px;
+  border-radius: var(--el-border-radius-base);
 
   &-frame {
     width: 100%;
     min-height: 100%;
     border: 1px solid var(--el-border-color);
     border-radius: var(--el-border-radius-base);
+    overflow: hidden;
   }
 }
 
@@ -85,5 +86,6 @@ const onFrameLoad = () => {
 .el-loading-mask {
   transition: 1s ease-out;
   z-index: var(--pre-max-z-index);
+  border-radius: var(--el-border-radius-base);
 }
 </style>

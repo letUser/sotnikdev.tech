@@ -38,7 +38,7 @@ const menuDict: { [index: string]: string } = {
         </div>
 
         <div v-if="menuDict[route.hash] === 'gis'" class="section-portfolio-playground-item">
-          <MapComponent v-if="route.hash === '#map'" />
+          <MapComponent v-show="route.hash === '#map'" />
         </div>
       </div>
     </div>
