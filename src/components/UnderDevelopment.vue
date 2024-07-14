@@ -12,7 +12,7 @@ const font = reactive({
 watch(
   isDark,
   () => {
-    font.color = isDark.value ? 'rgba(255, 255, 255, .35)' : 'rgba(0, 0, 0, .35)'
+    font.color = isDark.value ? 'rgba(255, 255, 255, .5)' : 'rgba(0, 0, 0, .5)'
   },
   {
     immediate: true

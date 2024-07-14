@@ -1,12 +1,23 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
 import LeftMenu from '../components/LeftMenu.vue'
+import SaasComponent from '../components/cloud/SaasComponent.vue'
+import PaasComponent from '../components/cloud/PaasComponent.vue'
 import VirtTable from '../components/fintech/VirtTable.vue'
 import BIframe from '../components/fintech/BIframe.vue'
-//import MapDemo from '../components/gis/MapDemo.vue'
+import MapComponent from '../components/gis/MapComponent.vue'
 
 // current route
 const route = useRoute()
+
+// menu dictionary
+const menuDict: { [index: string]: string } = {
+  '#saas': 'cloud',
+  '#paas': 'cloud',
+  '#performance': 'fintech',
+  '#bi-integration': 'fintech',
+  '#map': 'gis'
+}
 </script>
 
 <template>
@@ -15,15 +26,20 @@ const route = useRoute()
       <LeftMenu />
 
       <div class="section-portfolio-playground">
-        <div class="section-portfolio-playground-item">
-          <VirtTable v-if="route.hash === '#performance'" />
-          <!-- Use v-show here to cache HTML (temp solution). TODO: find out how we can save iframe instance after first v-if trigger -->
+        <div v-if="menuDict[route.hash] === 'cloud'" class="section-portfolio-playground-item">
+          <SaasComponent v-show="route.hash === '#saas'" />
+          <PaasComponent v-show="route.hash === '#paas'" />
+        </div>
+
+        <div v-if="menuDict[route.hash] === 'fintech'" class="section-portfolio-playground-item">
+          <VirtTable v-show="route.hash === '#performance'" />
+          <!-- TODO: find out how we can save iframe instance and do not reload data every v-if trigger -->
           <BIframe v-show="route.hash === '#bi-integration'" />
         </div>
 
-        <!-- <div class="section-portfolio-playground-item">
-          <Map v-if="route.hash === '#map'" />
-        </div> -->
+        <div v-if="menuDict[route.hash] === 'gis'" class="section-portfolio-playground-item">
+          <MapComponent v-if="route.hash === '#map'" />
+        </div>
       </div>
     </div>
   </div>
