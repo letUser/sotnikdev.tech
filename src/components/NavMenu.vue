@@ -27,7 +27,7 @@ const route = useRoute()
           ></el-menu-item
         >
         <el-menu-item index="portfolio"
-          ><router-link id="nav-portfolio" :index="2" to="/portfolio"
+          ><router-link id="nav-portfolio" :index="2" to="/portfolio#performance"
             >Portfolio</router-link
           ></el-menu-item
         >
@@ -81,8 +81,8 @@ const route = useRoute()
 
       .el-menu-item {
         background-color: transparent;
-        padding: 0 0.75rem;
         height: inherit;
+        padding: 0;
 
         &.is-active {
           color: var(--el-color-primary);
@@ -97,6 +97,7 @@ const route = useRoute()
           text-decoration: none;
           color: inherit;
           padding: 0;
+          padding: 0 0.75rem;
         }
       }
     }
