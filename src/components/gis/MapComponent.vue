@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
+import { onMounted, onUnmounted } from 'vue'
 import Map from 'ol/Map.js'
 import OSM from 'ol/source/OSM.js'
 import TileLayer from 'ol/layer/Tile.js'
@@ -36,14 +36,22 @@ onMounted(() => {
   )
 })
 
+onUnmounted(() => {
+  // delete component data
+  if (intervalId !== 0) window.clearInterval(intervalId)
+  notification1.close()
+  notification2.close()
+})
+
 // init latitude and longitute auto-transformation
 useGeographic()
 
 // id of interval for Geolocation enable checking
 let intervalId: number = 0
 
-// instance for notification of the error
-let notification: { close: Function } = { close: () => {} }
+// instances for notifications
+let notification1: { close: Function } = { close: () => {} }
+let notification2: { close: Function } = { close: () => {} }
 
 // default position object
 let currentPos: GeolocationCoordinates = {
@@ -80,7 +88,7 @@ const computeFitZoom = (accuracy: number): number => {
  * @param {Map} map map container
  */
 const onSuccess = (pos: GeolocationPosition, map: Map) => {
-  notification.close()
+  notification2.close()
 
   // if provided, set user's GeoData to the map
   map.getView().setZoom(18)
@@ -94,8 +102,10 @@ const onSuccess = (pos: GeolocationPosition, map: Map) => {
 
   // if accuracy rate is sadenly bad
   if (pos.coords.accuracy > 10000) {
+    notification1.close()
+
     // show Notification with info
-    ElNotification({
+    notification1 = ElNotification({
       duration: 5000,
       title: 'Oops',
       message: 'Poor Geolocation accuracy',
@@ -128,7 +138,7 @@ const onError = (err: GeolocationPositionError, map: Map) => {
   }, 2000)
 
   // show Notification with info
-  notification = ElNotification({
+  notification2 = ElNotification({
     duration: 10000,
     title: 'Please enable Geolocation',
     message: 'We want to provide you with the best user experience',
