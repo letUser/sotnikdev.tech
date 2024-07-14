@@ -6,7 +6,15 @@ const isDark = useDark() //true or false
 </script>
 
 <template>
-  <div class="profile-badge profile-badge--width-330" dir="ltr" style="margin-left: 0px">
+  <div
+    :class="{
+      'profile-badge': true,
+      'profile-badge--width-330': true,
+      'profile-badge--dark': isDark
+    }"
+    dir="ltr"
+    style="margin-left: 0px"
+  >
     <div
       :class="{
         'profile-badge__header': true,
@@ -161,12 +169,16 @@ const isDark = useDark() //true or false
     -1px 0px 1px rgba(0, 0, 0, 0.08),
     0px 1px 1px rgba(0, 0, 0, 0.08);
   padding: 0;
-  background-color: inherit;
+  background-color: rgba(255, 255, 255, 0.25);
   color: inherit;
   width: 100%;
   height: 100%;
-  backdrop-filter: saturate(50%) blur(4px);
-  -webkit-backdrop-filter: saturate(50%) blur(4px);
+  backdrop-filter: saturate(75%) blur(4px);
+  -webkit-backdrop-filter: saturate(75%) blur(4px);
+
+  &--dark {
+    background-color: rgb(20, 20, 20, 0.5);
+  }
 
   &__header {
     padding: 12px 16px;
