@@ -2,11 +2,19 @@
 import { onMounted, onUnmounted } from 'vue'
 import Map from 'ol/Map.js'
 import OSM from 'ol/source/OSM.js'
+import { Vector as VectorSource } from 'ol/source.js'
 import TileLayer from 'ol/layer/Tile.js'
+import { Vector as VectorLayer } from 'ol/layer.js'
 import View from 'ol/View.js'
 import { ScaleLine, defaults as defaultControls } from 'ol/control.js'
 import { useGeographic } from 'ol/proj'
+import GeoJSON from 'ol/format/GeoJSON.js'
+import Icon from 'ol/style/Icon.js'
+import Point from 'ol/geom/Point.js'
+import Feature from 'ol/Feature.js'
+import { Circle as CircleStyle, Fill, Stroke, Style } from 'ol/style.js'
 import { ElNotification } from 'element-plus'
+import location from '@/assets/location.svg'
 
 onMounted(() => {
   // init and declare map in onMounted to await id="map" HTMLElement creation
@@ -14,7 +22,17 @@ onMounted(() => {
     target: 'map',
     layers: [
       new TileLayer({
-        source: new OSM()
+        source: new OSM(),
+        preload: Infinity
+      }),
+      new VectorLayer({
+        source: vectorSource,
+        style: {
+          'icon-color': 'transparent',
+          'icon-src': location,
+          'icon-scale': 0.86,
+          'icon-anchor': [0.5, 1]
+        }
       })
     ],
     view: new View({
@@ -43,9 +61,6 @@ onUnmounted(() => {
   notification2.close()
 })
 
-// init latitude and longitute auto-transformation
-useGeographic()
-
 // id of interval for Geolocation enable checking
 let intervalId: number = 0
 
@@ -64,23 +79,13 @@ let currentPos: GeolocationCoordinates = {
   speed: null
 }
 
-/**
- * Compute best fit zoom level based on client's GeoData accuracy
- * @param {number} accuracy client's GeoData accuracy
- * @return {number} zoom level
- */
-const computeFitZoom = (accuracy: number): number => {
-  let zoom = accuracy
+// init latitude and longitute auto-transformation
+useGeographic()
 
-  // get number of digits
-  const digits = Math.trunc(Math.log10(accuracy))
-
-  for (let i = 0; i < digits; ++i) {
-    zoom = zoom / 10
-  }
-
-  return zoom
-}
+// ref to vectorSource of the map for fast access
+let vectorSource = new VectorSource({
+  features: [new Feature(new Point([currentPos.longitude, currentPos.latitude]))]
+})
 
 /**
  * Handling a successful geolocation request
@@ -90,8 +95,11 @@ const computeFitZoom = (accuracy: number): number => {
 const onSuccess = (pos: GeolocationPosition, map: Map) => {
   notification2.close()
 
+  vectorSource.clear()
+  vectorSource.addFeature(new Feature(new Point([pos.coords.longitude, pos.coords.latitude])))
+
   // if provided, set user's GeoData to the map
-  map.getView().setZoom(18)
+  map.getView().setZoom(17)
   map.getView().setCenter([pos.coords.longitude, pos.coords.latitude])
 
   // upd position info
@@ -113,7 +121,7 @@ const onSuccess = (pos: GeolocationPosition, map: Map) => {
     })
 
     // compute approximate zoom
-    map.getView().setZoom(computeFitZoom(pos.coords.accuracy))
+    map.getView().setZoom(9)
   }
 }
 

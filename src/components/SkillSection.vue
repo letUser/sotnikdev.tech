@@ -36,16 +36,6 @@ import DockerLogo from './icons/DockerLogo.vue'
 
       <div class="skills-item">
         <el-icon :size="48">
-          <type-script-logo />
-        </el-icon>
-        <div class="skills-item-info">
-          <h4 class="skills-item-info-name">TypeScript</h4>
-          <p class="skills-item-info-text">Senior-level experience in TypeScript</p>
-        </div>
-      </div>
-
-      <div class="skills-item">
-        <el-icon :size="48">
           <python-logo />
         </el-icon>
         <div class="skills-item-info">
@@ -56,11 +46,11 @@ import DockerLogo from './icons/DockerLogo.vue'
 
       <div class="skills-item">
         <el-icon :size="48">
-          <redis-logo />
+          <type-script-logo />
         </el-icon>
         <div class="skills-item-info">
-          <h4 class="skills-item-info-name">Redis</h4>
-          <p class="skills-item-info-text">Proficiency in Redis for blockchain</p>
+          <h4 class="skills-item-info-name">TypeScript</h4>
+          <p class="skills-item-info-text">Senior-level experience in TypeScript</p>
         </div>
       </div>
 
@@ -90,7 +80,7 @@ import DockerLogo from './icons/DockerLogo.vue'
         </el-icon>
         <div class="skills-item-info">
           <h4 class="skills-item-info-name">Docker</h4>
-          <p class="skills-item-info-text">Experience with Docker, Packer, and Terraform</p>
+          <p class="skills-item-info-text">Experience with Docker & Terraform</p>
         </div>
       </div>
     </div>
