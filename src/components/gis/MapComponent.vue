@@ -103,6 +103,8 @@ const onSuccess = (pos: GeolocationPosition) => {
     throw new Error('Map is not initialized')
   }
 
+  console.log(pos)
+
   // upd position info
   currentPos = pos.coords
 
@@ -117,7 +119,7 @@ const onSuccess = (pos: GeolocationPosition) => {
   if (intervalId !== 0) window.clearInterval(intervalId)
 
   // if accuracy rate is sadenly bad
-  if (pos.coords.accuracy > 10000) {
+  if (pos.coords.accuracy > 500) {
     notification1.close()
 
     // show Notification with info
