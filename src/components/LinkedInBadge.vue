@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
+import { useRoute } from 'vue-router'
 import SourceLinkedInBadge from './legacy/SourceLinkedInBadge.vue'
 import initResizeObserver from '../utils/resizeObserver'
 import { ArrowLeft } from '@element-plus/icons-vue'
@@ -11,8 +12,12 @@ onMounted(() => {
     // if window width over 960, then...
     if (window.innerWidth > 960) {
       setTimeout(() => {
-        isBadgeHidden.value = false
-        createAnimationsQuery()
+        if (route.name === 'summary') {
+          isBadgeHidden.value = false
+          createAnimationsQuery()
+        } else {
+          prepareComponent()
+        }
       }, 4000)
 
       // ...else, then...
@@ -23,8 +28,12 @@ onMounted(() => {
       initResizeObserver(html, (height: number, width: number, resizeObserver: ResizeObserver) => {
         // if window width over 960 start animation and remove observer
         if (width > 960) {
-          isBadgeHidden.value = false
-          createAnimationsQuery()
+          if (route.name === 'summary') {
+            isBadgeHidden.value = false
+            createAnimationsQuery()
+          } else {
+            prepareComponent()
+          }
 
           resizeObserver.unobserve(html)
         }
@@ -32,6 +41,9 @@ onMounted(() => {
     }
   }
 })
+
+// current route
+const route = useRoute()
 
 const isLIclosed = ref(Boolean(sessionStorage.getItem('sotnikdev.tech:isLIclosed')))
 const isBadgeHidden = ref(true)
@@ -43,6 +55,20 @@ const noDisplay = ref(true)
 const closeBadge = () => {
   isLIclosed.value = true
   sessionStorage.setItem('sotnikdev.tech:isLIclosed', 'true')
+}
+
+/**
+ * Prepare component for postanimation state
+ */
+const prepareComponent = () => {
+  const badgeWrapper = document.getElementById('legacyLIbadge') as HTMLElement
+
+  // set mouse leave event to handle badge hidding process
+  const parent = badgeWrapper.parentElement as HTMLElement
+  parent.onmouseleave = () => (isBadgeHidden.value = true)
+
+  // remove 'display: none' from bookmark
+  noDisplay.value = false
 }
 
 /**
@@ -62,12 +88,7 @@ const createAnimationsQuery = () => {
         //end pulse animation
         badgeWrapper.classList.remove('li-badge--pulse')
 
-        // set mouse leave event to handle badge hidding process
-        const parent = badgeWrapper.parentElement as HTMLElement
-        parent.onmouseleave = () => (isBadgeHidden.value = true)
-
-        // remove 'display: none' from bookmark
-        noDisplay.value = false
+        prepareComponent()
 
         // in 2 sec
         setTimeout(() => {
