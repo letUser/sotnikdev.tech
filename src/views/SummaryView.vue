@@ -58,7 +58,7 @@ const onMouseMove = ($ev: MouseEvent) => {
   display: flex;
   align-items: stretch;
   flex-direction: column;
-  padding: 80px 40px 0;
+  padding: var(--summary-vertical-padding) var(--page-horizontal-padding) 0;
   text-align: center;
 
   > div {

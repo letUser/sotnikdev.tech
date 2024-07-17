@@ -20,7 +20,7 @@ import DockerLogo from './icons/DockerLogo.vue'
         </el-icon>
         <div class="skills-item-info">
           <h4 class="skills-item-info-name">Vue</h4>
-          <p class="skills-item-info-text">Expert in Vue, both Composition & Options API</p>
+          <p class="skills-item-info-text">Expert in both Composition & Options API</p>
         </div>
       </div>
 
@@ -30,17 +30,7 @@ import DockerLogo from './icons/DockerLogo.vue'
         </el-icon>
         <div class="skills-item-info">
           <h4 class="skills-item-info-name">React</h4>
-          <p class="skills-item-info-text">Proficiency in React building web applications</p>
-        </div>
-      </div>
-
-      <div class="skills-item">
-        <el-icon :size="48">
-          <python-logo />
-        </el-icon>
-        <div class="skills-item-info">
-          <h4 class="skills-item-info-name">Python</h4>
-          <p class="skills-item-info-text">Experience building FinTech with Python</p>
+          <p class="skills-item-info-text">Proficiency in building web applications</p>
         </div>
       </div>
 
@@ -50,17 +40,17 @@ import DockerLogo from './icons/DockerLogo.vue'
         </el-icon>
         <div class="skills-item-info">
           <h4 class="skills-item-info-name">TypeScript</h4>
-          <p class="skills-item-info-text">Senior-level experience in TypeScript</p>
+          <p class="skills-item-info-text">Experience designing large projects</p>
         </div>
       </div>
 
       <div class="skills-item">
         <el-icon :size="48">
-          <postrges-logo />
+          <python-logo />
         </el-icon>
         <div class="skills-item-info">
-          <h4 class="skills-item-info-name">PostgreSQL</h4>
-          <p class="skills-item-info-text">Expertise in PostgreSQL including PostGIS</p>
+          <h4 class="skills-item-info-name">Python</h4>
+          <p class="skills-item-info-text">Proficiency building APIs</p>
         </div>
       </div>
 
@@ -81,6 +71,16 @@ import DockerLogo from './icons/DockerLogo.vue'
         <div class="skills-item-info">
           <h4 class="skills-item-info-name">Docker</h4>
           <p class="skills-item-info-text">Experience with Docker & Terraform</p>
+        </div>
+      </div>
+
+      <div class="skills-item">
+        <el-icon :size="48">
+          <postrges-logo />
+        </el-icon>
+        <div class="skills-item-info">
+          <h4 class="skills-item-info-name">PostgreSQL</h4>
+          <p class="skills-item-info-text">Expertise in PostGIS</p>
         </div>
       </div>
     </div>

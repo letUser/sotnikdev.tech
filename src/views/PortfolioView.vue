@@ -53,7 +53,7 @@ const menuDict: { [index: string]: string } = {
   &-playground {
     width: calc(100vw - var(--left-menu-width));
     height: calc(100vh - var(--nav-bar-height));
-    padding: var(--page-vertical-padding) var(--page-horizontal-padding);
+    padding: var(--portfolio-vertical-padding) var(--page-horizontal-padding);
 
     &-item {
       height: 100%;

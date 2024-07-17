@@ -9,16 +9,12 @@ import { RouterLink } from 'vue-router'
     <div class="summary">
       <div class="summary-cards">
         <el-card shadow="hover" class="summary-cards-item">
-          <template #header><h3>Cloud Native SaaS & PaaS</h3></template>
+          <template #header><h3>Cloud Native</h3></template>
 
           <div class="summary-cards-item-content">
             <el-timeline class="card-custom-list" style="max-width: 460px">
-              <el-timeline-item>
-                SaaS and PaaS solutions design & development from scratch
-              </el-timeline-item>
-              <el-timeline-item>
-                DevOps, Compute, and AI services integration into projects
-              </el-timeline-item>
+              <el-timeline-item> SaaS solutions design & development </el-timeline-item>
+              <el-timeline-item> DevOps, Compute, and AI services integration </el-timeline-item>
               <el-timeline-item> On-premise servers migration to hybrid cloud </el-timeline-item>
             </el-timeline>
           </div>
@@ -29,12 +25,14 @@ import { RouterLink } from 'vue-router'
         </el-card>
 
         <el-card shadow="hover" class="summary-cards-item">
-          <template #header><h3>FinTech & Blockchain</h3></template>
+          <template #header><h3>FinTech</h3></template>
 
           <div class="summary-cards-item-content">
             <el-timeline class="card-custom-list">
               <el-timeline-item> Analytics and monitoring tools development </el-timeline-item>
-              <el-timeline-item> Smart contracts design and tracking </el-timeline-item>
+              <el-timeline-item>
+                Performance & testing best practices integration
+              </el-timeline-item>
               <el-timeline-item> Web security practices implementation </el-timeline-item>
             </el-timeline>
           </div>
@@ -45,15 +43,13 @@ import { RouterLink } from 'vue-router'
         </el-card>
 
         <el-card shadow="hover" class="summary-cards-item">
-          <template #header><h3>GIS & Spatial systems</h3></template>
+          <template #header><h3>GIS</h3></template>
 
           <div class="summary-cards-item-content">
             <el-timeline class="card-custom-list">
-              <el-timeline-item> GIS systems full cycle design & development </el-timeline-item>
+              <el-timeline-item> Spatial web-apps full cycle development </el-timeline-item>
               <el-timeline-item> Complex maps realization via OpenLayers or Leaf </el-timeline-item>
-              <el-timeline-item>
-                Modern PostgreSQL and PostGIS features integration
-              </el-timeline-item>
+              <el-timeline-item> PostgreSQL with PostGIS features integration </el-timeline-item>
             </el-timeline>
           </div>
 

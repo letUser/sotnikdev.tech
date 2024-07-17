@@ -259,7 +259,7 @@ const exportExcelLambda = async () => {
     &-buttons {
       display: flex;
       justify-content: flex-end;
-      margin: 12px 0;
+      margin: 16px 0;
     }
   }
 }

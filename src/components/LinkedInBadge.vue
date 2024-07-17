@@ -63,12 +63,17 @@ const closeBadge = () => {
 const prepareComponent = () => {
   const badgeWrapper = document.getElementById('legacyLIbadge') as HTMLElement
 
+  if (!badgeWrapper) return
+
   // set mouse leave event to handle badge hidding process
   const parent = badgeWrapper.parentElement as HTMLElement
-  parent.onmouseleave = () => (isBadgeHidden.value = true)
 
-  // remove 'display: none' from bookmark
-  noDisplay.value = false
+  if (parent) {
+    parent.onmouseleave = () => (isBadgeHidden.value = true)
+
+    // remove 'display: none' from bookmark
+    noDisplay.value = false
+  }
 }
 
 /**
