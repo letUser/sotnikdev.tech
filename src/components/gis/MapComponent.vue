@@ -182,7 +182,6 @@ const onError = (err: GeolocationPositionError) => {
   position: fixed;
   padding: 4px;
   animation: slide-up 5s ease-in;
-  z-index: var(--pre-max-z-index);
 
   &-progress {
     width: 160px;
@@ -210,7 +209,7 @@ const onError = (err: GeolocationPositionError) => {
     .ol-viewport {
       border: 1px solid var(--el-border-color);
       border-radius: var(--el-border-radius-base);
-      z-index: var(--max-z-index);
+      z-index: var(--pre-max-z-index);
     }
   }
 }
