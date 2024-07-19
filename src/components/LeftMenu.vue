@@ -32,7 +32,7 @@ const onSelect = (key: string) => {
   >
     <el-sub-menu index="cloud">
       <template #title>
-        <span>Cloud Native SaaS & PaaS</span>
+        <span class="left-menu-title">Cloud Native</span>
       </template>
       <el-menu-item index="#saas">SaaS</el-menu-item>
       <el-menu-item index="#paas">PaaS</el-menu-item>
@@ -40,7 +40,7 @@ const onSelect = (key: string) => {
 
     <el-sub-menu index="fintech">
       <template #title>
-        <span>FinTech & Blockchain</span>
+        <span class="left-menu-title">FinTech</span>
       </template>
       <el-menu-item index="#performance">Performance</el-menu-item>
       <el-menu-item index="#bi-integration">BI integration</el-menu-item>
@@ -48,7 +48,7 @@ const onSelect = (key: string) => {
 
     <el-sub-menu index="gis">
       <template #title>
-        <span>GIS & Spatial systems</span>
+        <span class="left-menu-title">GIS</span>
       </template>
       <el-menu-item index="#map">Map</el-menu-item>
     </el-sub-menu>
@@ -58,5 +58,9 @@ const onSelect = (key: string) => {
 <style scoped lang="scss">
 .left-menu {
   width: var(--left-menu-width);
+
+  &-title {
+    font-weight: bolder;
+  }
 }
 </style>
