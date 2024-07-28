@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useRoute } from 'vue-router'
+import type MenuDict from '../interface/MenuDict'
 import LeftMenu from '../components/LeftMenu.vue'
 import SaasComponent from '../components/cloud/SaasComponent.vue'
 import PaasComponent from '../components/cloud/PaasComponent.vue'
@@ -11,12 +12,12 @@ import MapComponent from '../components/gis/MapComponent.vue'
 const route = useRoute()
 
 // menu dictionary
-const menuDict: { [index: string]: string } = {
-  '#saas': 'cloud',
-  '#paas': 'cloud',
-  '#performance': 'fintech',
-  '#bi-integration': 'fintech',
-  '#map': 'gis'
+const menuDict: MenuDict = {
+  '#saas': SaasComponent,
+  '#paas': PaasComponent,
+  '#performance': VirtTable,
+  '#bi-integration': BIframe,
+  '#map': MapComponent
 }
 </script>
 
@@ -26,19 +27,10 @@ const menuDict: { [index: string]: string } = {
       <LeftMenu />
 
       <div class="section-portfolio-playground">
-        <div v-if="menuDict[route.hash] === 'cloud'" class="section-portfolio-playground-item">
-          <SaasComponent v-show="route.hash === '#saas'" />
-          <PaasComponent v-show="route.hash === '#paas'" />
-        </div>
-
-        <div v-if="menuDict[route.hash] === 'fintech'" class="section-portfolio-playground-item">
-          <VirtTable v-show="route.hash === '#performance'" />
-          <!-- TODO: find out how we can save iframe instance and do not reload data every v-if trigger -->
-          <BIframe v-show="route.hash === '#bi-integration'" />
-        </div>
-
-        <div v-if="menuDict[route.hash] === 'gis'" class="section-portfolio-playground-item">
-          <MapComponent v-show="route.hash === '#map'" />
+        <div class="section-portfolio-playground-item">
+          <keep-alive :max="10">
+            <component :is="menuDict[route.hash]" />
+          </keep-alive>
         </div>
       </div>
     </div>
