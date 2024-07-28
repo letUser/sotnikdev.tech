@@ -38,17 +38,19 @@ const onMouseMove = ($ev: MouseEvent) => {
 
 <template>
   <main>
-    <div class="section-summary" @mousemove="onMouseMove">
-      <div class="section-summary-name">
-        <h1>Dan Sotnik</h1>
-        <p>A LinkedIn Top Voice Software Developer with over 5 years of experience</p>
+    <div class="section-summary">
+      <div @mousemove="onMouseMove">
+        <div class="section-summary-item section-summary-name">
+          <h1>Dan Sotnik</h1>
+          <p>A LinkedIn Top Voice Software Developer with over 5 years of experience</p>
+        </div>
+
+        <BrandImageWrapper id="brand-image-wrapper" class="section-summary-item" />
+
+        <SkillSection class="section-summary-item" />
       </div>
 
-      <BrandImageWrapper id="brand-image-wrapper" />
-
-      <SkillSection />
-
-      <SummaryInfo />
+      <SummaryInfo class="section-summary-item" />
     </div>
   </main>
 </template>
@@ -61,7 +63,7 @@ const onMouseMove = ($ev: MouseEvent) => {
   padding: var(--summary-vertical-padding) var(--page-horizontal-padding) 0;
   text-align: center;
 
-  > div {
+  &-item {
     margin-bottom: 5rem;
   }
 
