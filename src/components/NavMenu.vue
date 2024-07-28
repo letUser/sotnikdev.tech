@@ -15,8 +15,8 @@ const route = useRoute()
 
 <template>
   <div class="menu-wrapper">
-    <el-icon :size="38">
-      <ds-logo :isDark="isDark" />
+    <el-icon :size="38" class="ds-logo">
+      <router-link :index="3" to="/summary"><ds-logo :isDark="isDark" /></router-link>
     </el-icon>
 
     <div class="menu">
@@ -57,6 +57,14 @@ const route = useRoute()
   box-sizing: border-box;
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
+
+  .ds-logo {
+    cursor: pointer;
+
+    > a {
+      height: 1em;
+    }
+  }
 
   .menu {
     display: flex;
