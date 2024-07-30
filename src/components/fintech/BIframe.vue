@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { ref, watch, onDeactivated } from 'vue'
 import { useDark, useDebounceFn } from '@vueuse/core'
 
 // dark/light theme util
@@ -9,6 +9,10 @@ const isDark = useDark() //true or false
 const darkMode = ref(isDark.value)
 
 const loading = ref(true)
+
+onDeactivated(() => {
+  loading.value = true
+})
 
 /**
  * debounce function which invoke only once a second to prevent abuse via theme-mode switcher

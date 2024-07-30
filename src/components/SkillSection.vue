@@ -3,8 +3,7 @@ import VueLogo from './icons/VueLogo.vue'
 import ReactLogo from './icons/ReactLogo.vue'
 import TypeScriptLogo from './icons/TypeScriptLogo.vue'
 import PythonLogo from './icons/PythonLogo.vue'
-import RedisLogo from './icons/RedisLogo.vue'
-import PostrgesLogo from './icons/PostgresLogo.vue'
+import PostgresLogo from './icons/PostgresLogo.vue'
 import AwsLogo from './icons/AwsLogo.vue'
 import DockerLogo from './icons/DockerLogo.vue'
 </script>
@@ -76,7 +75,7 @@ import DockerLogo from './icons/DockerLogo.vue'
 
       <div class="skills-item">
         <el-icon :size="48">
-          <postrges-logo />
+          <postgres-logo />
         </el-icon>
         <div class="skills-item-info">
           <h4 class="skills-item-info-name">PostgreSQL</h4>
@@ -118,9 +117,6 @@ import DockerLogo from './icons/DockerLogo.vue'
 
         &-name {
           font-weight: 700;
-        }
-
-        &-text {
         }
       }
     }
