@@ -8,7 +8,7 @@ const router = useRouter()
 
 // if there is no hash - set default
 if (!route.hash?.length) {
-  router.replace('#performance')
+  router.replace('#ai')
 }
 
 // array that contains indexes of currently active sub-menus
@@ -42,8 +42,8 @@ const onSelect = (key: string) => {
       <template #title>
         <span class="left-menu-title">FinTech</span>
       </template>
-      <el-menu-item index="#performance">Performance</el-menu-item>
-      <el-menu-item index="#bi-integration">BI integration</el-menu-item>
+      <el-menu-item index="#perf">Performance</el-menu-item>
+      <el-menu-item index="#bi">Business intelligence (BI)</el-menu-item>
     </el-sub-menu>
 
     <el-sub-menu index="gis">

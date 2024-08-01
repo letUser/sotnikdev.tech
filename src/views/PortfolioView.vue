@@ -15,8 +15,8 @@ const route = useRoute()
 const menuDict: MenuDict = {
   '#ai': AiComponent,
   '#paas': PaasComponent,
-  '#performance': VirtTable,
-  '#bi-integration': BIframe,
+  '#perf': VirtTable,
+  '#bi': BIframe,
   '#map': MapComponent
 }
 </script>

@@ -14,13 +14,15 @@ import { RouterLink } from 'vue-router'
           <div class="summary-cards-item-content">
             <el-timeline class="card-custom-list" style="max-width: 460px">
               <el-timeline-item> SaaS solutions design & development </el-timeline-item>
-              <el-timeline-item> DevOps, Compute, and AI services integration </el-timeline-item>
+              <el-timeline-item>
+                DevOps, Compute, and AI cloud services integration
+              </el-timeline-item>
               <el-timeline-item> On-premise servers migration to hybrid cloud </el-timeline-item>
             </el-timeline>
           </div>
 
           <template #footer>
-            <router-link to="/portfolio#saas">View Examples</router-link>
+            <router-link to="/portfolio#ai">View Examples</router-link>
           </template>
         </el-card>
 
@@ -38,7 +40,7 @@ import { RouterLink } from 'vue-router'
           </div>
 
           <template #footer>
-            <router-link to="/portfolio#performance">View Examples</router-link>
+            <router-link to="/portfolio#perf">View Examples</router-link>
           </template>
         </el-card>
 

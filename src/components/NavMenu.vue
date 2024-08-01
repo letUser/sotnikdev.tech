@@ -27,7 +27,7 @@ const route = useRoute()
           ></el-menu-item
         >
         <el-menu-item index="portfolio"
-          ><router-link id="nav-portfolio" :index="2" to="/portfolio#performance"
+          ><router-link id="nav-portfolio" :index="2" to="/portfolio#ai"
             >Portfolio</router-link
           ></el-menu-item
         >
