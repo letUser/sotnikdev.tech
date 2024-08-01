@@ -23,18 +23,15 @@ export default defineConfig({
     }
   },
   server: {
-    headers: {
-      'Access-Control-Allow-Origin': '*'
-    },
     proxy: {
       '/api': {
         target: 'https://d5dt6p5vcdddtv25ckhs.apigw.yandexcloud.net',
         changeOrigin: true
       },
-      '/bucket': {
-        target: 'https://storage.yandexcloud.net/sotnikdev-export-xls-bucket/',
+      '/ai': {
+        target: 'https://d5dt6p5vcdddtv25ckhs.apigw.yandexcloud.net',
         changeOrigin: true
-      }
+      },
     }
   }
 })

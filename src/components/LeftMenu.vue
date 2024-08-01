@@ -34,7 +34,7 @@ const onSelect = (key: string) => {
       <template #title>
         <span class="left-menu-title">Cloud Native</span>
       </template>
-      <el-menu-item index="#saas">SaaS</el-menu-item>
+      <el-menu-item index="#ai">Artificial intelligence (AI)</el-menu-item>
       <el-menu-item index="#paas">PaaS</el-menu-item>
     </el-sub-menu>
 

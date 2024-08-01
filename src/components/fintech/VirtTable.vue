@@ -282,4 +282,3 @@ const exportExcelLambda = async () => {
   pointer-events: none;
 }
 </style>
-: number: string: number: string: void

@@ -7,6 +7,7 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    AiComponent: typeof import('./src/components/cloud/AiComponent.vue')['default']
     AwsLogo: typeof import('./src/components/icons/AwsLogo.vue')['default']
     BIframe: typeof import('./src/components/fintech/BIframe.vue')['default']
     BrandImageMain: typeof import('./src/components/icons/BrandImageMain.vue')['default']
@@ -25,10 +26,13 @@ declare module 'vue' {
     ElDropdownMenu: typeof import('element-plus/es')['ElDropdownMenu']
     ElEmpty: typeof import('element-plus/es')['ElEmpty']
     ElIcon: typeof import('element-plus/es')['ElIcon']
+    ElInput: typeof import('element-plus/es')['ElInput']
     ElMenu: typeof import('element-plus/es')['ElMenu']
     ElMenuItem: typeof import('element-plus/es')['ElMenuItem']
+    ElOption: typeof import('element-plus/es')['ElOption']
     ElPopover: typeof import('element-plus/es')['ElPopover']
     ElProgress: typeof import('element-plus/es')['ElProgress']
+    ElSelect: typeof import('element-plus/es')['ElSelect']
     ElSubMenu: typeof import('element-plus/es')['ElSubMenu']
     ElSwitch: typeof import('element-plus/es')['ElSwitch']
     ElTableV2: typeof import('element-plus/es')['ElTableV2']
@@ -50,10 +54,10 @@ declare module 'vue' {
     RedisLogo: typeof import('./src/components/icons/RedisLogo.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
-    SaasComponent: typeof import('./src/components/cloud/SaasComponent.vue')['default']
     SkillSection: typeof import('./src/components/SkillSection.vue')['default']
     SocialLinks: typeof import('./src/components/navigation/SocialLinks.vue')['default']
     SourceLinkedInBadge: typeof import('./src/components/legacy/SourceLinkedInBadge.vue')['default']
+    SpeakerIcon: typeof import('./src/components/icons/SpeakerIcon.vue')['default']
     SummaryInfo: typeof import('./src/components/SummaryInfo.vue')['default']
     SunIcon: typeof import('./src/components/icons/SunIcon.vue')['default']
     TypeScriptLogo: typeof import('./src/components/icons/TypeScriptLogo.vue')['default']

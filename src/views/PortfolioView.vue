@@ -2,7 +2,7 @@
 import { useRoute } from 'vue-router'
 import type MenuDict from '../interface/MenuDict'
 import LeftMenu from '../components/LeftMenu.vue'
-import SaasComponent from '../components/cloud/SaasComponent.vue'
+import AiComponent from '../components/cloud/AiComponent.vue'
 import PaasComponent from '../components/cloud/PaasComponent.vue'
 import VirtTable from '../components/fintech/VirtTable.vue'
 import BIframe from '../components/fintech/BIframe.vue'
@@ -13,7 +13,7 @@ const route = useRoute()
 
 // menu dictionary
 const menuDict: MenuDict = {
-  '#saas': SaasComponent,
+  '#ai': AiComponent,
   '#paas': PaasComponent,
   '#performance': VirtTable,
   '#bi-integration': BIframe,
