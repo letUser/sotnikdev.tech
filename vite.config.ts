@@ -22,16 +22,4 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
   },
-  server: {
-    proxy: {
-      '/api': {
-        target: 'https://d5dt6p5vcdddtv25ckhs.apigw.yandexcloud.net',
-        changeOrigin: true
-      },
-      '/ai': {
-        target: 'https://d5dt6p5vcdddtv25ckhs.apigw.yandexcloud.net',
-        changeOrigin: true
-      },
-    }
-  }
 })
