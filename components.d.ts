@@ -60,6 +60,7 @@ declare module 'vue' {
     SpeakerIcon: typeof import('./src/components/icons/SpeakerIcon.vue')['default']
     SummaryInfo: typeof import('./src/components/SummaryInfo.vue')['default']
     SunIcon: typeof import('./src/components/icons/SunIcon.vue')['default']
+    TextToSpeech: typeof import('./src/components/cloud/aiComponents/TextToSpeech.vue')['default']
     TypeScriptLogo: typeof import('./src/components/icons/TypeScriptLogo.vue')['default']
     UnderDevelopment: typeof import('./src/components/UnderDevelopment.vue')['default']
     VirtTable: typeof import('./src/components/fintech/VirtTable.vue')['default']

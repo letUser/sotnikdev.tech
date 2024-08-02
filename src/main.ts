@@ -13,4 +13,4 @@ app.use(router)
 
 app.mount('#app')
 
-axios.defaults.baseURL = 'https://d5dt6p5vcdddtv25ckhs.apigw.yandexcloud.net'
+axios.defaults.baseURL = 'https://api.sotnikdev.tech'
