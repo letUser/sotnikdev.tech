@@ -13,10 +13,8 @@ import { RouterLink } from 'vue-router'
 
           <div class="summary-cards-item-content">
             <el-timeline class="card-custom-list" style="max-width: 460px">
+              <el-timeline-item> AI and Serverless cloud services integration </el-timeline-item>
               <el-timeline-item> SaaS solutions design & development </el-timeline-item>
-              <el-timeline-item>
-                DevOps, Compute, and AI cloud services integration
-              </el-timeline-item>
               <el-timeline-item> On-premise servers migration to hybrid cloud </el-timeline-item>
             </el-timeline>
           </div>
@@ -50,7 +48,7 @@ import { RouterLink } from 'vue-router'
           <div class="summary-cards-item-content">
             <el-timeline class="card-custom-list">
               <el-timeline-item> Spatial web-apps full cycle development </el-timeline-item>
-              <el-timeline-item> Complex maps realization via OpenLayers or Leaf </el-timeline-item>
+              <el-timeline-item> Complex maps realization via OpenLayers </el-timeline-item>
               <el-timeline-item> PostgreSQL with PostGIS features integration </el-timeline-item>
             </el-timeline>
           </div>
