@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import axios from 'axios'
 import SpeakerIcon from '../../icons/SpeakerIcon.vue'
 import { Loading } from '@element-plus/icons-vue'
+import { handleSlowNetworkAlert } from '../../../utils/networkAlert'
 
 const BUCKET_URL = 'https://storage.yandexcloud.net/aibucket'
 
@@ -50,10 +51,15 @@ const audioFile = ref('')
 const loading = ref(false)
 const playing = ref(false)
 
+const isMobile = ref(/iPhone|iPad|iPod|Android/i.test(navigator.userAgent))
+
 /**
  * Synthesize text
  */
 const synthesizeText = async () => {
+  // set timerId
+  const timerId = handleSlowNetworkAlert()
+
   try {
     loading.value = true
     playing.value = false
@@ -79,6 +85,9 @@ const synthesizeText = async () => {
     console.error(err)
   } finally {
     loading.value = false
+
+    // clear timer
+    clearTimeout(timerId)
   }
 }
 
@@ -148,7 +157,13 @@ const onAudioEnd = () => {
       />
     </div>
 
-    <audio v-if="!loading" id="tw-audio" @ended="onAudioEnd" autoplay>
+    <audio
+      v-if="!loading"
+      id="tw-audio"
+      @ended="onAudioEnd"
+      :controls="isMobile"
+      :autoplay="!isMobile"
+    >
       <source :key="audioFile" :src="audioFile" type="audio/mpeg" />
     </audio>
   </div>
