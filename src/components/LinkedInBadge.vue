@@ -201,7 +201,7 @@ const createAnimationsQuery = () => {
   }
 }
 
-@media screen and (max-width: 960px) {
+@media screen and (max-width: 768px) {
   .linkedin-popper {
     display: none;
   }

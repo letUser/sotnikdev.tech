@@ -1,16 +1,25 @@
 <script setup lang="ts">
+import { inject } from 'vue'
+import type { Ref } from 'vue'
 import { useDark } from '@vueuse/core'
 import BrandImageMain from './icons/BrandImageMain.vue'
 import BrandImageModal from './icons/BrandImageModal.vue'
 import BrandImageMobile from './icons/BrandImageMobile.vue'
+import imageLight from '@/assets/mob-brand-image-light.png'
+import imageDark from '@/assets/mob-brand-image-dark.png'
 
 // dark/light theme util
 const isDark = useDark() //true or false
+
+// flag of mobile devices
+const isMobile = inject('isMobile') as Ref<boolean>
 </script>
 
 <template>
   <div class="brand-image-wrapper">
-    <div class="brand-image-wrapper-jumbotron">
+    <div v-if="!isMobile" class="brand-image-wrapper-jumbotron">
+      <!-- If not mobile version -->
+
       <el-icon class="brand-image-wrapper-jumbotron-modal">
         <brand-image-modal :isDark="isDark" />
       </el-icon>
@@ -20,6 +29,14 @@ const isDark = useDark() //true or false
       <el-icon class="brand-image-wrapper-jumbotron-mobile">
         <brand-image-mobile :isDark="isDark" />
       </el-icon>
+    </div>
+    <div v-else class="brand-image-wrapper-mobile">
+      <!-- If mobile version -->
+      <img
+        class="brand-image-wrapper-mobile-image"
+        :src="isDark ? imageDark : imageLight"
+        alt="brand image"
+      />
     </div>
   </div>
 </template>
@@ -65,6 +82,12 @@ const isDark = useDark() //true or false
       bottom: 0px;
       z-index: 2;
       transition: 0.3s ease-out;
+    }
+  }
+
+  &-mobile {
+    &-image {
+      width: 100%;
     }
   }
 }

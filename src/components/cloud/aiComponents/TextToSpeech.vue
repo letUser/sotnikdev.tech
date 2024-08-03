@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, inject } from 'vue'
+import type { Ref } from 'vue'
 import axios from 'axios'
 import SpeakerIcon from '../../icons/SpeakerIcon.vue'
 import { Loading } from '@element-plus/icons-vue'
@@ -52,7 +53,7 @@ const loading = ref(false)
 const playing = ref(false)
 
 // flag of mobile devices
-const isMobile = ref(/iPhone|iPad|iPod|Android/i.test(navigator.userAgent))
+const isMobile = inject('isMobile') as Ref<boolean>
 
 /**
  * Synthesize text

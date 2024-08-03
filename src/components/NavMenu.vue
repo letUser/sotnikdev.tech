@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, inject } from 'vue'
+import type { Ref } from 'vue'
 import { useDark } from '@vueuse/core'
 import { RouterLink, useRoute } from 'vue-router'
 import { MoreFilled, CloseBold } from '@element-plus/icons-vue'
@@ -15,7 +16,7 @@ const isDark = useDark() //true or false
 const route = useRoute()
 
 // flag of mobile devices
-const isMobile = ref(/iPhone|iPad|iPod|Android/i.test(navigator.userAgent))
+const isMobile = inject('isMobile') as Ref<boolean>
 
 // flag for mobile menu opening
 const isMenuOpened = ref(false)
@@ -158,7 +159,7 @@ const isMenuOpened = ref(false)
   }
 }
 
-@media screen and (max-width: 440px) {
+@media screen and (max-width: 768px) {
   .menu-wrapper {
     padding: 0 12px 0 24px;
 

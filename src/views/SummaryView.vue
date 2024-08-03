@@ -1,7 +1,12 @@
 <script setup lang="ts">
+import { inject } from 'vue'
+import type { Ref } from 'vue'
 import BrandImageWrapper from '../components/BrandImageWrapper.vue'
 import SkillSection from '../components/SkillSection.vue'
 import SummaryInfo from '../components/SummaryInfo.vue'
+
+// flag of mobile devices
+const isMobile = inject('isMobile') as Ref<boolean>
 
 /**
  * Handle Mouse Move event for Route scope
@@ -39,7 +44,7 @@ const onMouseMove = ($ev: MouseEvent) => {
 <template>
   <main>
     <div class="section-summary">
-      <div @mousemove="onMouseMove">
+      <div @mousemove="!isMobile ? onMouseMove : null">
         <div class="section-summary-item section-summary-name">
           <h1>Dan Sotnik</h1>
           <p>A LinkedIn Top Voice Software Developer with over 5 years of experience</p>
@@ -72,6 +77,22 @@ const onMouseMove = ($ev: MouseEvent) => {
       margin-top: 16px;
       font-size: 24px;
       color: var(--el-text-color-regular);
+    }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .section-summary {
+    padding: 30px 10px;
+
+    &-item {
+      margin-bottom: 24px;
+    }
+
+    &-name {
+      > p {
+        font-size: 16px;
+      }
     }
   }
 }

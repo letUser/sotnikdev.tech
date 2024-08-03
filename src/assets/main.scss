@@ -36,10 +36,6 @@
   width: var(--scroll-width);
 }
 
-#app {
-  width: calc(100vw - var(--scroll-width));
-}
-
 header {
   position: sticky;
   top: 0;

@@ -74,11 +74,11 @@ import { RouterLink } from 'vue-router'
     &-cards {
       display: grid;
       justify-content: center;
-      grid-template-columns: repeat(auto-fit, 480px);
+      grid-template-columns: repeat(auto-fit, minmax(360px, 480px));
       gap: 24px 48px;
 
       &-item {
-        width: 480px;
+        max-width: 480px;
         transition: transform 0.5s;
 
         &:hover {

@@ -59,6 +59,18 @@ provide('darkMode', darkMode)
   }
 }
 
+@media screen and (max-width: 768px) {
+  .theme-switch {
+    &:hover {
+      .el-switch {
+        .custom-action {
+          animation: none;
+        }
+      }
+    }
+  }
+}
+
 @keyframes pulse {
   0% {
     transform: scale(0.95);
