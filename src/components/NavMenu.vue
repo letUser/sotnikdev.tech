@@ -2,7 +2,7 @@
 import { ref, inject } from 'vue'
 import type { Ref } from 'vue'
 import { useDark } from '@vueuse/core'
-import { RouterLink, useRoute } from 'vue-router'
+import { RouterLink, useRouter, useRoute } from 'vue-router'
 import { MoreFilled, CloseBold } from '@element-plus/icons-vue'
 import DarkModeSwitch from './navigation/DarkModeSwitch.vue'
 import SocialLinks from './navigation/SocialLinks.vue'
@@ -12,7 +12,8 @@ import DsLogo from './icons/DsLogo.vue'
 // dark/light theme util
 const isDark = useDark() //true or false
 
-// current route
+// current router
+const router = useRouter()
 const route = useRoute()
 
 // flag of mobile devices
@@ -20,6 +21,33 @@ const isMobile = inject('isMobile') as Ref<boolean>
 
 // flag for mobile menu opening
 const isMenuOpened = ref(false)
+
+/**
+ * Handle mobile menu item click
+ * @param {string} to - link to
+ */
+const handleRouteChange = (to: string) => {
+  router.push(to).finally(() => {
+    changeMenuVisible()
+  })
+}
+
+/**
+ * Change menu visibility
+ */
+const changeMenuVisible = () => {
+  isMenuOpened.value = !isMenuOpened.value
+
+  const body = document.body as HTMLElement
+
+  if (body) {
+    if (isMenuOpened.value) {
+      body.classList.add('no-overflow-y')
+    } else {
+      body.classList.remove('no-overflow-y')
+    }
+  }
+}
 </script>
 
 <template>
@@ -55,7 +83,7 @@ const isMenuOpened = ref(false)
 
       <SocialLinks class="menu-item menu-item-no-padding" />
 
-      <div class="menu-more" @click="isMenuOpened = !isMenuOpened">
+      <div class="menu-more" @click="changeMenuVisible">
         <el-icon v-show="!isMenuOpened" :size="24">
           <more-filled />
         </el-icon>
@@ -67,13 +95,21 @@ const isMenuOpened = ref(false)
       <div v-if="isMenuOpened" class="menu-container fullscreen">
         <el-menu class="nav-menu" :default-active="route.name">
           <el-menu-item index="summary"
-            ><router-link id="nav-summary" :index="1" to="/summary"
-              >Summary</router-link
+            ><a
+              id="nav-summary"
+              :index="1"
+              href="/summary"
+              @click.prevent="handleRouteChange('/summary')"
+              >Summary</a
             ></el-menu-item
           >
           <el-menu-item index="portfolio"
-            ><router-link id="nav-portfolio" :index="2" to="/portfolio#ai"
-              >Portfolio</router-link
+            ><a
+              id="nav-portfolio"
+              :index="2"
+              href="/portfolio#ai"
+              @click.prevent="handleRouteChange('/portfolio#ai')"
+              >Portfolio</a
             ></el-menu-item
           >
         </el-menu>
@@ -208,5 +244,9 @@ const isMenuOpened = ref(false)
       }
     }
   }
+}
+
+.no-overflow-y {
+  overflow-y: hidden;
 }
 </style>
