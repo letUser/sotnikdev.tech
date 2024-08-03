@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, inject } from 'vue'
+import { ref, inject, reactive } from 'vue'
 import type { Ref } from 'vue'
 import { useDark } from '@vueuse/core'
 import { RouterLink, useRouter, useRoute } from 'vue-router'
@@ -8,6 +8,7 @@ import DarkModeSwitch from './navigation/DarkModeSwitch.vue'
 import SocialLinks from './navigation/SocialLinks.vue'
 import ContactsDropdown from './navigation/ContactsDropdown.vue'
 import DsLogo from './icons/DsLogo.vue'
+import { handleSlowNetworkAlert } from '../utils/networkAlert'
 
 // dark/light theme util
 const isDark = useDark() //true or false
@@ -15,6 +16,11 @@ const isDark = useDark() //true or false
 // current router
 const router = useRouter()
 const route = useRoute()
+
+const loading = reactive<{ [index: string]: boolean }>({
+  '/summary': false,
+  '/portfolio#ai': false
+})
 
 // flag of mobile devices
 const isMobile = inject('isMobile') as Ref<boolean>
@@ -26,10 +32,18 @@ const isMenuOpened = ref(false)
  * Handle mobile menu item click
  * @param {string} to - link to
  */
-const handleRouteChange = (to: string) => {
-  router.push(to).finally(() => {
+const handleRouteChange = async (to: string) => {
+  // set timerId
+  const timerId = handleSlowNetworkAlert()
+  loading[to] = true
+
+  try {
+    await router.push(to)
+  } finally {
     changeMenuVisible()
-  })
+    clearTimeout(timerId) // clear timer
+    loading[to] = false
+  }
 }
 
 /**
@@ -97,7 +111,7 @@ const changeMenuVisible = () => {
 
       <div v-if="isMenuOpened" class="menu-container fullscreen">
         <el-menu class="nav-menu" :default-active="route.name">
-          <el-menu-item index="summary"
+          <el-menu-item index="summary" v-loading="loading['/summary']"
             ><a
               id="nav-summary"
               :index="1"
@@ -106,7 +120,7 @@ const changeMenuVisible = () => {
               >Summary</a
             ></el-menu-item
           >
-          <el-menu-item index="portfolio"
+          <el-menu-item index="portfolio" v-loading="loading['/portfolio#ai']"
             ><a
               id="nav-portfolio"
               :index="2"

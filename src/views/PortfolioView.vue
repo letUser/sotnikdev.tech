@@ -50,7 +50,11 @@ const isMenuOpened = ref(false)
     </div>
 
     <div class="section-portfolio">
-      <LeftMenu v-show="!isMobile || isMenuOpened" class="section-portfolio-menu fullscreen" />
+      <LeftMenu
+        v-show="!isMobile || isMenuOpened"
+        class="section-portfolio-menu fullscreen"
+        @selected="isMenuOpened = !isMenuOpened"
+      />
 
       <div class="section-portfolio-playground">
         <div class="section-portfolio-playground-item">
@@ -88,7 +92,6 @@ const isMenuOpened = ref(false)
   }
 
   &-menu {
-    z-index: 1;
     width: var(--left-menu-width);
   }
 

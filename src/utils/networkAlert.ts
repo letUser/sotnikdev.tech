@@ -6,7 +6,7 @@ import { ElNotification } from 'element-plus'
  * @param {number} timer - miliseconds of timeout
  * @returns - Timeout id
  */
-export const handleSlowNetworkAlert = (timer: number = 25000) => {
+export const handleSlowNetworkAlert = (timer: number = 10000) => {
   const id = setTimeout(() => {
     // show Notification with info about start of export
     ElNotification({

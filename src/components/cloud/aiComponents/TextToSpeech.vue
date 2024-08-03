@@ -9,16 +9,15 @@ import { handleSlowNetworkAlert } from '../../../utils/networkAlert'
 const BUCKET_URL = 'https://storage.yandexcloud.net/aibucket'
 
 const defaultTexts: { [index: string]: string } = {
-  'en-US':
-    'Hello! Try writing something here and press "Convert" button to hear the synthesized speech.',
+  'en-US': 'Try writing something here and press "Convert" button to hear the synthesized speech.',
   'de-DE':
-    'Hallo! Versuchen Sie hier etwas zu schreiben und drücken Sie die "Convert"-Taste, um die synthetisierte Sprache anzuhören.',
+    'Versuchen Sie hier etwas zu schreiben und drücken Sie die "Convert"-Taste, um die synthetisierte Sprache anzuhören.',
   'ru-RU':
-    'Привет! Попробуйте написать что-нибудь здесь и нажмите кнопку "Convert", чтобы услышать синтезированную речь.',
+    'Попробуйте написать что-нибудь здесь и нажмите кнопку "Convert", чтобы услышать синтезированную речь.',
   'kk-KK':
-    'Сәлем! Мұнда бірдеңе жазып көріңіз және синтезделген сөзді тыңдау үшін "Convert" түймесін басыңыз.',
+    'Мұнда бірдеңе жазып көріңіз және синтезделген сөзді тыңдау үшін "Convert" түймесін басыңыз.',
   'uz-UZ':
-    'Salom! Bu yerda biror narsa yozishga harakat qiling va sintezlangan nutqni eshitish uchun "Convert" tugmasini bosing.'
+    'Bu yerda biror narsa yozishga harakat qiling va sintezlangan nutqni eshitish uchun "Convert" tugmasini bosing.'
 }
 const text = ref(defaultTexts['en-US'])
 

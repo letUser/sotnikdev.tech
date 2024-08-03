@@ -128,6 +128,10 @@ import { RouterLink } from 'vue-router'
     padding: 0;
   }
 
+  .el-timeline {
+    text-align: left;
+  }
+
   &:hover {
     .el-timeline {
       &-item {
@@ -142,6 +146,18 @@ import { RouterLink } from 'vue-router'
         }
       }
     }
+  }
+}
+
+@media screen and (max-width: 430px) {
+  .el-timeline {
+    font-size: 0.8rem;
+  }
+}
+
+@media screen and (max-width: 382px) {
+  .el-timeline {
+    font-size: 0.75rem;
   }
 }
 </style>

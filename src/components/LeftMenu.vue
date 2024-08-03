@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, inject } from 'vue'
+import type { Ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 
 // current route
@@ -17,9 +18,8 @@ const opened = ['cloud', 'fintech', 'gis']
 // whether the menu is collapsed (available only in vertical mode)
 const isCollapse = ref(false)
 
-const onSelect = (key: string) => {
-  router.push(key)
-}
+// flag of mobile devices
+const isMobile = inject('isMobile') as Ref<boolean>
 </script>
 
 <template>
@@ -28,7 +28,9 @@ const onSelect = (key: string) => {
     :default-active="route.hash"
     :default-openeds="opened"
     :collapse="isCollapse"
-    @select="onSelect"
+    @select="$emit('selected')"
+    :collapse-transition="!isMobile"
+    router
   >
     <el-sub-menu index="cloud">
       <template #title>
@@ -57,6 +59,8 @@ const onSelect = (key: string) => {
 
 <style scoped lang="scss">
 .left-menu {
+  z-index: var(--max-z-index);
+
   &-title {
     font-weight: bolder;
   }
