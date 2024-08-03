@@ -9,15 +9,15 @@ const BUCKET_URL = 'https://storage.yandexcloud.net/aibucket'
 
 const defaultTexts: { [index: string]: string } = {
   'en-US':
-    'Hello! Try writing something here and press "Speaker" button to hear the synthesized speech.',
+    'Hello! Try writing something here and press "Convert" button to hear the synthesized speech.',
   'de-DE':
-    'Hallo! Versuchen Sie hier etwas zu schreiben und drücken Sie die "Speaker"-Taste, um die synthetisierte Sprache anzuhören.',
+    'Hallo! Versuchen Sie hier etwas zu schreiben und drücken Sie die "Convert"-Taste, um die synthetisierte Sprache anzuhören.',
   'ru-RU':
-    'Привет! Попробуйте написать что-нибудь здесь и нажмите кнопку «Воспроизвести», чтобы услышать синтезированную речь.',
+    'Привет! Попробуйте написать что-нибудь здесь и нажмите кнопку "Convert", чтобы услышать синтезированную речь.',
   'kk-KK':
-    'Сәлем! Мұнда бірдеңе жазып көріңіз және синтезделген сөзді тыңдау үшін «Ойнату» түймесін басыңыз.',
+    'Сәлем! Мұнда бірдеңе жазып көріңіз және синтезделген сөзді тыңдау үшін "Convert" түймесін басыңыз.',
   'uz-UZ':
-    'Salom! Bu yerda biror narsa yozishga harakat qiling va sintezlangan nutqni eshitish uchun "Play" tugmasini bosing.'
+    'Salom! Bu yerda biror narsa yozishga harakat qiling va sintezlangan nutqni eshitish uchun "Convert" tugmasini bosing.'
 }
 const text = ref(defaultTexts['en-US'])
 
@@ -51,6 +51,7 @@ const audioFile = ref('')
 const loading = ref(false)
 const playing = ref(false)
 
+// flag of mobile devices
 const isMobile = ref(/iPhone|iPad|iPod|Android/i.test(navigator.userAgent))
 
 /**
@@ -79,6 +80,11 @@ const synthesizeText = async () => {
 
     // update src attribute for audio tag
     audioFile.value = `${BUCKET_URL}/${response.data.bucketKey}.mp3`
+
+    if (isMobile.value) {
+      const audio = document.getElementById('tw-audio') as HTMLMediaElement
+      if (audio) audio.play()
+    }
 
     playing.value = true
   } catch (err) {
@@ -141,7 +147,7 @@ const onAudioEnd = () => {
           class="synthesizer-controls-button"
           type="primary"
           @click="synthesizeText"
-          :disabled="loading"
+          :disabled="loading || !text.length"
         >
           <span>Convert</span>
         </el-button>
@@ -150,6 +156,7 @@ const onAudioEnd = () => {
       <el-input
         class="synthesizer-input"
         v-model="text"
+        :placeholder="defaultTexts[lang]"
         :rows="2"
         type="textarea"
         maxlength="250"
@@ -157,15 +164,16 @@ const onAudioEnd = () => {
       />
     </div>
 
-    <audio
-      v-if="!loading"
-      id="tw-audio"
-      @ended="onAudioEnd"
-      :controls="isMobile"
-      :autoplay="!isMobile"
-    >
-      <source :key="audioFile" :src="audioFile" type="audio/mpeg" />
-    </audio>
+    <div v-if="!isMobile">
+      <audio v-if="!loading" id="tw-audio" @ended="onAudioEnd" autoplay>
+        <source :src="audioFile" type="audio/mpeg" />
+      </audio>
+    </div>
+    <div v-else>
+      <audio :key="+loading" id="tw-audio" @ended="onAudioEnd" controls>
+        <source :src="audioFile" type="audio/mpeg" />
+      </audio>
+    </div>
   </div>
 </template>
 
