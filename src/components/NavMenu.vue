@@ -3,7 +3,7 @@ import { ref, inject, reactive } from 'vue'
 import type { Ref } from 'vue'
 import { useDark } from '@vueuse/core'
 import { RouterLink, useRouter, useRoute } from 'vue-router'
-import { MoreFilled, CloseBold } from '@element-plus/icons-vue'
+import { MoreFilled, CloseBold, Loading } from '@element-plus/icons-vue'
 import DarkModeSwitch from './navigation/DarkModeSwitch.vue'
 import SocialLinks from './navigation/SocialLinks.vue'
 import ContactsDropdown from './navigation/ContactsDropdown.vue'
@@ -28,21 +28,35 @@ const isMobile = inject('isMobile') as Ref<boolean>
 // flag for mobile menu opening
 const isMenuOpened = ref(false)
 
+// timerId of handleSlowNetworkAlert
+let timerId = 0
+
+/**
+ * Function to set all data to default state
+ */
+const toDefault = () => {
+  if (timerId) clearTimeout(timerId) // clear timer
+
+  for (const key of Object.keys(loading)) {
+    loading[key] = false
+  }
+}
+
 /**
  * Handle mobile menu item click
  * @param {string} to - link to
  */
 const handleRouteChange = async (to: string) => {
-  // set timerId
-  const timerId = handleSlowNetworkAlert()
+  toDefault()
+
+  timerId = handleSlowNetworkAlert() // set timerId
   loading[to] = true
 
   try {
     await router.push(to)
   } finally {
     changeMenuVisible()
-    clearTimeout(timerId) // clear timer
-    loading[to] = false
+    toDefault()
   }
 }
 
@@ -77,12 +91,12 @@ const changeMenuVisible = () => {
       <!-- If not mobile version -->
 
       <el-menu class="nav-menu" :default-active="route.name">
-        <el-menu-item index="summary"
+        <el-menu-item class="nav-menu-item" index="summary"
           ><router-link id="nav-summary" :index="1" to="/summary"
             >Summary</router-link
           ></el-menu-item
         >
-        <el-menu-item index="portfolio"
+        <el-menu-item class="nav-menu-item" index="portfolio"
           ><router-link id="nav-portfolio" :index="2" to="/portfolio#ai"
             >Portfolio</router-link
           ></el-menu-item
@@ -111,8 +125,15 @@ const changeMenuVisible = () => {
 
       <div v-if="isMenuOpened" class="menu-container fullscreen">
         <el-menu class="nav-menu" :default-active="route.name">
-          <el-menu-item index="summary" v-loading="loading['/summary']"
-            ><a
+          <el-menu-item class="nav-menu-item" index="summary">
+            <el-icon
+              v-if="loading['/summary']"
+              class="is-loading"
+              :size="24"
+              color="var(--el--color-primary)"
+              ><Loading
+            /></el-icon>
+            <a
               id="nav-summary"
               :index="1"
               href="/summary"
@@ -120,7 +141,13 @@ const changeMenuVisible = () => {
               >Summary</a
             ></el-menu-item
           >
-          <el-menu-item index="portfolio" v-loading="loading['/portfolio#ai']"
+          <el-menu-item class="nav-menu-item" index="portfolio">
+            <el-icon
+              v-if="loading['/portfolio#ai']"
+              class="is-loading"
+              :size="24"
+              color="var(--el--color-primary)"
+              ><Loading /></el-icon
             ><a
               id="nav-portfolio"
               :index="2"
@@ -185,11 +212,11 @@ const changeMenuVisible = () => {
       height: var(--nav-bar-height);
       border-right: none;
 
-      .el-menu-item {
+      &-item {
         width: 100%;
         background-color: transparent;
         height: inherit;
-        padding: 0;
+        padding-left: 0;
 
         &.is-active {
           color: var(--el-color-primary);
@@ -251,8 +278,10 @@ const changeMenuVisible = () => {
         flex-direction: column;
         height: fit-content;
 
-        .el-menu-item {
+        &-item {
+          padding: 0 12px;
           border-bottom: 2px solid var(--el-border-color);
+          overflow: hidden;
 
           a {
             font-weight: bolder;
