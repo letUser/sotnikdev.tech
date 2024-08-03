@@ -47,6 +47,7 @@ const onFrameLoad = () => {
     v-loading="loading"
     element-loading-background="var(--el-bg-color)"
     element-loading-text="Loading..."
+    element-loading-custom-class="bi-loading"
   >
     <Transition name="iframe-fade">
       <iframe
@@ -86,10 +87,12 @@ const onFrameLoad = () => {
 }
 </style>
 
-<style>
-.el-loading-mask {
-  transition: 1s ease-out;
-  z-index: var(--pre-max-z-index);
-  border-radius: var(--el-border-radius-base);
+<style lang="scss">
+.bi-loading {
+  .el-loading-mask {
+    transition: 1s ease-out;
+    z-index: var(--pre-max-z-index);
+    border-radius: var(--el-border-radius-base);
+  }
 }
 </style>

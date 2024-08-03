@@ -5,6 +5,7 @@
   background-color: var(--el-bg-color);
   border-color: var(--el-border-color);
   --nav-bar-height: 56px;
+  --mobile-menu-bar-height: 45px;
   --summary-vertical-padding: 80px;
   --portfolio-vertical-padding: 40px;
   --page-horizontal-padding: 40px;
@@ -45,7 +46,6 @@ header {
 }
 
 body {
-  min-height: 100vh;
   font-family: Inter, 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB',
     'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
   font-weight: 500;

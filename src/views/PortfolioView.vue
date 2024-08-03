@@ -71,14 +71,20 @@ const isMenuOpened = ref(false)
 .section-portfolio {
   text-align: center;
   display: flex;
+  height: 100%;
+
+  &-wrapper {
+    height: calc(100vh - var(--nav-bar-height));
+  }
 
   &-mobile-header {
-    position: fixed;
+    position: sticky;
     display: flex;
     width: 100%;
     padding: 12px 28px;
     font-size: 16px;
     border-bottom: 1px solid var(--el-border-color);
+    background-color: var(--el-bg-color);
 
     &-bttn {
       display: flex;
@@ -97,7 +103,7 @@ const isMenuOpened = ref(false)
 
   &-playground {
     width: calc(100vw - var(--left-menu-width));
-    height: calc(100vh - var(--nav-bar-height));
+    height: 100%;
     padding: var(--portfolio-vertical-padding) var(--page-horizontal-padding);
 
     &-item {
@@ -113,13 +119,17 @@ const isMenuOpened = ref(false)
 
 @media screen and (max-width: 764px) {
   .section-portfolio {
+    &-wrapper {
+      height: calc(100dvh - var(--nav-bar-height) - var(--mobile-menu-bar-height));
+    }
+
     &-menu {
       width: 100%;
       border-right: none;
 
       &.fullscreen {
         position: fixed;
-        top: calc(var(--nav-bar-height) + 45px);
+        top: calc(var(--nav-bar-height) + var(--mobile-menu-bar-height));
         right: 0;
         bottom: 0;
         left: 0;
@@ -128,8 +138,8 @@ const isMenuOpened = ref(false)
     }
 
     &-playground {
+      padding: 24px 10px 30px;
       width: 100%;
-      padding: 65px 10px 30px;
     }
   }
 }
