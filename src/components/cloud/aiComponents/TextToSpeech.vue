@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, inject } from 'vue'
+import { ref, inject, nextTick } from 'vue'
 import type { Ref } from 'vue'
 import axios from 'axios'
 import SpeakerIcon from '../../icons/SpeakerIcon.vue'
@@ -81,19 +81,26 @@ const synthesizeText = async () => {
     // update src attribute for audio tag
     audioFile.value = `${BUCKET_URL}/${response.data.bucketKey}.mp3`
 
+    loading.value = false
+
+    // waiting HTML audio tag rewriting
+    await nextTick()
+
+    // auto play programmably if mobile
     if (isMobile.value) {
       const audio = document.getElementById('tw-audio') as HTMLMediaElement
       if (audio) audio.play()
-    }
 
-    playing.value = true
+      playing.value = true
+    } else {
+      playing.value = true
+    }
   } catch (err) {
-    console.error(err)
-  } finally {
     loading.value = false
 
-    // clear timer
-    clearTimeout(timerId)
+    console.error(err)
+  } finally {
+    clearTimeout(timerId) // clear timer
   }
 }
 
@@ -157,8 +164,8 @@ const onAudioEnd = () => {
         class="synthesizer-input"
         v-model="text"
         :placeholder="defaultTexts[lang]"
-        :rows="2"
         type="textarea"
+        :autosize="{ minRows: 1, maxRows: 10 }"
         maxlength="250"
         show-word-limit
       />
@@ -253,6 +260,16 @@ const onAudioEnd = () => {
   }
   100% {
     background-position-x: 45%;
+  }
+}
+</style>
+
+<style lang="scss">
+.synthesizer {
+  &-input {
+    .el-textarea__inner {
+      padding: 5px 11px 1.5rem;
+    }
   }
 }
 </style>

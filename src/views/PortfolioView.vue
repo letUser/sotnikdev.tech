@@ -129,7 +129,7 @@ const isMenuOpened = ref(false)
 
     &-playground {
       width: 100%;
-      padding: calc(var(--portfolio-vertical-padding) + 45px) 10px 30px;
+      padding: 65px 10px 30px;
     }
   }
 }

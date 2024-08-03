@@ -30,6 +30,7 @@ watch(
 
 <style scoped lang="scss">
 .watermark-wrapper {
+  z-index: var(--pre-max-z-index);
   overflow: hidden;
 }
 </style>
