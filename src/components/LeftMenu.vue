@@ -57,8 +57,6 @@ const onSelect = (key: string) => {
 
 <style scoped lang="scss">
 .left-menu {
-  width: var(--left-menu-width);
-
   &-title {
     font-weight: bolder;
   }

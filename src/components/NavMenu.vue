@@ -53,7 +53,10 @@ const changeMenuVisible = () => {
 <template>
   <div class="menu-wrapper">
     <el-icon :size="38" class="ds-logo">
-      <router-link :index="3" to="/summary"><ds-logo :isDark="isDark" /></router-link>
+      <router-link v-if="!isMobile" :index="3" to="/summary"
+        ><ds-logo :isDark="isDark"
+      /></router-link>
+      <ds-logo v-else :isDark="isDark" />
     </el-icon>
 
     <div v-if="!isMobile" class="menu">
@@ -195,7 +198,7 @@ const changeMenuVisible = () => {
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 764px) {
   .menu-wrapper {
     padding: 0 12px 0 24px;
 

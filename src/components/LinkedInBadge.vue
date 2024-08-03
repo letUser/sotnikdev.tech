@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
+import { ref, inject, watch, onMounted } from 'vue'
+import type { Ref } from 'vue'
 import { useRoute } from 'vue-router'
 import SourceLinkedInBadge from './legacy/SourceLinkedInBadge.vue'
-import initResizeObserver from '../utils/resizeObserver'
 import { ArrowLeft } from '@element-plus/icons-vue'
 
 // show LinkedIn badge in 6sec after app creation
 onMounted(() => {
   // if LinkedIn wasn't closed by user, then...
   if (!isLIclosed.value) {
-    // if window width over 960, then...
-    if (window.innerWidth > 960) {
+    // if not mobile mode, then...
+    if (!isMobile.value) {
       setTimeout(() => {
         if (route.name === 'summary') {
           isBadgeHidden.value = false
@@ -19,31 +19,35 @@ onMounted(() => {
           prepareComponent()
         }
       }, 4000)
-
-      // ...else, then...
-    } else {
-      const html = document.querySelector('html') as Element
-
-      // track window width to control Badge component
-      initResizeObserver(html, (height: number, width: number, resizeObserver: ResizeObserver) => {
-        // if window width over 960 start animation and remove observer
-        if (width > 960) {
-          if (route.name === 'summary') {
-            isBadgeHidden.value = false
-            createAnimationsQuery()
-          } else {
-            prepareComponent()
-          }
-
-          resizeObserver.unobserve(html)
-        }
-      })
     }
   }
 })
 
 // current route
 const route = useRoute()
+
+// flag of mobile devices
+const isMobile = inject('isMobile') as Ref<boolean>
+
+// if mobile mode on app creation, then create watcher to track once
+// mobile mode will be changed to desktop
+if (isMobile.value) {
+  watch(
+    isMobile,
+    (val: boolean) => {
+      // if desktop mode
+      if (!val) {
+        if (route.name === 'summary') {
+          isBadgeHidden.value = false
+          createAnimationsQuery()
+        } else {
+          prepareComponent()
+        }
+      }
+    },
+    { once: true }
+  )
+}
 
 const isLIclosed = ref(Boolean(sessionStorage.getItem('sotnikdev.tech:isLIclosed')))
 const isBadgeHidden = ref(true)
@@ -201,7 +205,7 @@ const createAnimationsQuery = () => {
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 764px) {
   .linkedin-popper {
     display: none;
   }

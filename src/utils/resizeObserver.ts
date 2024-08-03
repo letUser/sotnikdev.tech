@@ -6,12 +6,12 @@ import { useDebounceFn } from '@vueuse/core'
  * @param {Function} callback callback method
  */
 export default function initResizeObserver(component: Element | HTMLElement, callback: Function): void {
-  const resizeObserver = new ResizeObserver(useDebounceFn((entries) => {
+  const resizeObserver = new ResizeObserver((entries) => {
     const entry = entries[0]
     const { height, width } = entry.contentRect
 
     callback(height, width, resizeObserver)
-  }, 1000))
+  })
 
   resizeObserver.observe(component)
 }
