@@ -88,8 +88,6 @@ const changeMenuVisible = () => {
     </el-icon>
 
     <div v-if="!isMobile" class="menu">
-      <!-- If not mobile version -->
-
       <el-menu class="nav-menu" :default-active="route.name">
         <el-menu-item class="nav-menu-item" index="summary"
           ><router-link id="nav-summary" :index="1" to="/summary"
@@ -110,8 +108,6 @@ const changeMenuVisible = () => {
       <ContactsDropdown class="menu-item" />
     </div>
     <div v-else class="menu">
-      <!-- If mobile version -->
-
       <SocialLinks class="menu-item menu-item-no-padding" />
 
       <div class="menu-more" @click="changeMenuVisible">

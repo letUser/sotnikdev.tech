@@ -120,11 +120,19 @@ import { RouterLink } from 'vue-router'
     }
   }
 }
+
+@media screen and (max-width: 764px) {
+  .summary-cards-item {
+    &:hover {
+      transform: none !important;
+    }
+  }
+}
 </style>
 
 <style lang="scss">
-.el-card {
-  &__footer {
+.summary-cards-item {
+  .el-card__footer {
     padding: 0;
   }
 
@@ -150,14 +158,18 @@ import { RouterLink } from 'vue-router'
 }
 
 @media screen and (max-width: 430px) {
-  .el-timeline {
-    font-size: 0.8rem;
+  .summary-cards-item {
+    .el-card__body {
+      padding: 20px 8px;
+    }
   }
 }
 
-@media screen and (max-width: 382px) {
-  .el-timeline {
-    font-size: 0.75rem;
+@media screen and (max-width: 388px) {
+  .summary-cards-item {
+    .el-timeline {
+      font-size: 0.85rem;
+    }
   }
 }
 </style>

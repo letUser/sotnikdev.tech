@@ -33,8 +33,8 @@ const onMouseMove = ($ev: MouseEvent) => {
         const modal = child.firstChild as HTMLElement
         const mobile = child.lastChild as HTMLElement
 
-        modal.style.transform = `translateX(${Xpos}px) translateY(${Ypos * -1}px)`
-        mobile.style.transform = `translateX(${Xpos}px) translateY(${Ypos * -1}px)`
+        if (modal) modal.style.transform = `translateX(${Xpos}px) translateY(${Ypos * -1}px)`
+        if (mobile) mobile.style.transform = `translateX(${Xpos}px) translateY(${Ypos * -1}px)`
       }
     }
   }
@@ -44,7 +44,7 @@ const onMouseMove = ($ev: MouseEvent) => {
 <template>
   <main>
     <div class="section-summary">
-      <div @mousemove="!isMobile ? onMouseMove : null">
+      <div @mousemove="!isMobile ? onMouseMove($event) : null">
         <div class="section-summary-item section-summary-name">
           <h1>Dan Sotnik</h1>
           <p>A LinkedIn Top Voice Software Developer with over 5 years of experience</p>

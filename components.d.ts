@@ -39,6 +39,7 @@ declare module 'vue' {
     ElTimeline: typeof import('element-plus/es')['ElTimeline']
     ElTimelineItem: typeof import('element-plus/es')['ElTimelineItem']
     ElWatermark: typeof import('element-plus/es')['ElWatermark']
+    FigmaLogo: typeof import('./src/components/icons/FigmaLogo.vue')['default']
     GitHub: typeof import('./src/components/icons/GitHub.vue')['default']
     LeftMenu: typeof import('./src/components/LeftMenu.vue')['default']
     LinkedIn: typeof import('./src/components/icons/LinkedIn.vue')['default']

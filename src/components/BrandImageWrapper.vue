@@ -18,8 +18,6 @@ const isMobile = inject('isMobile') as Ref<boolean>
 <template>
   <div class="brand-image-wrapper">
     <div v-if="!isMobile" class="brand-image-wrapper-jumbotron">
-      <!-- If not mobile version -->
-
       <el-icon class="brand-image-wrapper-jumbotron-modal">
         <brand-image-modal :isDark="isDark" />
       </el-icon>
@@ -31,7 +29,6 @@ const isMobile = inject('isMobile') as Ref<boolean>
       </el-icon>
     </div>
     <div v-else class="brand-image-wrapper-mobile">
-      <!-- If mobile version -->
       <img
         class="brand-image-wrapper-mobile-image"
         :src="isDark ? imageDark : imageLight"

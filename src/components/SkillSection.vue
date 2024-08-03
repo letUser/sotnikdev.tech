@@ -6,6 +6,7 @@ import PythonLogo from './icons/PythonLogo.vue'
 import PostgresLogo from './icons/PostgresLogo.vue'
 import AwsLogo from './icons/AwsLogo.vue'
 import DockerLogo from './icons/DockerLogo.vue'
+import FigmaLogo from './icons/FigmaLogo.vue'
 </script>
 
 <template>
@@ -80,6 +81,16 @@ import DockerLogo from './icons/DockerLogo.vue'
         <div class="skills-item-info">
           <h4 class="skills-item-info-name">PostgreSQL</h4>
           <p class="skills-item-info-text">Expertise in PostGIS</p>
+        </div>
+      </div>
+
+      <div class="skills-item">
+        <el-icon :size="48">
+          <figma-logo />
+        </el-icon>
+        <div class="skills-item-info">
+          <h4 class="skills-item-info-name">Figma</h4>
+          <p class="skills-item-info-text">Hands-on experience designing UI</p>
         </div>
       </div>
     </div>
