@@ -89,9 +89,9 @@ const onFrameLoad = () => {
 
 <style lang="scss">
 .bi-loading {
-  .el-loading-mask {
+  &.el-loading-mask {
     transition: 1s ease-out;
-    z-index: var(--pre-max-z-index);
+    z-index: var(--mid-z-index);
     border-radius: var(--el-border-radius-base);
   }
 }

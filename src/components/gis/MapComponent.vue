@@ -209,7 +209,7 @@ const onError = (err: GeolocationPositionError) => {
     .ol-viewport {
       border: 1px solid var(--el-border-color);
       border-radius: var(--el-border-radius-base);
-      z-index: var(--pre-max-z-index);
+      z-index: var(--mid-z-index);
     }
   }
 }

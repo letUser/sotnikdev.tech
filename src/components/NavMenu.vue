@@ -241,6 +241,7 @@ const changeMenuVisible = () => {
 
     .menu {
       &-more {
+        height: 24px;
         padding: 0 12px;
       }
 
@@ -257,6 +258,7 @@ const changeMenuVisible = () => {
           bottom: 0;
           left: 0;
           background-color: var(--el-bg-color);
+          z-index: var(--max-z-index);
         }
 
         &-theme-mode {

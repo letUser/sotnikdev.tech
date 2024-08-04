@@ -59,7 +59,7 @@ const isMobile = inject('isMobile') as Ref<boolean>
 
 <style scoped lang="scss">
 .left-menu {
-  z-index: var(--max-z-index);
+  z-index: var(--pre-max-z-index);
 
   &-title {
     font-weight: bolder;

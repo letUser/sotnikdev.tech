@@ -27,7 +27,25 @@ const menuDict: MenuDict = {
 // flag of mobile devices
 const isMobile = inject('isMobile') as Ref<boolean>
 
+// flag for mobile menu opening
 const isMenuOpened = ref(false)
+
+/**
+ * Change menu visibility
+ */
+const changeMenuVisible = () => {
+  isMenuOpened.value = !isMenuOpened.value
+
+  const body = document.body as HTMLElement
+
+  if (body) {
+    if (isMenuOpened.value) {
+      body.classList.add('no-overflow-y')
+    } else {
+      body.classList.remove('no-overflow-y')
+    }
+  }
+}
 </script>
 
 <template>
@@ -36,14 +54,14 @@ const isMenuOpened = ref(false)
       <div
         v-show="!isMenuOpened"
         class="section-portfolio-mobile-header-bttn"
-        @click="isMenuOpened = !isMenuOpened"
+        @click="changeMenuVisible"
       >
         <el-icon><menu-icon /></el-icon> <span>Menu</span>
       </div>
       <div
         v-show="isMenuOpened"
         class="section-portfolio-mobile-header-bttn"
-        @click="isMenuOpened = !isMenuOpened"
+        @click="changeMenuVisible"
       >
         <el-icon color="#606266"><close-bold /></el-icon> <span>Close</span>
       </div>
