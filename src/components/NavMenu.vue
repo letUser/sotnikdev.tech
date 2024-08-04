@@ -79,7 +79,7 @@ const changeMenuVisible = () => {
 </script>
 
 <template>
-  <div class="menu-wrapper">
+  <div class="menu-wrapper filtered-background">
     <el-icon :size="38" class="ds-logo">
       <router-link v-if="!isMobile" :index="3" to="/summary"
         ><ds-logo :isDark="isDark"
@@ -171,13 +171,6 @@ const changeMenuVisible = () => {
   align-items: center;
   padding: 0 2rem;
   border-bottom: 1px solid var(--el-border-color);
-  background-image: radial-gradient(transparent 1px, var(--el-bg-color) 1px);
-  background-size: 4px 4px;
-  backdrop-filter: saturate(50%) blur(4px);
-  -webkit-backdrop-filter: saturate(50%) blur(4px);
-  box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -webkit-box-sizing: border-box;
 
   .ds-logo {
     cursor: pointer;
@@ -235,7 +228,7 @@ const changeMenuVisible = () => {
   }
 }
 
-@media screen and (max-width: 764px) {
+@media screen and (max-width: 640px) {
   .menu-wrapper {
     padding: 0 12px 0 24px;
 

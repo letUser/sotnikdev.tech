@@ -59,6 +59,7 @@ const isMobile = inject('isMobile') as Ref<boolean>
 
 <style scoped lang="scss">
 .left-menu {
+  overflow-y: auto;
   z-index: var(--pre-max-z-index);
 
   &-title {

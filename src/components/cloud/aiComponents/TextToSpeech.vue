@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { ref, inject, nextTick } from 'vue'
-import type { Ref } from 'vue'
+import { ref } from 'vue'
 import axios from 'axios'
 import SpeakerIcon from '../../icons/SpeakerIcon.vue'
 import { Loading } from '@element-plus/icons-vue'
@@ -51,8 +50,8 @@ const audioFile = ref('')
 const loading = ref(false)
 const playing = ref(false)
 
-// flag of mobile devices
-const isMobile = inject('isMobile') as Ref<boolean>
+// flag of IOS devices
+const isIOS = /iPhone|iPod|iPad/.test(navigator.userAgent)
 
 /**
  * Synthesize text
@@ -82,19 +81,7 @@ const synthesizeText = async () => {
     audioFile.value = `${BUCKET_URL}/${response.data.bucketKey}.mp3`
 
     loading.value = false
-
-    // waiting HTML audio tag rewriting
-    await nextTick()
-
-    // auto play programmably if mobile
-    if (isMobile.value) {
-      const audio = document.getElementById('tw-audio') as HTMLMediaElement
-      if (audio) audio.play()
-
-      playing.value = true
-    } else {
-      playing.value = true
-    }
+    playing.value = true
   } catch (err) {
     loading.value = false
 
@@ -171,7 +158,7 @@ const onAudioEnd = () => {
       />
     </div>
 
-    <div v-if="!isMobile">
+    <div v-if="!isIOS">
       <audio v-if="!loading" id="tw-audio" @ended="onAudioEnd" autoplay>
         <source :src="audioFile" type="audio/mpeg" />
       </audio>
@@ -260,6 +247,12 @@ const onAudioEnd = () => {
   }
   100% {
     background-position-x: 45%;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  #tw-audio {
+    width: 100%;
   }
 }
 </style>

@@ -54,7 +54,7 @@ const isMobile = inject('isMobile') as Ref<boolean>
       font-size: 200px;
       left: 0px;
       bottom: 0px;
-      z-index: var(--max-z-index);
+      z-index: var(--pre-max-z-index);
       transition: 0.3s ease-out;
     }
 
@@ -63,7 +63,7 @@ const isMobile = inject('isMobile') as Ref<boolean>
       width: 630px;
       height: 380px;
       font-size: 640px;
-      z-index: var(--pre-max-z-index);
+      z-index: var(--mid-max-z-index);
 
       svg {
         height: 400px;
@@ -77,7 +77,7 @@ const isMobile = inject('isMobile') as Ref<boolean>
       font-size: 200px;
       right: 0px;
       bottom: 0px;
-      z-index: var(--max-z-index);
+      z-index: var(--pre-max-z-index);
       transition: 0.3s ease-out;
     }
   }

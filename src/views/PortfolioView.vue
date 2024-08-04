@@ -50,7 +50,7 @@ const changeMenuVisible = () => {
 
 <template>
   <div class="section-portfolio-wrapper">
-    <div v-if="isMobile" class="section-portfolio-mobile-header">
+    <div v-if="isMobile" class="section-portfolio-mobile-header filtered-background">
       <div
         v-show="!isMenuOpened"
         class="section-portfolio-mobile-header-bttn"
@@ -92,17 +92,17 @@ const changeMenuVisible = () => {
   height: 100%;
 
   &-wrapper {
-    height: calc(100vh - var(--nav-bar-height));
+    height: calc(100dvh - var(--nav-bar-height));
   }
 
   &-mobile-header {
-    position: sticky;
+    position: fixed;
     display: flex;
     width: 100%;
     padding: 12px 28px;
     font-size: 16px;
     border-bottom: 1px solid var(--el-border-color);
-    background-color: var(--el-bg-color);
+    z-index: var(--pre-max-z-index);
 
     &-bttn {
       display: flex;
@@ -129,18 +129,15 @@ const changeMenuVisible = () => {
       display: flex;
       flex-direction: column;
       align-items: stretch;
+      overflow: auto;
       border: 1px solid var(--el-border-color);
       border-radius: var(--el-border-radius-base);
     }
   }
 }
 
-@media screen and (max-width: 764px) {
+@media screen and (max-width: 640px) {
   .section-portfolio {
-    &-wrapper {
-      height: calc(100dvh - var(--nav-bar-height) - var(--mobile-menu-bar-height));
-    }
-
     &-menu {
       width: 100%;
       border-right: none;
@@ -156,8 +153,16 @@ const changeMenuVisible = () => {
     }
 
     &-playground {
-      padding: 24px 10px 30px;
+      padding: calc(var(--mobile-menu-bar-height) + 24px) 10px 30px;
       width: 100%;
+    }
+  }
+}
+
+@media screen and (max-height: 500px) {
+  .section-portfolio {
+    &-playground {
+      padding: 10px;
     }
   }
 }

@@ -49,7 +49,7 @@ if (isMobile.value) {
   )
 }
 
-const isLIclosed = ref(Boolean(sessionStorage.getItem('sotnikdev.tech:isLIclosed')))
+const isLIclosed = ref(false)
 const isBadgeHidden = ref(true)
 const noDisplay = ref(true)
 
@@ -181,6 +181,7 @@ const createAnimationsQuery = () => {
 
   &-bookmark {
     display: flex;
+    position: relative;
     justify-content: flex-end;
     align-items: baseline;
     opacity: 1;
@@ -205,9 +206,23 @@ const createAnimationsQuery = () => {
   }
 }
 
-@media screen and (max-width: 764px) {
+@media screen and (max-width: 640px) {
   .linkedin-popper {
     display: none;
+  }
+}
+
+@media screen and (max-height: 500px) {
+  .linkedin-popper {
+    &-bookmark {
+      top: 10vh;
+    }
+  }
+}
+
+@media screen and (max-height: 350px) {
+  .linkedin-popper {
+    visibility: hidden;
   }
 }
 

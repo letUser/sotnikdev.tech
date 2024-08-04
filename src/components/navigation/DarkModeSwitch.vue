@@ -59,7 +59,7 @@ provide('darkMode', darkMode)
   }
 }
 
-@media screen and (max-width: 764px) {
+@media screen and (max-width: 640px) {
   .theme-switch {
     &:hover {
       .el-switch {
