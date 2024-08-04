@@ -6,12 +6,12 @@ import LinkedInBadge from './components/LinkedInBadge.vue'
 import initResizeObserver from './utils/resizeObserver'
 
 // flag of mobile sizes
-const isMobile = ref(window.innerWidth < 640)
+const isMobile = ref(window.innerWidth < 770)
 
 // track window width to control isMobile flag
 initResizeObserver(document.body, (height: number, width: number) => {
   // set isMobile based on width
-  const result = width < 640
+  const result = width < 770
   if (isMobile.value !== result) isMobile.value = result
 })
 

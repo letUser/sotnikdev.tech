@@ -228,7 +228,7 @@ const changeMenuVisible = () => {
   }
 }
 
-@media screen and (max-width: 640px) {
+@media screen and (max-width: 770px) {
   .menu-wrapper {
     position: fixed;
     width: 100%;

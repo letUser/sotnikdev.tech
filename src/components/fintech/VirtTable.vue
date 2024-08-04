@@ -1,14 +1,23 @@
 <script setup lang="ts">
 import 'element-plus/es/components/notification/style/css'
-import { ref, h } from 'vue'
+import { ref, h, inject } from 'vue'
+import type { Ref } from 'vue'
 import { TableV2SortOrder } from 'element-plus'
 import type { SortBy } from 'element-plus'
 import { ElButton } from 'element-plus'
 import axios from 'axios'
+import { Download } from '@element-plus/icons-vue'
 import PO_exportXLS from '../popovers/PO_exportXLS.vue'
 import exportXLS from '../../utils/exportXLS'
 
-const columns = generateColumns(8)
+// flag of mobile devices
+const isMobile = inject('isMobile') as Ref<boolean>
+
+const defineColomnsNumber = () => {
+  return Math.min(Math.max(window.innerWidth / 100 - 2, 2), 8)
+}
+
+const columns = generateColumns(defineColomnsNumber())
 let rawData = [] as any[]
 const data = ref<any[]>([])
 const kls = ref<string>('')
@@ -186,14 +195,14 @@ const exportExcelLambda = async () => {
       </div>
       <div class="virt-table-info-buttons">
         <el-button @click="generateData(columns, 1000)" :disabled="data.length > 536000">
-          Add 1,000 items
+          Add 1,000
         </el-button>
         <el-button
           type="primary"
           @click="generateData(columns, 100000)"
           :disabled="data.length > 436000"
         >
-          Add 100,000 items
+          Add 100,000
         </el-button>
         <PO_exportXLS :data="data" :exportLoading="exportLoading" @exportExcel="exportExcel" />
         <el-button
@@ -203,7 +212,8 @@ const exportExcelLambda = async () => {
           :disabled="!data.length"
           :loading="exportLambdaLoading"
         >
-          Export XLS (Cloud)
+          <p v-if="!isMobile">Export XLS (Cloud)</p>
+          <el-icon v-else :size="24"><Download /></el-icon>
         </el-button>
       </div>
     </div>
@@ -245,6 +255,7 @@ const exportExcelLambda = async () => {
 
   &-info {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
 
     &-data {
@@ -257,7 +268,9 @@ const exportExcelLambda = async () => {
     }
 
     &-buttons {
+      width: 100%;
       display: flex;
+      flex-wrap: wrap;
       justify-content: flex-end;
       margin: 16px 0;
     }

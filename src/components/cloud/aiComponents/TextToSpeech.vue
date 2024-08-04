@@ -240,7 +240,7 @@ const onAudioEnd = () => {
   }
 }
 
-@media screen and (max-width: 640px) {
+@media screen and (max-width: 770px) {
   #tw-audio {
     width: 100%;
   }

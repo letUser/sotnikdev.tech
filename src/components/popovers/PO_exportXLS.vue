@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Document } from '@element-plus/icons-vue'
+import { Document, Download } from '@element-plus/icons-vue'
 
 const props = defineProps<{
   data: any[]
@@ -17,13 +17,19 @@ const props = defineProps<{
   >
     <template #reference>
       <el-button
+        class="exportXLS-popover-trigger"
         type="primary"
         @click="$emit('exportExcel')"
         :disabled="!props.data.length"
         :loading="props.exportLoading"
       >
-        <el-icon :size="16"><Document /></el-icon>
-        <span>Export .xls</span>
+        <div class="exportXLS-popover-trigger__isMobile">
+          <el-icon :size="24"><Download /></el-icon>
+        </div>
+        <div class="exportXLS-popover-trigger__isDesktop">
+          <el-icon :size="16"><Document /></el-icon>
+          <span>Export .xls</span>
+        </div>
       </el-button>
     </template>
     <template #default>
@@ -56,6 +62,17 @@ const props = defineProps<{
 <style scoped lang="scss">
 .exportXLS {
   &-popover {
+    &-trigger {
+      &__isMobile {
+        display: none;
+      }
+
+      &__isDesktop {
+        display: flex;
+        align-items: center;
+      }
+    }
+
     &-content {
       display: flex;
       flex-direction: column;
@@ -71,6 +88,22 @@ const props = defineProps<{
           font-style: italic;
           background-color: var(--el-color-info-light-7);
           padding: 4px;
+        }
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 720px) {
+  .exportXLS {
+    &-popover {
+      &-trigger {
+        &__isMobile {
+          display: block;
+        }
+
+        &__isDesktop {
+          display: none;
         }
       }
     }

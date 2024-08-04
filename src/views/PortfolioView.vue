@@ -136,7 +136,7 @@ const changeMenuVisible = () => {
   }
 }
 
-@media screen and (max-width: 640px) {
+@media screen and (max-width: 770px) {
   .section-portfolio {
     &-menu {
       width: 100%;
@@ -159,7 +159,7 @@ const changeMenuVisible = () => {
   }
 }
 
-@media screen and (max-height: 500px) {
+@media screen and (min-width: 770px) and (max-height: 500px) {
   .section-portfolio {
     &-playground {
       padding: 10px;

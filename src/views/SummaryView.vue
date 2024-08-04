@@ -81,7 +81,7 @@ const onMouseMove = ($ev: MouseEvent) => {
   }
 }
 
-@media screen and (max-width: 640px) {
+@media screen and (max-width: 770px) {
   .section-summary {
     padding: 30px 10px;
 
