@@ -50,9 +50,6 @@ const audioFile = ref('')
 const loading = ref(false)
 const playing = ref(false)
 
-// flag of IOS devices
-const isIOS = /iPhone|iPod|iPad/.test(navigator.userAgent)
-
 /**
  * Synthesize text
  */
@@ -158,16 +155,9 @@ const onAudioEnd = () => {
       />
     </div>
 
-    <div v-if="!isIOS">
-      <audio v-if="!loading" id="tw-audio" @ended="onAudioEnd" autoplay>
-        <source :src="audioFile" type="audio/mpeg" />
-      </audio>
-    </div>
-    <div v-else>
-      <audio :key="+loading" id="tw-audio" @ended="onAudioEnd" controls>
-        <source :src="audioFile" type="audio/mpeg" />
-      </audio>
-    </div>
+    <audio v-if="!loading" id="tw-audio" @ended="onAudioEnd" autoplay>
+      <source :src="audioFile" type="audio/mpeg" />
+    </audio>
   </div>
 </template>
 
