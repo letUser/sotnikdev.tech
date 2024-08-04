@@ -12,7 +12,7 @@ const props = defineProps<{
     class="exportXLS-popover"
     placement="bottom-start"
     title="Export table on a Client Side"
-    :width="440"
+    :width="350"
     trigger="hover"
   >
     <template #reference>
@@ -34,9 +34,9 @@ const props = defineProps<{
     </template>
     <template #default>
       <div class="exportXLS-popover-content">
-        <span>The most optimized way to export data without server power:</span>
+        <p>The most optimized way to export data without server power:</p>
         <div class="exportXLS-popover-content-text">
-          <span>
+          <p>
             1) Send data from table to
             <a
               target="_blank"
@@ -46,13 +46,13 @@ const props = defineProps<{
             >
               Worker</a
             >
-            - a background thread separated from main rendering thread
-          </span>
-          <span>
+            - a background thread separated from the main rendering thread
+          </p>
+          <p>
             2) Prepare it with
-            <span class="exportXLS-popover-content-text-code">O(rows * columns)</span></span
-          >
-          <span> 3) Download </span>
+            <span class="exportXLS-popover-content-text-code">O(rows * columns)</span>
+          </p>
+          <p>3) Download</p>
         </div>
       </div>
     </template>

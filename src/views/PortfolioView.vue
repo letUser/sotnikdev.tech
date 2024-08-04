@@ -115,16 +115,13 @@ const changeMenuVisible = () => {
     }
   }
 
-  &-menu {
-    width: var(--left-menu-width);
-  }
-
   &-playground {
     width: calc(100vw - var(--left-menu-width));
     height: 100%;
     padding: var(--portfolio-vertical-padding) var(--page-horizontal-padding);
 
     &-item {
+      width: 100%;
       height: 100%;
       display: flex;
       flex-direction: column;

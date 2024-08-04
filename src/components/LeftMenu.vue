@@ -2,6 +2,7 @@
 import { ref, inject } from 'vue'
 import type { Ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
+import { MostlyCloudy, Money, Location } from '@element-plus/icons-vue'
 
 // current route
 const route = useRoute()
@@ -34,6 +35,7 @@ const isMobile = inject('isMobile') as Ref<boolean>
   >
     <el-sub-menu index="cloud">
       <template #title>
+        <el-icon><mostly-cloudy /></el-icon>
         <span class="left-menu-title">Cloud Native</span>
       </template>
       <el-menu-item index="#ai">Artificial intelligence (AI)</el-menu-item>
@@ -42,6 +44,7 @@ const isMobile = inject('isMobile') as Ref<boolean>
 
     <el-sub-menu index="fintech">
       <template #title>
+        <el-icon><money /></el-icon>
         <span class="left-menu-title">FinTech</span>
       </template>
       <el-menu-item index="#perf">Performance</el-menu-item>
@@ -50,6 +53,7 @@ const isMobile = inject('isMobile') as Ref<boolean>
 
     <el-sub-menu index="gis">
       <template #title>
+        <el-icon><location /></el-icon>
         <span class="left-menu-title">GIS</span>
       </template>
       <el-menu-item index="#map">Map</el-menu-item>
@@ -61,6 +65,10 @@ const isMobile = inject('isMobile') as Ref<boolean>
 .left-menu {
   overflow-y: auto;
   z-index: var(--pre-max-z-index);
+
+  &:not(.el-menu--collapse) {
+    width: var(--left-menu-width);
+  }
 
   &-title {
     font-weight: bolder;
