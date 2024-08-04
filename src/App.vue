@@ -24,7 +24,7 @@ provide('isMobile', readonly(isMobile))
       <NavMenu />
     </header>
 
-    <RouterView />
+    <RouterView class="content-view" />
 
     <LinkedInBadge />
   </html>
@@ -37,6 +37,12 @@ provide('isMobile', readonly(isMobile))
 
   &.mobile {
     width: 100%;
+
+    .content-view {
+      width: 100%;
+      position: absolute;
+      top: var(--nav-bar-height);
+    }
   }
 }
 </style>
