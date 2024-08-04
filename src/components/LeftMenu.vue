@@ -66,10 +66,6 @@ const isMobile = inject('isMobile') as Ref<boolean>
   overflow-y: auto;
   z-index: var(--pre-max-z-index);
 
-  &:not(.el-menu--collapse) {
-    width: var(--left-menu-width);
-  }
-
   &-title {
     font-weight: bolder;
   }
