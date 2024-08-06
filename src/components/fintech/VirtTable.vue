@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import 'element-plus/es/components/notification/style/css'
-import { ref, h, inject } from 'vue'
+import { ref, h, inject, onMounted } from 'vue'
 import type { Ref } from 'vue'
 import { TableV2SortOrder } from 'element-plus'
 import type { SortBy } from 'element-plus'
@@ -8,17 +8,25 @@ import { ElButton } from 'element-plus'
 import axios from 'axios'
 import { Download } from '@element-plus/icons-vue'
 import PO_exportXLS from '../popovers/PO_exportXLS.vue'
+import { computeElementsNumber } from '../../utils/DOM_utils'
 import exportXLS from '../../utils/exportXLS'
 
-// flag of mobile devices
-const isMobile = inject('isMobile') as Ref<boolean>
+onMounted(() => {
+  // generate columns for table
+  columns = generateColumns(
+    computeElementsNumber(document.getElementById('virt-table-id'), 134, {
+      minElements: 2,
+      maxElements: 8,
+      filledSpace: 100
+    })
+  )
 
-const defineColomnsNumber = () => {
-  return Math.min(Math.max(window.innerWidth / 100 - 2, 2), 8)
-}
+  // generate initial table data
+  generateData(columns, 10000)
+})
 
-const columns = generateColumns(defineColomnsNumber())
-let rawData = [] as any[]
+let columns: any[] = []
+let rawData: any[] = []
 const data = ref<any[]>([])
 const kls = ref<string>('')
 const sortState = ref<SortBy>({
@@ -29,8 +37,8 @@ const currIndex = ref(0)
 const exportLoading = ref(false)
 const exportLambdaLoading = ref(false)
 
-// generate initial table data
-generateData(columns, 10000)
+// flag of mobile devices
+const isMobile = inject('isMobile') as Ref<boolean>
 
 /**
  * Function to build columns array for the table
@@ -39,7 +47,7 @@ generateData(columns, 10000)
  * @param {object} props additional data for column object
  * @returns {any[]} array of columns
  */
-function generateColumns(length = 8, prefix = 'column-', props?: any): any[] {
+const generateColumns = (length: number = 8, prefix: string = 'column-', props?: any): any[] => {
   const cols = Array.from({ length }).map((_, columnIndex) => ({
     ...props,
     key: `${prefix}${columnIndex}`,
@@ -77,7 +85,7 @@ function generateColumns(length = 8, prefix = 'column-', props?: any): any[] {
  * @param {string} prefix prefix for row name
  * @returns {void}
  */
-function generateData(columns: any[], length = 100, prefix = 'row-'): void {
+const generateData = (columns: any[], length: number = 100, prefix: string = 'row-'): void => {
   // drop sort ordering to default
   if (sortState.value.order === TableV2SortOrder.ASC) {
     onSort({

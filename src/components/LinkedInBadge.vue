@@ -140,7 +140,7 @@ const createAnimationsQuery = () => {
 
 <style scoped lang="scss">
 .linkedin-popper {
-  margin: 0 0 10px 0;
+  margin: 0 0 var(--page-padding-small) 0;
   display: flex;
   width: fit-content;
   height: fit-content;

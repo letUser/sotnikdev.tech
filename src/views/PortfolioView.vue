@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, inject } from 'vue'
+import { ref, inject, watch } from 'vue'
 import type { Ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { CloseBold } from '@element-plus/icons-vue'
@@ -27,14 +27,31 @@ const menuDict: MenuDict = {
 // flag of mobile devices
 const isMobile = inject('isMobile') as Ref<boolean>
 
+/**
+ * Track visibility mode to handle overflow-y block
+ */
+watch(isMobile, (mode: boolean) => {
+  if (!mode) changeMenuVisible(false)
+})
+
 // flag for mobile menu opening
 const isMenuOpened = ref(false)
+
+// flag for menu collapse state
+const isMenuCollapsed = ref(false)
+// get local storage menu data
+const storageData = localStorage.getItem('sotnikdev.tech:menu-collapsed')
+if (!storageData) {
+  isMenuCollapsed.value = window.innerWidth < 1200
+} else {
+  isMenuCollapsed.value = Boolean(Number(storageData))
+}
 
 /**
  * Change menu visibility
  */
-const changeMenuVisible = () => {
-  isMenuOpened.value = !isMenuOpened.value
+const changeMenuVisible = (val: boolean) => {
+  isMenuOpened.value = val
 
   const body = document.body as HTMLElement
 
@@ -54,14 +71,14 @@ const changeMenuVisible = () => {
       <div
         v-show="!isMenuOpened"
         class="section-portfolio-mobile-header-bttn"
-        @click="changeMenuVisible"
+        @click="changeMenuVisible(true)"
       >
         <el-icon><menu-icon /></el-icon> <span>Menu</span>
       </div>
       <div
         v-show="isMenuOpened"
         class="section-portfolio-mobile-header-bttn"
-        @click="changeMenuVisible"
+        @click="changeMenuVisible(false)"
       >
         <el-icon color="#606266"><close-bold /></el-icon> <span>Close</span>
       </div>
@@ -69,12 +86,19 @@ const changeMenuVisible = () => {
 
     <div class="section-portfolio">
       <LeftMenu
-        v-show="!isMobile || isMenuOpened"
-        class="section-portfolio-menu fullscreen"
+        v-if="!isMobile || isMenuOpened"
+        class="section-portfolio-menu"
+        :isMenuCollapsed="isMenuCollapsed"
         @selected="isMenuOpened = !isMenuOpened"
+        @collapseTriggered="(val: boolean) => (isMenuCollapsed = val)"
       />
 
-      <div class="section-portfolio-playground">
+      <div
+        :class="{
+          'section-portfolio-playground': true,
+          expanded: !isMobile && isMenuCollapsed
+        }"
+      >
         <div class="section-portfolio-playground-item">
           <keep-alive :max="10">
             <component :is="menuDict[route.hash]" />
@@ -89,6 +113,7 @@ const changeMenuVisible = () => {
 .section-portfolio {
   text-align: center;
   display: flex;
+  justify-content: space-between;
   height: 100%;
 
   &-wrapper {
@@ -116,9 +141,15 @@ const changeMenuVisible = () => {
   }
 
   &-playground {
-    width: calc(100vw - var(--left-menu-width));
+    width: calc(100% - var(--left-menu-width));
     height: 100%;
     padding: var(--portfolio-vertical-padding) var(--page-horizontal-padding);
+    transition: width 0.5s ease;
+
+    &.expanded {
+      width: calc(100% - var(--left-menu-width-collapsed));
+      transition: none;
+    }
 
     &-item {
       width: 100%;
@@ -135,31 +166,18 @@ const changeMenuVisible = () => {
 
 @media screen and (max-width: 770px) {
   .section-portfolio {
-    &-menu {
-      width: 100%;
-      border-right: none;
-
-      &.fullscreen {
-        position: fixed;
-        top: calc(var(--nav-bar-height) + var(--mobile-menu-bar-height));
-        right: 0;
-        bottom: 0;
-        left: 0;
-        background-color: var(--el-bg-color);
-      }
-    }
-
     &-playground {
-      padding: calc(var(--mobile-menu-bar-height) + 24px) 10px 30px;
+      padding: calc(var(--mobile-menu-bar-height) + 24px) var(--page-padding-small) 30px;
       width: 100%;
+      transition: none;
     }
   }
 }
 
-@media screen and (min-width: 770px) and (max-height: 500px) {
+@media screen and (min-width: 770px) and (max-width: 1200px) {
   .section-portfolio {
     &-playground {
-      padding: 10px;
+      padding: var(--page-padding-small);
     }
   }
 }

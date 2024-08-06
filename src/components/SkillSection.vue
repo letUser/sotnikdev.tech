@@ -116,7 +116,7 @@ import FigmaLogo from './icons/FigmaLogo.vue'
     &-item {
       display: flex;
       align-items: center;
-      margin: 0 20px 10px;
+      margin: 0 20px var(--page-padding-small);
 
       &-info {
         display: flex;
