@@ -53,7 +53,7 @@ if (!storageData) {
 const changeMenuVisible = (val: boolean) => {
   isMenuOpened.value = val
 
-  const body = document.body as HTMLElement
+  const body = document.getElementsByClassName('content-view')[0] as HTMLElement
 
   if (body) {
     if (isMenuOpened.value) {

@@ -58,12 +58,27 @@ const collapseHandle = () => {
 }
 
 /**
- * Handle select event of menu item
+ * Handle select event of menu item for touch events and collapsed menu
  * @param index index of selected menu item
  * @param indexPath indexes represented as a path
  */
-const onSelect = (index: string, indexPath: string[]) => {
-  menu.value.close(index, indexPath)
+const onSelect = () => {
+  if (isCollapse.value) {
+    // take all menus poppers
+    const poppers = document.getElementsByClassName(
+      'left-menu-popper'
+    ) as HTMLCollectionOf<HTMLElement>
+
+    // put execution to the end of the thread
+    setTimeout(() => {
+      for (const popper of poppers) {
+        if (!popper.classList.contains('el-menu--popup-container')) {
+          popper.style.display = 'none'
+        }
+      }
+    }, 115)
+  }
+
   emit('selected', undefined)
 }
 </script>
@@ -73,7 +88,7 @@ const onSelect = (index: string, indexPath: string[]) => {
     ref="menu"
     :class="{ 'left-menu': true, fullscreen: isMobile }"
     :default-active="route.hash"
-    :default-openeds="opened"
+    :default-openeds="!isCollapse ? opened : []"
     :collapse="!isMobile && isCollapse"
     @select="onSelect"
     router
@@ -87,7 +102,7 @@ const onSelect = (index: string, indexPath: string[]) => {
       <el-icon :class="{ 'to-left': !isCollapse }"><DArrowRight /></el-icon>
     </el-button>
 
-    <el-sub-menu index="cloud">
+    <el-sub-menu index="cloud" popper-class="left-menu-popper">
       <template #title>
         <el-icon><mostly-cloudy /></el-icon>
         <span class="left-menu-title">Cloud Native</span>
@@ -96,7 +111,7 @@ const onSelect = (index: string, indexPath: string[]) => {
       <el-menu-item index="#paas">PaaS</el-menu-item>
     </el-sub-menu>
 
-    <el-sub-menu index="fintech">
+    <el-sub-menu index="fintech" popper-class="left-menu-popper">
       <template #title>
         <el-icon><money /></el-icon>
         <span class="left-menu-title">FinTech</span>
@@ -105,7 +120,7 @@ const onSelect = (index: string, indexPath: string[]) => {
       <el-menu-item index="#perf">Performance</el-menu-item>
     </el-sub-menu>
 
-    <el-sub-menu index="gis">
+    <el-sub-menu index="gis" popper-class="left-menu-popper">
       <template #title>
         <el-icon><location /></el-icon>
         <span class="left-menu-title">GIS</span>
