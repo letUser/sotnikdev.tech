@@ -25,9 +25,13 @@ onMounted(() => {
   generateData(columns, 10000)
 })
 
+const virtTable: Ref<any> = ref(null)
 let columns: any[] = []
 let rawData: any[] = []
 const data = ref<any[]>([])
+let currentClientY = 0
+let prevClientY = -1
+const controlMode = ref(false)
 const kls = ref<string>('')
 const sortState = ref<SortBy>({
   key: 'column-0',
@@ -67,7 +71,12 @@ const generateColumns = (length: number = 8, prefix: string = 'column-', props?:
     cellRenderer: ({ rowIndex }: { rowIndex: number }) => {
       return h(
         ElButton,
-        { size: 'small', type: 'danger', onClick: () => onDeleteRow(rowIndex) },
+        {
+          size: 'small',
+          type: 'danger',
+          disabled: isMobile.value && !controlMode.value,
+          onClick: () => onDeleteRow(rowIndex)
+        },
         () => 'Delete'
       )
     },
@@ -140,6 +149,26 @@ const cellProps = ({ columnIndex }: any) => {
     onMouseleave: () => {
       kls.value = ''
     }
+  }
+}
+
+/**
+ * Touch move event handler to proceed like a scroll for mobile devices
+ * @param {TouchEvent} $ev - touch event
+ */
+const onTouchMove = ($ev: TouchEvent) => {
+  $ev.preventDefault()
+
+  const touchData: Touch = $ev.touches[0]
+
+  if (touchData) {
+    const scrollDistance =
+      touchData.clientY < prevClientY ? currentClientY + 192 : currentClientY - 192
+
+    virtTable.value.scrollToTop(scrollDistance)
+
+    currentClientY = scrollDistance
+    prevClientY = touchData.clientY
   }
 }
 
@@ -229,6 +258,7 @@ const exportExcelLambda = async () => {
     <el-auto-resizer>
       <template #default="{ height, width }">
         <el-table-v2
+          ref="virtTable"
           :columns="columns"
           :cell-props="cellProps"
           :class="kls"
@@ -245,9 +275,26 @@ const exportExcelLambda = async () => {
               <el-empty />
             </div>
           </template>
+          <template v-if="isMobile && !controlMode" #overlay>
+            <div style="width: 100%; height: 100%" @touchmove="onTouchMove" />
+          </template>
         </el-table-v2>
       </template>
     </el-auto-resizer>
+
+    <div v-if="isMobile" class="virt-table-footer">
+      <el-divider class="virt-table-footer-divider" />
+      <el-switch
+        v-model="controlMode"
+        class="virt-table-footer-switch"
+        style="
+          --el-switch-on-color: var(--el-color-primary);
+          --el-switch-off-color: var(--el-color-primary);
+        "
+        active-text="Control"
+        inactive-text="Scroll"
+      />
+    </div>
   </div>
 </template>
 
@@ -258,7 +305,6 @@ const exportExcelLambda = async () => {
     padding: 24px;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
   }
 
   &-info {
@@ -283,6 +329,17 @@ const exportExcelLambda = async () => {
       margin: 16px 0;
     }
   }
+
+  &-footer {
+    &-divider {
+      margin-top: 0;
+    }
+  }
+}
+
+.overlay-scrolling-container {
+  width: 100%;
+  height: 100%;
 }
 </style>
 
@@ -299,7 +356,5 @@ const exportExcelLambda = async () => {
 
 [data-key='hovering-col-0'] {
   font-weight: bold;
-  user-select: none;
-  pointer-events: none;
 }
 </style>
