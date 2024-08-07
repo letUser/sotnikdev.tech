@@ -21,7 +21,10 @@ if (!route.hash?.length) {
 }
 
 // ref to menu's expose
-const menu: Ref<{ open: (index: string, indexPath: string[]) => void }> = ref({ open: () => {} })
+const menu: Ref<{
+  open: (index: string, indexPath: string[]) => void
+  close: (index: string, indexPath: string[]) => void
+}> = ref({ open: () => {}, close: () => {} })
 
 // array that contains indexes of currently active sub-menus
 const opened = ['cloud', 'fintech', 'gis']
@@ -53,6 +56,16 @@ const collapseHandle = () => {
   // save to the local storage
   localStorage.setItem('sotnikdev.tech:menu-collapsed', storageResult)
 }
+
+/**
+ * Handle select event of menu item
+ * @param index index of selected menu item
+ * @param indexPath indexes represented as a path
+ */
+const onSelect = (index: string, indexPath: string[]) => {
+  menu.value.close(index, indexPath)
+  emit('selected', undefined)
+}
 </script>
 
 <template>
@@ -62,7 +75,7 @@ const collapseHandle = () => {
     :default-active="route.hash"
     :default-openeds="opened"
     :collapse="!isMobile && isCollapse"
-    @select="emit('selected', undefined)"
+    @select="onSelect"
     router
   >
     <el-button

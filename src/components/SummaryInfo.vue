@@ -12,7 +12,7 @@ import { RouterLink } from 'vue-router'
           <template #header><h3>Cloud Native</h3></template>
 
           <div class="summary-cards-item-content">
-            <el-timeline class="card-custom-list" style="max-width: 460px">
+            <el-timeline class="card-custom-list">
               <el-timeline-item> AI and Serverless cloud services integration </el-timeline-item>
               <el-timeline-item> SaaS solutions design & development </el-timeline-item>
               <el-timeline-item> On-premise servers migration to hybrid cloud </el-timeline-item>
@@ -38,7 +38,7 @@ import { RouterLink } from 'vue-router'
           </div>
 
           <template #footer>
-            <router-link to="/portfolio#perf">View Examples</router-link>
+            <router-link to="/portfolio#bi">View Examples</router-link>
           </template>
         </el-card>
 

@@ -260,8 +260,8 @@ const exportExcelLambda = async () => {
         <el-table-v2
           ref="virtTable"
           :columns="columns"
-          :cell-props="cellProps"
-          :class="kls"
+          :cell-props="!isMobile ? cellProps : null"
+          :class="!isMobile ? kls : null"
           :data="data"
           :width="width"
           :height="height"
@@ -356,5 +356,9 @@ const exportExcelLambda = async () => {
 
 [data-key='hovering-col-0'] {
   font-weight: bold;
+}
+
+.el-table-v2__overlay {
+  z-index: var(--mid-z-index);
 }
 </style>

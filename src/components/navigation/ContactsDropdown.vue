@@ -52,7 +52,7 @@ const handleContactsHover = (state: boolean) => {
             </a></el-dropdown-item
           >
           <el-dropdown-item title="Email me"
-            ><el-icon><message /></el-icon>
+            ><el-icon style="padding-top: 3px"><message /></el-icon>
             <a href="mailto:work.sotnik@gmail.com" class="dropdown-link">
               work.sotnik@gmail.com</a
             ></el-dropdown-item
@@ -90,6 +90,7 @@ const handleContactsHover = (state: boolean) => {
     .dropdown-link {
       text-decoration: none;
       color: inherit;
+      padding-left: 8px;
     }
   }
 }

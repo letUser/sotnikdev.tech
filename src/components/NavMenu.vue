@@ -3,7 +3,14 @@ import { ref, inject, reactive } from 'vue'
 import type { Ref } from 'vue'
 import { useDark } from '@vueuse/core'
 import { RouterLink, useRouter, useRoute } from 'vue-router'
-import { MoreFilled, CloseBold, Loading } from '@element-plus/icons-vue'
+import {
+  MoreFilled,
+  CloseBold,
+  Loading,
+  PhoneFilled,
+  Promotion,
+  Message
+} from '@element-plus/icons-vue'
 import DarkModeSwitch from './navigation/DarkModeSwitch.vue'
 import SocialLinks from './navigation/SocialLinks.vue'
 import ContactsDropdown from './navigation/ContactsDropdown.vue'
@@ -66,7 +73,7 @@ const handleRouteChange = async (to: string) => {
 const changeMenuVisible = () => {
   isMenuOpened.value = !isMenuOpened.value
 
-  const body = document.body as HTMLElement
+  const body = document.getElementsByClassName('content-view')[0] as HTMLElement
 
   if (body) {
     if (isMenuOpened.value) {
@@ -158,6 +165,21 @@ const changeMenuVisible = () => {
           <span>Theme</span>
           <DarkModeSwitch />
         </div>
+
+        <div class="menu-container-contacts">
+          <div title="Call me" class="menu-container-contacts-link">
+            <el-icon :size="16"><phone-filled /></el-icon>
+            <a href="tel:+16042451101"> +1 604-245-1101 </a>
+          </div>
+          <div title="DM me" class="menu-container-contacts-link">
+            <el-icon :size="16"><promotion /></el-icon>
+            <a target="_blank" href="https://t.me/letUser"> @letUser </a>
+          </div>
+          <div title="Email me" class="menu-container-contacts-link">
+            <el-icon :size="16" style="padding-top: 3px"><message /></el-icon>
+            <a href="mailto:work.sotnik@gmail.com"> work.sotnik@gmail.com</a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -243,7 +265,7 @@ const changeMenuVisible = () => {
       &-container {
         height: 100vh;
         width: 100%;
-        overflow-y: auto;
+        overflow-y: hidden;
         padding: 32px 68px;
 
         &.fullscreen {
@@ -264,6 +286,24 @@ const changeMenuVisible = () => {
           padding: 12px;
           background-color: var(--el-color-info-light-9);
           border-radius: var(--el-border-radius-base);
+        }
+
+        &-contacts {
+          margin-top: 36px;
+
+          &-link {
+            padding: 8px;
+            line-height: 2;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+
+            > a {
+              text-decoration: none;
+              color: inherit;
+              padding-left: 16px;
+            }
+          }
         }
       }
 
@@ -287,5 +327,6 @@ const changeMenuVisible = () => {
 
 .no-overflow-y {
   overflow-y: hidden;
+  height: calc(100dvh - var(--nav-bar-height));
 }
 </style>
