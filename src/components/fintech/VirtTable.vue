@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import 'element-plus/es/components/notification/style/css'
 import { ref, h, inject, onMounted } from 'vue'
+import { useI18n } from 'petite-vue-i18n'
 import type { Ref } from 'vue'
 import { TableV2SortOrder } from 'element-plus'
 import type { SortBy } from 'element-plus'
@@ -24,6 +25,9 @@ onMounted(() => {
   // generate initial table data
   generateData(columns, 10000)
 })
+
+// use translation
+const { t } = useI18n({ useScope: 'global' })
 
 const virtTable: Ref<any> = ref(null)
 let columns: any[] = []
@@ -56,7 +60,9 @@ const generateColumns = (length: number = 8, prefix: string = 'column-', props?:
     ...props,
     key: `${prefix}${columnIndex}`,
     dataKey: `${prefix}${columnIndex}`,
-    title: !columnIndex ? 'Row ID' : `Column ${columnIndex}`,
+    title: !columnIndex
+      ? t('fintech-virt-table-header-row')
+      : `${t('fintech-virt-table-header-column')} ${columnIndex}`,
     align: !columnIndex ? 'center' : null,
     width: 150,
     sortable: !columnIndex
@@ -77,7 +83,7 @@ const generateColumns = (length: number = 8, prefix: string = 'column-', props?:
           disabled: isMobile.value && !controlMode.value,
           onClick: () => onDeleteRow(rowIndex)
         },
-        () => 'Delete'
+        () => t('fintech-virt-table-delete')
       )
     },
     width: 100,
@@ -115,7 +121,8 @@ const generateData = (columns: any[], length: number = 100, prefix: string = 'ro
           } else if (column.key === 'tools') {
             rowData[column.dataKey] = null
           } else {
-            rowData[column.dataKey] = `Row ${rowIndex} - Col ${columnIndex}`
+            rowData[column.dataKey] =
+              `${t('fintech-virt-table-body-row')} ${rowIndex} - ${t('fintech-virt-table-body-col')} ${columnIndex}`
           }
 
           return rowData
@@ -228,18 +235,19 @@ const exportExcelLambda = async () => {
   <div class="virt-table-wrapper">
     <div class="virt-table-info">
       <div class="virt-table-info-data">
-        <b>Total rows</b>: {{ data.length.toLocaleString('en-EN') }}
+        <b>{{ t('fintech-virt-table-total') }}</b
+        >: {{ data.length.toLocaleString('en-EN') }}
       </div>
       <div class="virt-table-info-buttons">
         <el-button @click="generateData(columns, 1000)" :disabled="data.length > 536000">
-          Add 1,000
+          {{ t('fintech-virt-table-add') }} 1,000
         </el-button>
         <el-button
           type="primary"
           @click="generateData(columns, 100000)"
           :disabled="data.length > 436000"
         >
-          Add 100,000
+          {{ t('fintech-virt-table-add') }} 100,000
         </el-button>
         <PO_exportXLS :data="data" :exportLoading="exportLoading" @exportExcel="exportExcel" />
         <el-button
@@ -249,7 +257,7 @@ const exportExcelLambda = async () => {
           :disabled="!data.length"
           :loading="exportLambdaLoading"
         >
-          <p v-if="!isMobile">Export XLS (Cloud)</p>
+          <p v-if="!isMobile">{{ t('fintech-virt-table-trigger-export') }}</p>
           <el-icon v-else :size="24"><Download /></el-icon>
         </el-button>
       </div>
@@ -291,8 +299,8 @@ const exportExcelLambda = async () => {
           --el-switch-on-color: var(--el-color-primary);
           --el-switch-off-color: var(--el-color-primary);
         "
-        active-text="Control"
-        inactive-text="Scroll"
+        :active-text="t('fintech-virt-table-mobile-control')"
+        :inactive-text="t('fintech-virt-table-mobile-scroll')"
       />
     </div>
   </div>

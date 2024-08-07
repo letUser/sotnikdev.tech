@@ -1,6 +1,10 @@
 <script setup lang="ts">
+import { useI18n } from 'petite-vue-i18n'
 import GitHub from '../icons/GitHub.vue'
 import LinkedIn from '../icons/LinkedIn.vue'
+
+// use translation
+const { t } = useI18n({ useScope: 'global' })
 </script>
 
 <template>
@@ -10,7 +14,7 @@ import LinkedIn from '../icons/LinkedIn.vue'
         class="social-link"
         target="_blank"
         href="https://github.com/letUser"
-        title="Go to GitHub"
+        :title="t('nav-links-github')"
         id="firstSocialLink"
         ><el-icon :size="24"><git-hub /></el-icon
       ></a>
@@ -21,7 +25,7 @@ import LinkedIn from '../icons/LinkedIn.vue'
         class="social-link"
         target="_blank"
         href="https://www.linkedin.com/in/sotnik/"
-        title="Go to LinkedIn"
+        :title="t('nav-links-li')"
         ><el-icon :size="22"><linked-in /></el-icon
       ></a>
     </div>

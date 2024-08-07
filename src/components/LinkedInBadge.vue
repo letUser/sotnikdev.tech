@@ -18,7 +18,7 @@ onMounted(() => {
         } else {
           prepareComponent()
         }
-      }, 4000)
+      }, 1000)
     }
   }
 })

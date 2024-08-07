@@ -1,7 +1,11 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useI18n } from 'petite-vue-i18n'
 import type { DropdownInstance } from 'element-plus'
 import { ArrowDown, ArrowUp, PhoneFilled, Promotion, Message } from '@element-plus/icons-vue'
+
+// use translation
+const { t } = useI18n({ useScope: 'global' })
 
 // curr state for contacts dropdown
 const contactsExpanded = ref(false)
@@ -41,17 +45,17 @@ const handleContactsHover = (state: boolean) => {
       ></span>
       <template #dropdown>
         <el-dropdown-menu>
-          <el-dropdown-item title="Call me"
+          <el-dropdown-item :title="t('nav-contact-call')"
             ><el-icon><phone-filled /></el-icon>
             <a href="tel:+16042451101" class="dropdown-link"> +1 604-245-1101 </a></el-dropdown-item
           >
-          <el-dropdown-item title="DM me"
+          <el-dropdown-item :title="t('nav-contact-tg')"
             ><el-icon><promotion /></el-icon>
             <a target="_blank" href="https://t.me/letUser" class="dropdown-link">
               @letUser
             </a></el-dropdown-item
           >
-          <el-dropdown-item title="Email me"
+          <el-dropdown-item :title="t('nav-contact-email')"
             ><el-icon style="padding-top: 3px"><message /></el-icon>
             <a href="mailto:work.sotnik@gmail.com" class="dropdown-link">
               work.sotnik@gmail.com</a

@@ -1,17 +1,21 @@
 <script setup lang="ts">
+import { useI18n } from 'petite-vue-i18n'
 import { Document, Download } from '@element-plus/icons-vue'
 
 const props = defineProps<{
   data: any[]
   exportLoading: boolean
 }>()
+
+// use translation
+const { t } = useI18n({ useScope: 'global' })
 </script>
 
 <template>
   <el-popover
     class="exportXLS-popover"
     placement="bottom-start"
-    title="Export table on a Client Side"
+    :title="t('fintech-popover-trigger-title')"
     :width="350"
     trigger="hover"
   >
@@ -28,16 +32,16 @@ const props = defineProps<{
         </div>
         <div class="exportXLS-popover-trigger__isDesktop">
           <el-icon :size="16"><Document /></el-icon>
-          <span>Export .xls</span>
+          <span>{{ t('fintech-popover-trigger-text') }} .xls</span>
         </div>
       </el-button>
     </template>
     <template #default>
       <div class="exportXLS-popover-content">
-        <p>The most optimized way to export data without server power:</p>
+        <p>{{ t('fintech-popover-content-header') }}</p>
         <div class="exportXLS-popover-content-text">
           <p>
-            1) Send data from table to
+            1) {{ t('fintech-popover-content-text-1-1') }}
             <a
               target="_blank"
               href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API"
@@ -46,13 +50,15 @@ const props = defineProps<{
             >
               Worker</a
             >
-            - a background thread separated from the main rendering thread
+            - {{ t('fintech-popover-content-text-1-2') }}
           </p>
           <p>
-            2) Prepare it with
-            <span class="exportXLS-popover-content-text-code">O(rows * columns)</span>
+            2) {{ t('fintech-popover-content-text-2-1') }}
+            <span class="exportXLS-popover-content-text-code">{{
+              t('fintech-popover-content-text-2-2')
+            }}</span>
           </p>
-          <p>3) Download</p>
+          <p>3) {{ t('fintech-popover-content-text-3') }}</p>
         </div>
       </div>
     </template>

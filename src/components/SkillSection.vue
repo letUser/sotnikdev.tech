@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useI18n } from 'petite-vue-i18n'
 import VueLogo from './icons/VueLogo.vue'
 import ReactLogo from './icons/ReactLogo.vue'
 import TypeScriptLogo from './icons/TypeScriptLogo.vue'
@@ -7,11 +8,14 @@ import PostgresLogo from './icons/PostgresLogo.vue'
 import AwsLogo from './icons/AwsLogo.vue'
 import DockerLogo from './icons/DockerLogo.vue'
 import FigmaLogo from './icons/FigmaLogo.vue'
+
+// use translation
+const { t } = useI18n({ useScope: 'global' })
 </script>
 
 <template>
   <div class="skills-wrapper">
-    <h2 class="skills-wrapper-title">Skills</h2>
+    <h2 class="skills-wrapper-title">{{ t('skills-title') }}</h2>
 
     <div class="skills">
       <div class="skills-item">
@@ -20,7 +24,7 @@ import FigmaLogo from './icons/FigmaLogo.vue'
         </el-icon>
         <div class="skills-item-info">
           <h4 class="skills-item-info-name">Vue</h4>
-          <p class="skills-item-info-text">Expert in both Composition & Options API</p>
+          <p class="skills-item-info-text">{{ t('skills-vue-text') }}</p>
         </div>
       </div>
 
@@ -30,7 +34,7 @@ import FigmaLogo from './icons/FigmaLogo.vue'
         </el-icon>
         <div class="skills-item-info">
           <h4 class="skills-item-info-name">React</h4>
-          <p class="skills-item-info-text">Proficiency in building web applications</p>
+          <p class="skills-item-info-text">{{ t('skills-react-text') }}</p>
         </div>
       </div>
 
@@ -40,7 +44,7 @@ import FigmaLogo from './icons/FigmaLogo.vue'
         </el-icon>
         <div class="skills-item-info">
           <h4 class="skills-item-info-name">TypeScript</h4>
-          <p class="skills-item-info-text">Experience designing large projects</p>
+          <p class="skills-item-info-text">{{ t('skills-ts-text') }}</p>
         </div>
       </div>
 
@@ -50,7 +54,7 @@ import FigmaLogo from './icons/FigmaLogo.vue'
         </el-icon>
         <div class="skills-item-info">
           <h4 class="skills-item-info-name">Python</h4>
-          <p class="skills-item-info-text">Proficiency building APIs</p>
+          <p class="skills-item-info-text">{{ t('skills-python-text') }}</p>
         </div>
       </div>
 
@@ -60,7 +64,7 @@ import FigmaLogo from './icons/FigmaLogo.vue'
         </el-icon>
         <div class="skills-item-info">
           <h4 class="skills-item-info-name">AWS</h4>
-          <p class="skills-item-info-text">DevOps, Compute, and AI services proficiency</p>
+          <p class="skills-item-info-text">{{ t('skills-aws-text') }}</p>
         </div>
       </div>
 
@@ -70,7 +74,7 @@ import FigmaLogo from './icons/FigmaLogo.vue'
         </el-icon>
         <div class="skills-item-info">
           <h4 class="skills-item-info-name">Docker</h4>
-          <p class="skills-item-info-text">Experience with Docker & Terraform</p>
+          <p class="skills-item-info-text">{{ t('skills-docker-text') }}</p>
         </div>
       </div>
 
@@ -80,7 +84,7 @@ import FigmaLogo from './icons/FigmaLogo.vue'
         </el-icon>
         <div class="skills-item-info">
           <h4 class="skills-item-info-name">PostgreSQL</h4>
-          <p class="skills-item-info-text">Expertise in PostGIS</p>
+          <p class="skills-item-info-text">{{ t('skills-pg-text') }}</p>
         </div>
       </div>
 
@@ -90,7 +94,7 @@ import FigmaLogo from './icons/FigmaLogo.vue'
         </el-icon>
         <div class="skills-item-info">
           <h4 class="skills-item-info-name">Figma</h4>
-          <p class="skills-item-info-text">Hands-on experience designing UI</p>
+          <p class="skills-item-info-text">{{ t('skills-figma-text') }}</p>
         </div>
       </div>
     </div>

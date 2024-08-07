@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useI18n } from 'petite-vue-i18n'
 import axios from 'axios'
 import SpeakerIcon from '../../icons/SpeakerIcon.vue'
 import { Loading } from '@element-plus/icons-vue'
@@ -7,16 +8,15 @@ import { handleSlowNetworkAlert } from '../../../utils/networkAlert'
 
 const BUCKET_URL = 'https://storage.yandexcloud.net/aibucket'
 
+// use translation
+const { t } = useI18n({ useScope: 'global' })
+
 const defaultTexts: { [index: string]: string } = {
-  'en-US': 'Try writing something here and press "Convert" button to hear the synthesized speech.',
-  'de-DE':
-    'Versuchen Sie hier etwas zu schreiben und drücken Sie die "Convert"-Taste, um die synthetisierte Sprache anzuhören.',
-  'ru-RU':
-    'Попробуйте написать что-нибудь здесь и нажмите кнопку "Convert", чтобы услышать синтезированную речь.',
-  'kk-KK':
-    'Мұнда бірдеңе жазып көріңіз және синтезделген сөзді тыңдау үшін "Convert" түймесін басыңыз.',
-  'uz-UZ':
-    'Bu yerda biror narsa yozishga harakat qiling va sintezlangan nutqni eshitish uchun "Convert" tugmasini bosing.'
+  'en-US': `Try writing something here and press "${t('synthesizer-bttn')}" button to hear the synthesized speech.`,
+  'de-DE': `Versuchen Sie hier etwas zu schreiben und drücken Sie die "${t('synthesizer-bttn')}"-Taste, um die synthetisierte Sprache anzuhören.`,
+  'ru-RU': `Попробуйте написать что-нибудь здесь и нажмите кнопку "${t('synthesizer-bttn')}", чтобы услышать синтезированную речь.`,
+  'kk-KK': `Мұнда бірдеңе жазып көріңіз және синтезделген сөзді тыңдау үшін "${t('synthesizer-bttn')}" түймесін басыңыз.`,
+  'uz-UZ': `Bu yerda biror narsa yozishga harakat qiling va sintezlangan nutqni eshitish uchun "${t('synthesizer-bttn')}" tugmasini bosing.`
 }
 const text = ref(defaultTexts['en-US'])
 
@@ -24,23 +24,23 @@ const lang = ref('en-US')
 const languages = [
   {
     value: 'en-US',
-    label: 'English'
+    label: t('synthesizer-lang-options-en')
   },
   {
     value: 'de-DE',
-    label: 'German'
+    label: t('synthesizer-lang-options-de')
   },
   {
     value: 'ru-RU',
-    label: 'Russian'
+    label: t('synthesizer-lang-options-ru')
   },
   {
     value: 'kk-KK',
-    label: 'Kazakh'
+    label: t('synthesizer-lang-options-kk')
   },
   {
     value: 'uz-UZ',
-    label: 'Uzbek'
+    label: t('synthesizer-lang-options-uz')
   }
 ]
 
@@ -100,13 +100,13 @@ const onAudioEnd = () => {
 <template>
   <div class="synthesizer-wrapper">
     <div class="synthesizer">
-      <h2 class="synthesizer-title">Text to Speech</h2>
+      <h2 class="synthesizer-title">{{ t('synthesizer-title') }}</h2>
 
       <div class="synthesizer-controls">
         <el-select
           class="synthesizer-controls-select"
           v-model="lang"
-          placeholder="Select language"
+          :placeholder="t('synthesizer-lang-placeholder')"
           @change="(lang: string) => (text = defaultTexts[lang])"
         >
           <el-option
@@ -140,7 +140,7 @@ const onAudioEnd = () => {
           @click="synthesizeText"
           :disabled="loading || !text.length"
         >
-          <span>Convert</span>
+          <span>{{ t('synthesizer-bttn') }}</span>
         </el-button>
       </div>
 

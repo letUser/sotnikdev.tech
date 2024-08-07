@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, inject } from 'vue'
 import type { Ref } from 'vue'
+import { useI18n } from 'petite-vue-i18n'
 import { useRoute, useRouter } from 'vue-router'
 import { DArrowRight, MostlyCloudy, Money, Location } from '@element-plus/icons-vue'
 
@@ -10,6 +11,9 @@ const emit = defineEmits<{
   selected: [undefined]
   collapseTriggered: [boolean]
 }>()
+
+// use translation
+const { t } = useI18n({ useScope: 'global' })
 
 // current route
 const route = useRoute()
@@ -105,27 +109,27 @@ const onSelect = () => {
     <el-sub-menu index="cloud" popper-class="left-menu-popper">
       <template #title>
         <el-icon><mostly-cloudy /></el-icon>
-        <span class="left-menu-title">Cloud Native</span>
+        <span class="left-menu-title">{{ t('cloud') }}</span>
       </template>
-      <el-menu-item index="#ai">Artificial intelligence (AI)</el-menu-item>
-      <el-menu-item index="#paas">PaaS</el-menu-item>
+      <el-menu-item index="#ai">{{ t('ai') }}</el-menu-item>
+      <el-menu-item index="#paas">{{ t('paas') }}</el-menu-item>
     </el-sub-menu>
 
     <el-sub-menu index="fintech" popper-class="left-menu-popper">
       <template #title>
         <el-icon><money /></el-icon>
-        <span class="left-menu-title">FinTech</span>
+        <span class="left-menu-title">{{ t('fintech') }}</span>
       </template>
-      <el-menu-item index="#bi">Business intelligence (BI)</el-menu-item>
-      <el-menu-item index="#perf">Performance</el-menu-item>
+      <el-menu-item index="#bi">{{ t('bi') }}</el-menu-item>
+      <el-menu-item index="#perf">{{ t('perf') }}</el-menu-item>
     </el-sub-menu>
 
     <el-sub-menu index="gis" popper-class="left-menu-popper">
       <template #title>
         <el-icon><location /></el-icon>
-        <span class="left-menu-title">GIS</span>
+        <span class="left-menu-title">{{ t('gis') }}</span>
       </template>
-      <el-menu-item index="#map">Map</el-menu-item>
+      <el-menu-item index="#map">{{ t('map') }}</el-menu-item>
     </el-sub-menu>
   </el-menu>
 </template>

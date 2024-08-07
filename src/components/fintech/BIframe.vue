@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { ref, watch, onDeactivated } from 'vue'
+import { useI18n } from 'petite-vue-i18n'
 import { useDark, useDebounceFn } from '@vueuse/core'
+
+// use translation
+const { t } = useI18n({ useScope: 'global' })
 
 // dark/light theme util
 const isDark = useDark() //true or false
@@ -46,7 +50,7 @@ const onFrameLoad = () => {
     class="BI"
     v-loading="loading"
     element-loading-background="var(--el-bg-color)"
-    element-loading-text="Loading..."
+    :element-loading-text="`${t('loading')}...`"
     element-loading-custom-class="bi-loading"
   >
     <Transition name="iframe-fade">

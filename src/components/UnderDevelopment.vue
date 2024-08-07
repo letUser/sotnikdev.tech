@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { reactive, watch } from 'vue'
+import { useI18n } from 'petite-vue-i18n'
 import { useDark } from '@vueuse/core'
+
+// use translation
+const { t } = useI18n({ useScope: 'global' })
 
 // dark/light theme util
 const isDark = useDark() //true or false
@@ -22,7 +26,7 @@ watch(
 
 <template>
   <div class="watermark-wrapper">
-    <el-watermark :font="font" content="Under development">
+    <el-watermark :font="font" :content="t('under-development')">
       <div style="height: 4000px" />
     </el-watermark>
   </div>

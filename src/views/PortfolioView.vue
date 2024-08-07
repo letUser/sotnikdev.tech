@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, inject, watch } from 'vue'
 import type { Ref } from 'vue'
+import { useI18n } from 'petite-vue-i18n'
 import { useRoute } from 'vue-router'
 import { CloseBold } from '@element-plus/icons-vue'
 import type MenuDict from '../interface/MenuDict'
@@ -11,6 +12,9 @@ import PaasComponent from '../components/cloud/PaasComponent.vue'
 import VirtTable from '../components/fintech/VirtTable.vue'
 import BIframe from '../components/fintech/BIframe.vue'
 import MapComponent from '../components/gis/MapComponent.vue'
+
+// use translation
+const { t } = useI18n({ useScope: 'global' })
 
 // current route
 const route = useRoute()
@@ -73,14 +77,14 @@ const changeMenuVisible = (val: boolean) => {
         class="section-portfolio-mobile-header-bttn"
         @click="changeMenuVisible(true)"
       >
-        <el-icon><menu-icon /></el-icon> <span>Menu</span>
+        <el-icon><menu-icon /></el-icon> <span>{{ t('menu') }}</span>
       </div>
       <div
         v-show="isMenuOpened"
         class="section-portfolio-mobile-header-bttn"
         @click="changeMenuVisible(false)"
       >
-        <el-icon color="#606266"><close-bold /></el-icon> <span>Close</span>
+        <el-icon color="#606266"><close-bold /></el-icon> <span>{{ t('close') }}</span>
       </div>
     </div>
 

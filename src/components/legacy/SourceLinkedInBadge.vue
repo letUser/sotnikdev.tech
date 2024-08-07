@@ -1,6 +1,10 @@
 <script setup lang="ts">
+import { useI18n } from 'petite-vue-i18n'
 import { useDark } from '@vueuse/core'
 import LIProfilePhoto from '../../assets/LI-profile-photo.jfif'
+
+// use translation
+const { t } = useI18n({ useScope: 'global' })
 
 const isDark = useDark() //true or false
 </script>
@@ -106,12 +110,12 @@ const isDark = useDark() //true or false
           data-tracking-control-name="public-profile-badge-profile-badge-profile-name"
           data-tracking-will-navigate=""
         >
-          Dan Sotnik
+          {{ t('li-name') }}
         </a>
       </h3>
 
       <h4 class="profile-badge__content-profile-headline">
-        Senior Software Developer @ OTR | LinkedIn Top Voice | Vue, Python, React, AWS
+        {{ t('li-headline') }}
       </h4>
 
       <h4 class="profile-badge__content-profile-company-school-info">
@@ -120,7 +124,7 @@ const isDark = useDark() //true or false
           class="profile-badge__content-profile-company-school-info-link"
           data-tracking-control-name="public-profile-badge-profile-badge_company-name"
           data-tracking-will-navigate="true"
-          >OTR - IT Solutions</a
+          >{{ t('li-company') }}</a
         >
         |
         <a
@@ -128,7 +132,7 @@ const isDark = useDark() //true or false
           class="profile-badge__content-profile-company-school-info-link"
           data-tracking-control-name="public-profile-badge-profile-badge_school-name"
           data-tracking-will-navigate="true"
-          >Russian State University for the Humanities</a
+          >{{ t('li-school') }}</a
         >
       </h4>
     </div>
@@ -143,7 +147,7 @@ const isDark = useDark() //true or false
       data-tracking-control-name="public-profile-badge-profile-badge-view-profile-cta"
       data-tracking-will-navigate=""
     >
-      View profile
+      {{ t('li-button-text') }}
     </a>
   </div>
 </template>

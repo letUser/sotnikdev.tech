@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, inject, reactive } from 'vue'
 import type { Ref } from 'vue'
+import { useI18n } from 'petite-vue-i18n'
 import { useDark } from '@vueuse/core'
 import { RouterLink, useRouter, useRoute } from 'vue-router'
 import {
@@ -19,6 +20,9 @@ import { handleSlowNetworkAlert } from '../utils/networkAlert'
 
 // dark/light theme util
 const isDark = useDark() //true or false
+
+// use translation
+const { t } = useI18n({ useScope: 'global' })
 
 // current router
 const router = useRouter()
@@ -96,14 +100,39 @@ const changeMenuVisible = () => {
 
     <div v-if="!isMobile" class="menu">
       <el-menu class="nav-menu" :default-active="route.name">
-        <el-menu-item class="nav-menu-item" index="summary"
-          ><router-link id="nav-summary" :index="1" to="/summary"
-            >Summary</router-link
+        <el-menu-item
+          :class="{ 'nav-menu-item': true, loading: loading['/summary'] }"
+          index="summary"
+          ><el-icon
+            v-if="loading['/summary']"
+            class="is-loading"
+            :size="24"
+            color="var(--el--color-primary)"
+            ><Loading
+          /></el-icon>
+          <a
+            id="nav-summary"
+            :index="1"
+            href="/summary"
+            @click.prevent="handleRouteChange('/summary')"
+            >{{ t('nav-summary') }}</a
           ></el-menu-item
         >
-        <el-menu-item class="nav-menu-item" index="portfolio"
-          ><router-link id="nav-portfolio" :index="2" to="/portfolio#ai"
-            >Portfolio</router-link
+        <el-menu-item
+          :class="{ 'nav-menu-item': true, loading: loading['/portfolio#ai'] }"
+          index="portfolio"
+          ><el-icon
+            v-if="loading['/portfolio#ai']"
+            class="is-loading"
+            :size="24"
+            color="var(--el--color-primary)"
+            ><Loading /></el-icon
+          ><a
+            id="nav-portfolio"
+            :index="2"
+            href="/portfolio#ai"
+            @click.prevent="handleRouteChange('/portfolio#ai')"
+            >{{ t('nav-portfolio') }}</a
           ></el-menu-item
         >
       </el-menu>
@@ -141,7 +170,7 @@ const changeMenuVisible = () => {
               :index="1"
               href="/summary"
               @click.prevent="handleRouteChange('/summary')"
-              >Summary</a
+              >{{ t('nav-summary') }}</a
             ></el-menu-item
           >
           <el-menu-item class="nav-menu-item" index="portfolio">
@@ -156,13 +185,13 @@ const changeMenuVisible = () => {
               :index="2"
               href="/portfolio#ai"
               @click.prevent="handleRouteChange('/portfolio#ai')"
-              >Portfolio</a
+              >{{ t('nav-portfolio') }}</a
             ></el-menu-item
           >
         </el-menu>
 
         <div class="menu-container-theme-mode">
-          <span>Theme</span>
+          <span>{{ t('nav-theme') }}</span>
           <DarkModeSwitch />
         </div>
 
@@ -185,7 +214,7 @@ const changeMenuVisible = () => {
   </div>
 </template>
 
-<style lang="scss">
+<style scoped lang="scss">
 .menu-wrapper {
   height: var(--nav-bar-height);
   display: flex;
@@ -227,7 +256,7 @@ const changeMenuVisible = () => {
         width: 100%;
         background-color: transparent;
         height: inherit;
-        padding-left: 0;
+        padding: 0 !important;
 
         &.is-active {
           color: var(--el-color-primary);
@@ -238,12 +267,17 @@ const changeMenuVisible = () => {
           color: var(--el-color-primary);
         }
 
+        &.loading {
+          > a {
+            padding-left: 2px;
+          }
+        }
+
         a {
           width: 100%;
           text-decoration: none;
           color: inherit;
-          padding: 0;
-          padding: 0 0.75rem;
+          padding: 0 2rem;
         }
       }
     }

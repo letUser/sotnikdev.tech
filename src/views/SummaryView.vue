@@ -1,9 +1,13 @@
 <script setup lang="ts">
 import { inject } from 'vue'
 import type { Ref } from 'vue'
+import { useI18n } from 'petite-vue-i18n'
 import BrandImageWrapper from '../components/BrandImageWrapper.vue'
 import SkillSection from '../components/SkillSection.vue'
 import SummaryInfo from '../components/SummaryInfo.vue'
+
+// use translation
+const { t } = useI18n({ useScope: 'global' })
 
 // flag of mobile devices
 const isMobile = inject('isMobile') as Ref<boolean>
@@ -46,8 +50,8 @@ const onMouseMove = ($ev: MouseEvent) => {
     <div class="section-summary">
       <div @mousemove="!isMobile ? onMouseMove($event) : null">
         <div class="section-summary-item section-summary-name">
-          <h1>Dan Sotnik</h1>
-          <p>A LinkedIn Top Voice Software Developer with over 5 years of experience</p>
+          <h1>{{ t('name') }}</h1>
+          <p>{{ t('intro') }}</p>
         </div>
 
         <BrandImageWrapper id="brand-image-wrapper" class="section-summary-item" />

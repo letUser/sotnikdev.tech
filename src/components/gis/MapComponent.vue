@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted } from 'vue'
+import { useI18n } from 'petite-vue-i18n'
 import MapWrapper from '@/class/gis/MapWrapper'
 import Circle from 'ol/geom/Circle.js'
 import Point from 'ol/geom/Point.js'
@@ -27,6 +27,9 @@ onUnmounted(() => {
   if (badAccInterval !== 0) window.clearInterval(badAccInterval)
   notificationAskGeo.close()
 })
+
+// use translation
+const { t } = useI18n({ useScope: 'global' })
 
 let map: MapWrapper | null = null
 
@@ -145,8 +148,8 @@ const onError = (err: GeolocationPositionError) => {
     // show Notification with info
     notificationAskGeo = ElNotification({
       duration: 10000,
-      title: 'Please enable Geolocation',
-      message: 'We want to provide you with the best user experience',
+      title: t('gis-ask-geo-title'),
+      message: t('gis-ask-geo-text'),
       type: 'info'
     })
   }, 5000)
@@ -163,7 +166,7 @@ const onError = (err: GeolocationPositionError) => {
           :indeterminate="true"
           :duration="2"
         >
-          <template #default> Precising position </template>
+          <template #default> {{ t('gis-precising') }}</template>
         </el-progress>
       </div>
     </div>

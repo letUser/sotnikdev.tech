@@ -1,60 +1,68 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
+import { useI18n } from 'petite-vue-i18n'
+
+// use translation
+const { t } = useI18n({ useScope: 'global' })
 </script>
 
 <template>
   <div class="summary-wrapper">
-    <h2 class="summary-wrapper-title">Summary</h2>
+    <h2 class="summary-wrapper-title">{{ t('info-title') }}</h2>
 
     <div class="summary">
       <div class="summary-cards">
         <el-card shadow="hover" class="summary-cards-item">
-          <template #header><h3>Cloud Native</h3></template>
+          <template #header
+            ><h3>{{ t('info-cloud-title') }}</h3></template
+          >
 
           <div class="summary-cards-item-content">
             <el-timeline class="card-custom-list">
-              <el-timeline-item> AI and Serverless cloud services integration </el-timeline-item>
-              <el-timeline-item> SaaS solutions design & development </el-timeline-item>
-              <el-timeline-item> On-premise servers migration to hybrid cloud </el-timeline-item>
+              <el-timeline-item>{{ t('info-cloud-item-1') }}</el-timeline-item>
+              <el-timeline-item>{{ t('info-cloud-item-2') }}</el-timeline-item>
+              <el-timeline-item>{{ t('info-cloud-item-3') }}</el-timeline-item>
             </el-timeline>
           </div>
 
           <template #footer>
-            <router-link to="/portfolio#ai">View Examples</router-link>
+            <router-link to="/portfolio#ai">{{ t('info-cards-button') }}</router-link>
           </template>
         </el-card>
 
         <el-card shadow="hover" class="summary-cards-item">
-          <template #header><h3>FinTech</h3></template>
+          <template #header
+            ><h3>{{ t('info-fintech-title') }}</h3></template
+          >
 
           <div class="summary-cards-item-content">
             <el-timeline class="card-custom-list">
-              <el-timeline-item> Analytics and monitoring tools development </el-timeline-item>
-              <el-timeline-item>
-                Performance & testing best practices integration
-              </el-timeline-item>
-              <el-timeline-item> Web security practices implementation </el-timeline-item>
+              <el-timeline-item>{{ t('info-fintech-item-1') }}</el-timeline-item>
+              <el-timeline-item>{{ t('info-fintech-item-2') }}</el-timeline-item>
+              <el-timeline-item>{{ t('info-fintech-item-3') }}</el-timeline-item>
             </el-timeline>
           </div>
 
           <template #footer>
-            <router-link to="/portfolio#bi">View Examples</router-link>
+            <router-link to="/portfolio#bi">{{ t('info-cards-button') }}</router-link>
           </template>
         </el-card>
 
         <el-card shadow="hover" class="summary-cards-item">
-          <template #header><h3>GIS</h3></template>
+          <template #header
+            ><h3>{{ t('info-GIS-title') }}</h3></template
+          >
 
           <div class="summary-cards-item-content">
             <el-timeline class="card-custom-list">
-              <el-timeline-item> Spatial web-apps full cycle development </el-timeline-item>
-              <el-timeline-item> Complex maps realization via OpenLayers </el-timeline-item>
-              <el-timeline-item> PostgreSQL with PostGIS features integration </el-timeline-item>
+              <el-timeline-item>{{ t('info-GIS-item-1') }}</el-timeline-item>
+              <el-timeline-item>{{ t('info-GIS-item-2') }}</el-timeline-item>
+              <el-timeline-item>{{ t('info-GIS-item-3') }}</el-timeline-item>
             </el-timeline>
           </div>
 
           <template #footer>
-            <router-link to="/portfolio#map">View Examples</router-link>
+            <router-link to="/portfolio#map">{{ t('info-cards-button') }}</router-link>
           </template>
         </el-card>
       </div>
