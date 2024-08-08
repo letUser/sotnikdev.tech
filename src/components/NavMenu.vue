@@ -107,7 +107,7 @@ const changeMenuVisible = () => {
             v-if="loading['/summary']"
             class="is-loading"
             :size="24"
-            color="var(--el--color-primary)"
+            color="var(--el-color-primary)"
             ><Loading
           /></el-icon>
           <a
@@ -125,7 +125,7 @@ const changeMenuVisible = () => {
             v-if="loading['/portfolio#ai']"
             class="is-loading"
             :size="24"
-            color="var(--el--color-primary)"
+            color="var(--el-color-primary)"
             ><Loading /></el-icon
           ><a
             id="nav-portfolio"
@@ -165,7 +165,7 @@ const changeMenuVisible = () => {
               v-if="loading['/summary']"
               class="is-loading"
               :size="24"
-              color="var(--el--color-primary)"
+              color="var(--el-color-primary)"
               ><Loading
             /></el-icon>
             <a
@@ -184,7 +184,7 @@ const changeMenuVisible = () => {
               v-if="loading['/portfolio#ai']"
               class="is-loading"
               :size="24"
-              color="var(--el--color-primary)"
+              color="var(--el-color-primary)"
               ><Loading /></el-icon
             ><a
               id="nav-portfolio"

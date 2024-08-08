@@ -1,9 +1,51 @@
 <script setup lang="ts">
-import { RouterLink } from 'vue-router'
+import { reactive } from 'vue'
+import { RouterLink, useRouter } from 'vue-router'
 import { useI18n } from 'petite-vue-i18n'
+import { handleSlowNetworkAlert } from '../utils/networkAlert'
+import { Loading } from '@element-plus/icons-vue'
 
 // use translation
 const { t } = useI18n({ useScope: 'global' })
+
+const router = useRouter()
+
+// loading statements
+const loading = reactive<{ [index: string]: boolean }>({
+  '/portfolio#ai': false,
+  '/portfolio#bi': false,
+  '/portfolio#map': false
+})
+
+// timerId of handleSlowNetworkAlert
+let timerId = 0
+
+/**
+ * Function to set all data to default state
+ */
+const toDefault = () => {
+  if (timerId) clearTimeout(timerId) // clear timer
+
+  for (const key of Object.keys(loading)) {
+    loading[key] = false
+  }
+}
+
+/**
+ * Mobile touch event handler
+ */
+const onClickHandler = async (to: string) => {
+  toDefault()
+
+  timerId = handleSlowNetworkAlert() // set timerId
+  loading[to] = true
+
+  try {
+    await router.push(to)
+  } finally {
+    toDefault()
+  }
+}
 </script>
 
 <template>
@@ -12,10 +54,16 @@ const { t } = useI18n({ useScope: 'global' })
 
     <div class="summary">
       <div class="summary-cards">
-        <el-card shadow="hover" class="summary-cards-item">
-          <template #header
-            ><h3>{{ t('info-cloud-title') }}</h3></template
-          >
+        <el-card shadow="hover" class="summary-cards-item" @click="onClickHandler('/portfolio#ai')">
+          <template #header>
+            <div v-if="loading['/portfolio#ai']" class="summary-cards-item-header">
+              <el-icon class="is-loading" :size="24" color="var(--el-color-primary)"
+                ><Loading
+              /></el-icon>
+              <h3>{{ t('info-cloud-title') }}</h3>
+            </div>
+            <h3 v-else>{{ t('info-cloud-title') }}</h3>
+          </template>
 
           <div class="summary-cards-item-content">
             <el-timeline class="card-custom-list">
@@ -26,14 +74,22 @@ const { t } = useI18n({ useScope: 'global' })
           </div>
 
           <template #footer>
-            <router-link to="/portfolio#ai">{{ t('info-cards-button') }}</router-link>
+            <router-link :class="{ loading: loading['/portfolio#ai'] }" to="/portfolio#ai">{{
+              t('info-cards-button')
+            }}</router-link>
           </template>
         </el-card>
 
-        <el-card shadow="hover" class="summary-cards-item">
-          <template #header
-            ><h3>{{ t('info-fintech-title') }}</h3></template
-          >
+        <el-card shadow="hover" class="summary-cards-item" @click="onClickHandler('/portfolio#bi')">
+          <template #header>
+            <div v-if="loading['/portfolio#bi']" class="summary-cards-item-header">
+              <el-icon class="is-loading" :size="24" color="var(--el-color-primary)"
+                ><Loading
+              /></el-icon>
+              <h3>{{ t('info-fintech-title') }}</h3>
+            </div>
+            <h3 v-else>{{ t('info-fintech-title') }}</h3>
+          </template>
 
           <div class="summary-cards-item-content">
             <el-timeline class="card-custom-list">
@@ -44,14 +100,26 @@ const { t } = useI18n({ useScope: 'global' })
           </div>
 
           <template #footer>
-            <router-link to="/portfolio#bi">{{ t('info-cards-button') }}</router-link>
+            <router-link :class="{ loading: loading['/portfolio#bi'] }" to="/portfolio#bi">{{
+              t('info-cards-button')
+            }}</router-link>
           </template>
         </el-card>
 
-        <el-card shadow="hover" class="summary-cards-item">
-          <template #header
-            ><h3>{{ t('info-GIS-title') }}</h3></template
-          >
+        <el-card
+          shadow="hover"
+          class="summary-cards-item"
+          @click="onClickHandler('/portfolio#map')"
+        >
+          <template #header>
+            <div v-if="loading['/portfolio#map']" class="summary-cards-item-header">
+              <el-icon class="is-loading" :size="24" color="var(--el-color-primary)"
+                ><Loading
+              /></el-icon>
+              <h3>{{ t('info-GIS-title') }}</h3>
+            </div>
+            <h3 v-else>{{ t('info-GIS-title') }}</h3>
+          </template>
 
           <div class="summary-cards-item-content">
             <el-timeline class="card-custom-list">
@@ -62,7 +130,9 @@ const { t } = useI18n({ useScope: 'global' })
           </div>
 
           <template #footer>
-            <router-link to="/portfolio#map">{{ t('info-cards-button') }}</router-link>
+            <router-link :class="{ loading: loading['/portfolio#map'] }" to="/portfolio#map">{{
+              t('info-cards-button')
+            }}</router-link>
           </template>
         </el-card>
       </div>
@@ -88,9 +158,22 @@ const { t } = useI18n({ useScope: 'global' })
       &-item {
         max-width: 480px;
         transition: transform 0.5s;
+        cursor: pointer;
 
         &:hover {
           transform: translateY(-10px);
+        }
+
+        &-header {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          height: 20px;
+
+          > h3 {
+            padding: 0 32px 0 8px;
+          }
         }
 
         &-content {
@@ -118,7 +201,7 @@ const { t } = useI18n({ useScope: 'global' })
             line-height: 48px;
             transition: background-color 0.5s;
 
-            &:hover {
+            &.loading {
               color: var(--el-color-white);
               background-color: var(--el-color-primary-light-3);
             }
@@ -161,6 +244,11 @@ const { t } = useI18n({ useScope: 'global' })
           transition: background-color 0.5s;
         }
       }
+    }
+
+    .el-card__footer {
+      color: var(--el-color-white);
+      background-color: var(--el-color-primary-light-3);
     }
   }
 }
