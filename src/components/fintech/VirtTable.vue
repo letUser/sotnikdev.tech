@@ -61,8 +61,8 @@ const generateColumns = (length: number = 8, prefix: string = 'column-', props?:
     key: `${prefix}${columnIndex}`,
     dataKey: `${prefix}${columnIndex}`,
     title: !columnIndex
-      ? t('fintech-virt-table-header-row')
-      : `${t('fintech-virt-table-header-column')} ${columnIndex}`,
+      ? 'ID'
+      : `Column ${columnIndex}`,
     align: !columnIndex ? 'center' : null,
     width: 150,
     sortable: !columnIndex
@@ -122,7 +122,7 @@ const generateData = (columns: any[], length: number = 100, prefix: string = 'ro
             rowData[column.dataKey] = null
           } else {
             rowData[column.dataKey] =
-              `${t('fintech-virt-table-body-row')} ${rowIndex} - ${t('fintech-virt-table-body-col')} ${columnIndex}`
+              `Row ${rowIndex} - Col ${columnIndex}`
           }
 
           return rowData

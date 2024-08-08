@@ -10,8 +10,9 @@ import router from './router'
 import axios from 'axios'
 import messages from '@intlify/unplugin-vue-i18n/messages'
 
+const [a, b] = navigator.language ?? 'en'
 const i18n = createI18n({
-  locale: navigator.language ?? 'en',
+  locale: a + b,
   fallbackLocale: 'en',
   messages
 })

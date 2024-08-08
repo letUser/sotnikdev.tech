@@ -16,7 +16,7 @@ onMounted(() => {
     navigator.geolocation.getCurrentPosition(
       (pos) => onSuccess(pos), // if request success
       (err) => onError(err), // if user block geodata - set interval and show a message
-      { enableHighAccuracy: true, timeout: 2000, maximumAge: 0 }
+      { enableHighAccuracy: true, maximumAge: 0 }
     )
   }
 })
@@ -57,6 +57,8 @@ const onSuccess = (pos: GeolocationPosition) => {
   }
 
   let circleFeature = null
+
+  console.log(pos.coords.accuracy)
 
   // if accuracy rate is sadenly bad
   if (pos.coords.accuracy > 50) {

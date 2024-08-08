@@ -112,7 +112,7 @@ const onSelect = () => {
         <span class="left-menu-title">{{ t('cloud') }}</span>
       </template>
       <el-menu-item index="#ai">{{ t('ai') }}</el-menu-item>
-      <el-menu-item index="#paas">{{ t('paas') }}</el-menu-item>
+      <!-- <el-menu-item index="#paas">{{ t('paas') }}</el-menu-item> -->
     </el-sub-menu>
 
     <el-sub-menu index="fintech" popper-class="left-menu-popper">
