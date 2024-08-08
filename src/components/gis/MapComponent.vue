@@ -158,7 +158,7 @@ const onError = (err: GeolocationPositionError) => {
 
 <template>
   <div style="height: 100%">
-    <div v-if="true" class="loading-container-wrapper">
+    <div v-if="loading" class="loading-container-wrapper">
       <div class="loading-container">
         <el-progress
           class="loading-container-progress"
@@ -187,8 +187,7 @@ const onError = (err: GeolocationPositionError) => {
   animation: slide-up 5s ease-in;
 
   &-progress {
-    min-width: 110px;
-    max-width: 160px;
+    width: 160px;
   }
 
   &-text {

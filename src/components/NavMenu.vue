@@ -157,7 +157,10 @@ const changeMenuVisible = () => {
 
       <div v-if="isMenuOpened" class="menu-container fullscreen">
         <el-menu class="nav-menu" :default-active="route.name">
-          <el-menu-item class="nav-menu-item" index="summary">
+          <el-menu-item
+            :class="{ 'nav-menu-item': true, loading: loading['/summary'] }"
+            index="summary"
+          >
             <el-icon
               v-if="loading['/summary']"
               class="is-loading"
@@ -173,7 +176,10 @@ const changeMenuVisible = () => {
               >{{ t('nav-summary') }}</a
             ></el-menu-item
           >
-          <el-menu-item class="nav-menu-item" index="portfolio">
+          <el-menu-item
+            :class="{ 'nav-menu-item': true, loading: loading['/portfolio#ai'] }"
+            index="portfolio"
+          >
             <el-icon
               v-if="loading['/portfolio#ai']"
               class="is-loading"

@@ -18,7 +18,7 @@ const defaultTexts: { [index: string]: string } = {
   'kk-KK': `Мұнда бірдеңе жазып көріңіз және синтезделген сөзді тыңдау үшін "${t('synthesizer-bttn')}" түймесін басыңыз.`,
   'uz-UZ': `Bu yerda biror narsa yozishga harakat qiling va sintezlangan nutqni eshitish uchun "${t('synthesizer-bttn')}" tugmasini bosing.`
 }
-const text = ref('en-US')
+const text = ref(defaultTexts['en-US'])
 
 const lang = ref('en-US')
 const languages = [
@@ -45,8 +45,9 @@ const languages = [
 ]
 
 // define default text
+const [a, b] = navigator.language ?? 'en'
 for (const i of languages) {
-  if (i.value.includes(navigator.language ?? 'en')) {
+  if (i.value[0] === a && i.value[1] === b) {
     text.value = defaultTexts[i.value]
     lang.value = i.value
   }
