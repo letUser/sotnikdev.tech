@@ -70,6 +70,7 @@ const onFrameLoad = () => {
   width: 100%;
   height: 100%;
   border-radius: var(--el-border-radius-base);
+  overflow: hidden;
 
   &-frame {
     width: 100%;
