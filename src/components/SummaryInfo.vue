@@ -181,6 +181,11 @@ const onClickHandler = async (to: string) => {
           display: flex;
           align-items: center;
           justify-content: center;
+
+          > i {
+            position: absolute;
+            left: 20px;
+          }
         }
 
         &-content {
@@ -234,12 +239,6 @@ const onClickHandler = async (to: string) => {
   }
 
   &.loading {
-    .summary-cards-item-header {
-      > h3 {
-        padding: 0 32px 0 8px;
-      }
-    }
-
     .el-timeline {
       &-item {
         &__tail {
