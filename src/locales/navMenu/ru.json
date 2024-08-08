@@ -1,0 +1,19 @@
+{
+  "nav-summary": "Резюме",
+  "nav-portfolio": "Портфолио",
+  "nav-links-github": "Перейти в GitHub",
+  "nav-links-li": "Перейти в LinkedIn",
+  "nav-contact": "Контакты",
+  "nav-contact-call": "Позвонить",
+  "nav-contact-tg": "Написать",
+  "nav-contact-email": "Отправить эмейл",
+  "nav-theme": "Тема",
+  "cloud": "Облачные решения",
+  "ai": "Искусственный интеллект",
+  "paas": "Платформа как услуга",
+  "fintech": "ФинТех",
+  "bi": "Бизнес-аналитика (BI)",
+  "perf": "Оптимизация",
+  "gis": "ГИС",
+  "map": "Карта"
+}

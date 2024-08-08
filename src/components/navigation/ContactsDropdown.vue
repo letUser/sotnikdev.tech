@@ -29,7 +29,7 @@ const handleContactsHover = (state: boolean) => {
     @mouseenter="handleContactsHover(true)"
     @mouseleave="handleContactsHover(false)"
   >
-    <span> Contacts </span>
+    <span> {{ t('nav-contact') }} </span>
 
     <el-dropdown
       ref="dropdown"

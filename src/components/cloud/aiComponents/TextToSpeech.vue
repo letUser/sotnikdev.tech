@@ -18,7 +18,7 @@ const defaultTexts: { [index: string]: string } = {
   'kk-KK': `Мұнда бірдеңе жазып көріңіз және синтезделген сөзді тыңдау үшін "${t('synthesizer-bttn')}" түймесін басыңыз.`,
   'uz-UZ': `Bu yerda biror narsa yozishga harakat qiling va sintezlangan nutqni eshitish uchun "${t('synthesizer-bttn')}" tugmasini bosing.`
 }
-const text = ref(defaultTexts['en-US'])
+const text = ref('en-US')
 
 const lang = ref('en-US')
 const languages = [
@@ -43,6 +43,14 @@ const languages = [
     label: t('synthesizer-lang-options-uz')
   }
 ]
+
+// define default text
+for (const i of languages) {
+  if (i.value.includes(navigator.language ?? 'en')) {
+    text.value = defaultTexts[i.value]
+    lang.value = i.value
+  }
+}
 
 // link to synthesized audio file
 const audioFile = ref('')

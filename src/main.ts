@@ -11,7 +11,8 @@ import axios from 'axios'
 import messages from '@intlify/unplugin-vue-i18n/messages'
 
 const i18n = createI18n({
-  locale: 'en',
+  locale: navigator.language ?? 'en',
+  fallbackLocale: 'en',
   messages
 })
 
