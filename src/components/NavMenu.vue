@@ -275,7 +275,7 @@ const changeMenuVisible = () => {
 
         &.loading {
           > a {
-            padding-left: 2px;
+            padding-left: 3px;
           }
         }
 

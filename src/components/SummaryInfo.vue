@@ -56,13 +56,16 @@ const onClickHandler = async (to: string) => {
       <div class="summary-cards">
         <el-card shadow="hover" class="summary-cards-item" @click="onClickHandler('/portfolio#ai')">
           <template #header>
-            <div v-if="loading['/portfolio#ai']" class="summary-cards-item-header">
-              <el-icon class="is-loading" :size="24" color="var(--el-color-primary)"
+            <div :class="{ 'summary-cards-item-header': true, loading: loading['/portfolio#ai'] }">
+              <el-icon
+                v-if="loading['/portfolio#ai']"
+                class="is-loading"
+                :size="24"
+                color="var(--el-color-primary)"
                 ><Loading
               /></el-icon>
               <h3>{{ t('info-cloud-title') }}</h3>
             </div>
-            <h3 v-else>{{ t('info-cloud-title') }}</h3>
           </template>
 
           <div class="summary-cards-item-content">
@@ -82,13 +85,16 @@ const onClickHandler = async (to: string) => {
 
         <el-card shadow="hover" class="summary-cards-item" @click="onClickHandler('/portfolio#bi')">
           <template #header>
-            <div v-if="loading['/portfolio#bi']" class="summary-cards-item-header">
-              <el-icon class="is-loading" :size="24" color="var(--el-color-primary)"
+            <div :class="{ 'summary-cards-item-header': true, loading: loading['/portfolio#bi'] }">
+              <el-icon
+                v-if="loading['/portfolio#bi']"
+                class="is-loading"
+                :size="24"
+                color="var(--el-color-primary)"
                 ><Loading
               /></el-icon>
               <h3>{{ t('info-fintech-title') }}</h3>
             </div>
-            <h3 v-else>{{ t('info-fintech-title') }}</h3>
           </template>
 
           <div class="summary-cards-item-content">
@@ -112,13 +118,16 @@ const onClickHandler = async (to: string) => {
           @click="onClickHandler('/portfolio#map')"
         >
           <template #header>
-            <div v-if="loading['/portfolio#map']" class="summary-cards-item-header">
-              <el-icon class="is-loading" :size="24" color="var(--el-color-primary)"
+            <div :class="{ 'summary-cards-item-header': true, loading: loading['/portfolio#map'] }">
+              <el-icon
+                v-if="loading['/portfolio#map']"
+                class="is-loading"
+                :size="24"
+                color="var(--el-color-primary)"
                 ><Loading
               /></el-icon>
               <h3>{{ t('info-GIS-title') }}</h3>
             </div>
-            <h3 v-else>{{ t('info-GIS-title') }}</h3>
           </template>
 
           <div class="summary-cards-item-content">
@@ -165,14 +174,16 @@ const onClickHandler = async (to: string) => {
         }
 
         &-header {
-          display: flex;
-          flex-direction: row;
-          justify-content: center;
-          align-items: center;
           height: 20px;
+          position: relative;
+          display: flex;
+          align-items: center;
+          justify-content: center;
 
-          > h3 {
-            padding: 0 32px 0 8px;
+          &.loading {
+            > h3 {
+              padding: 0 32px 0 8px;
+            }
           }
         }
 
