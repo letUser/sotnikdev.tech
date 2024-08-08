@@ -60,8 +60,8 @@ const toDefault = () => {
 const handleRouteChange = async (to: string) => {
   toDefault()
 
-  timerId = handleSlowNetworkAlert() // set timerId
   loading[to] = true
+  timerId = handleSlowNetworkAlert() // set timerId
 
   try {
     await router.push(to)

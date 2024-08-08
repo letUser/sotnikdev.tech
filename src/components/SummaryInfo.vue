@@ -37,8 +37,8 @@ const toDefault = () => {
 const onClickHandler = async (to: string) => {
   toDefault()
 
-  timerId = handleSlowNetworkAlert() // set timerId
   loading[to] = true
+  timerId = handleSlowNetworkAlert() // set timerId
 
   try {
     await router.push(to)
@@ -54,9 +54,13 @@ const onClickHandler = async (to: string) => {
 
     <div class="summary">
       <div class="summary-cards">
-        <el-card shadow="hover" class="summary-cards-item" @click="onClickHandler('/portfolio#ai')">
+        <el-card
+          shadow="hover"
+          :class="{ 'summary-cards-item': true, loading: loading['/portfolio#ai'] }"
+          @click="onClickHandler('/portfolio#ai')"
+        >
           <template #header>
-            <div :class="{ 'summary-cards-item-header': true, loading: loading['/portfolio#ai'] }">
+            <div class="summary-cards-item-header">
               <el-icon
                 v-if="loading['/portfolio#ai']"
                 class="is-loading"
@@ -77,15 +81,17 @@ const onClickHandler = async (to: string) => {
           </div>
 
           <template #footer>
-            <router-link :class="{ loading: loading['/portfolio#ai'] }" to="/portfolio#ai">{{
-              t('info-cards-button')
-            }}</router-link>
+            <router-link to="/portfolio#ai">{{ t('info-cards-button') }}</router-link>
           </template>
         </el-card>
 
-        <el-card shadow="hover" class="summary-cards-item" @click="onClickHandler('/portfolio#bi')">
+        <el-card
+          shadow="hover"
+          :class="{ 'summary-cards-item': true, loading: loading['/portfolio#bi'] }"
+          @click="onClickHandler('/portfolio#bi')"
+        >
           <template #header>
-            <div :class="{ 'summary-cards-item-header': true, loading: loading['/portfolio#bi'] }">
+            <div class="summary-cards-item-header">
               <el-icon
                 v-if="loading['/portfolio#bi']"
                 class="is-loading"
@@ -106,19 +112,17 @@ const onClickHandler = async (to: string) => {
           </div>
 
           <template #footer>
-            <router-link :class="{ loading: loading['/portfolio#bi'] }" to="/portfolio#bi">{{
-              t('info-cards-button')
-            }}</router-link>
+            <router-link to="/portfolio#bi">{{ t('info-cards-button') }}</router-link>
           </template>
         </el-card>
 
         <el-card
           shadow="hover"
-          class="summary-cards-item"
+          :class="{ 'summary-cards-item': true, loading: loading['/portfolio#map'] }"
           @click="onClickHandler('/portfolio#map')"
         >
           <template #header>
-            <div :class="{ 'summary-cards-item-header': true, loading: loading['/portfolio#map'] }">
+            <div class="summary-cards-item-header">
               <el-icon
                 v-if="loading['/portfolio#map']"
                 class="is-loading"
@@ -139,9 +143,7 @@ const onClickHandler = async (to: string) => {
           </div>
 
           <template #footer>
-            <router-link :class="{ loading: loading['/portfolio#map'] }" to="/portfolio#map">{{
-              t('info-cards-button')
-            }}</router-link>
+            <router-link to="/portfolio#map">{{ t('info-cards-button') }}</router-link>
           </template>
         </el-card>
       </div>
@@ -179,12 +181,6 @@ const onClickHandler = async (to: string) => {
           display: flex;
           align-items: center;
           justify-content: center;
-
-          &.loading {
-            > h3 {
-              padding: 0 32px 0 8px;
-            }
-          }
         }
 
         &-content {
@@ -211,11 +207,6 @@ const onClickHandler = async (to: string) => {
             text-decoration: none;
             line-height: 48px;
             transition: background-color 0.5s;
-
-            &.loading {
-              color: var(--el-color-white);
-              background-color: var(--el-color-primary-light-3);
-            }
           }
         }
       }
@@ -242,7 +233,13 @@ const onClickHandler = async (to: string) => {
     text-align: left;
   }
 
-  &:hover {
+  &.loading {
+    .summary-cards-item-header {
+      > h3 {
+        padding: 0 32px 0 8px;
+      }
+    }
+
     .el-timeline {
       &-item {
         &__tail {
@@ -260,6 +257,31 @@ const onClickHandler = async (to: string) => {
     .el-card__footer {
       color: var(--el-color-white);
       background-color: var(--el-color-primary-light-3);
+    }
+  }
+}
+
+@media screen and (min-width: 770px) {
+  .summary-cards-item {
+    &:hover {
+      .el-timeline {
+        &-item {
+          &__tail {
+            border-color: var(--el-color-primary-light-7);
+            transition: border-color 0.5s;
+          }
+
+          &__node {
+            background-color: var(--el-color-primary-light-3);
+            transition: background-color 0.5s;
+          }
+        }
+      }
+
+      .el-card__footer {
+        color: var(--el-color-white);
+        background-color: var(--el-color-primary-light-3);
+      }
     }
   }
 }
