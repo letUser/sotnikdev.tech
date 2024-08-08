@@ -76,6 +76,7 @@ const handleRouteChange = async (to: string) => {
  */
 const changeMenuVisible = () => {
   isMenuOpened.value = !isMenuOpened.value
+  toDefault()
 
   const body = document.getElementsByClassName('content-view')[0] as HTMLElement
 
@@ -100,9 +101,7 @@ const changeMenuVisible = () => {
 
     <div v-if="!isMobile" class="menu">
       <el-menu class="nav-menu" :default-active="route.name">
-        <el-menu-item
-          :class="{ 'nav-menu-item': true, loading: loading['/summary'] }"
-          index="summary"
+        <el-menu-item class="nav-menu-item" index="summary"
           ><el-icon
             v-if="loading['/summary']"
             class="is-loading"
@@ -118,9 +117,7 @@ const changeMenuVisible = () => {
             >{{ t('nav-summary') }}</a
           ></el-menu-item
         >
-        <el-menu-item
-          :class="{ 'nav-menu-item': true, loading: loading['/portfolio#ai'] }"
-          index="portfolio"
+        <el-menu-item class="nav-menu-item" index="portfolio"
           ><el-icon
             v-if="loading['/portfolio#ai']"
             class="is-loading"
@@ -157,10 +154,7 @@ const changeMenuVisible = () => {
 
       <div v-if="isMenuOpened" class="menu-container fullscreen">
         <el-menu class="nav-menu" :default-active="route.name">
-          <el-menu-item
-            :class="{ 'nav-menu-item': true, loading: loading['/summary'] }"
-            index="summary"
-          >
+          <el-menu-item class="nav-menu-item" index="summary">
             <el-icon
               v-if="loading['/summary']"
               class="is-loading"
@@ -176,10 +170,7 @@ const changeMenuVisible = () => {
               >{{ t('nav-summary') }}</a
             ></el-menu-item
           >
-          <el-menu-item
-            :class="{ 'nav-menu-item': true, loading: loading['/portfolio#ai'] }"
-            index="portfolio"
-          >
+          <el-menu-item class="nav-menu-item" index="portfolio">
             <el-icon
               v-if="loading['/portfolio#ai']"
               class="is-loading"
@@ -263,6 +254,11 @@ const changeMenuVisible = () => {
         background-color: transparent;
         height: inherit;
         padding: 0 !important;
+        position: relative;
+
+        > i {
+          position: absolute;
+        }
 
         &.is-active {
           color: var(--el-color-primary);
@@ -271,12 +267,6 @@ const changeMenuVisible = () => {
 
         &:hover {
           color: var(--el-color-primary);
-        }
-
-        &.loading {
-          > a {
-            padding-left: 3px;
-          }
         }
 
         a {
