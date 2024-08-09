@@ -8,3 +8,4 @@ Personal website highlighting my experiences in the Software industry.
 - 🔥 Written in TypeScript
 - 🌷 Using SCSS
 - 🌌 Powered by Element Plus
+- 🐍 Python for serverless
