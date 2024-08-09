@@ -45,4 +45,9 @@ provide('isMobile', readonly(isMobile))
     }
   }
 }
+
+.no-overflow-y {
+  overflow-y: hidden;
+  height: calc(100dvh - var(--nav-bar-height));
+}
 </style>
