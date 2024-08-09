@@ -2,4 +2,9 @@
 
 https://www.sotnikdev.tech/
 
-Personal mobile friendly website highlighting my experiences in the Software industry.
+Personal website highlighting my experiences in the Software industry.
+
+- 💪 Vue 3 Composition API
+- 🔥 Written in TypeScript
+- 🌷 Using SCSS
+- 🌌 Powered by Element Plus
