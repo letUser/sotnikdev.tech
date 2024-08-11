@@ -54,7 +54,7 @@ const toDefault = () => {
 }
 
 /**
- * Handle mobile menu item click
+ * Handle menu item click
  * @param {string} to - link to
  */
 const handleRouteChange = async (to: string) => {
@@ -66,7 +66,7 @@ const handleRouteChange = async (to: string) => {
   try {
     await router.push(to)
   } finally {
-    changeMenuVisible()
+    if (isMobile.value) changeMenuVisible()
     toDefault()
   }
 }

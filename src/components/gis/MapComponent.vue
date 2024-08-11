@@ -58,8 +58,6 @@ const onSuccess = (pos: GeolocationPosition) => {
 
   let circleFeature = null
 
-  console.log(pos.coords.accuracy)
-
   // if accuracy rate is sadenly bad
   if (pos.coords.accuracy > 50) {
     // if no interval - create it & circle
