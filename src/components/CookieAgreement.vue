@@ -1,10 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
-console.log(localStorage.getItem('sotnikdev.tech:cookieClosed'))
-
-localStorage.setItem('sotnikdev.tech:cookieClosed', 'false')
-
 const isClosed = ref(localStorage.getItem('sotnikdev.tech:cookieClosed') === 'true' ? true : false)
 
 const onCookieClose = () => {
