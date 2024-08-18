@@ -15,6 +15,7 @@ declare module 'vue' {
     BrandImageModal: typeof import('./src/components/icons/BrandImageModal.vue')['default']
     BrandImageWrapper: typeof import('./src/components/BrandImageWrapper.vue')['default']
     ContactsDropdown: typeof import('./src/components/navigation/ContactsDropdown.vue')['default']
+    CookieAgreement: typeof import('./src/components/CookieAgreement.vue')['default']
     DarkModeSwitch: typeof import('./src/components/navigation/DarkModeSwitch.vue')['default']
     DockerLogo: typeof import('./src/components/icons/DockerLogo.vue')['default']
     DsLogo: typeof import('./src/components/icons/DsLogo.vue')['default']

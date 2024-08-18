@@ -2,6 +2,7 @@
 import { ref, provide, readonly } from 'vue'
 import { RouterView } from 'vue-router'
 import NavMenu from './components/NavMenu.vue'
+import CookieAgreement from './components/CookieAgreement.vue'
 import LinkedInBadge from './components/LinkedInBadge.vue'
 import initResizeObserver from './utils/resizeObserver'
 
@@ -25,6 +26,8 @@ provide('isMobile', readonly(isMobile))
     </header>
 
     <RouterView class="content-view" />
+
+    <CookieAgreement />
 
     <LinkedInBadge />
   </html>
