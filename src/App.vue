@@ -33,6 +33,13 @@ provide('isMobile', readonly(isMobile))
   </html>
 </template>
 
+<!-- Global components styles -->
+<style lang="scss">
+.el-table-v2__overlay {
+  z-index: var(--mid-z-index);
+}
+</style>
+
 <style scoped lang="scss">
 .content {
   width: calc(100vw - var(--scroll-width));

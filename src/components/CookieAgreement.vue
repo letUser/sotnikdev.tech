@@ -22,7 +22,7 @@ const onCookieClose = () => {
   </div>
 </template>
 
-<style lang="scss">
+<style scoped lang="scss">
 .cookie {
   display: flex;
   align-items: center;

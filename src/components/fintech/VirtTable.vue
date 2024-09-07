@@ -36,7 +36,6 @@ const data = ref<any[]>([])
 let currentClientY = 0
 let prevClientY = -1
 const controlMode = ref(false)
-const kls = ref<string>('')
 const sortState = ref<SortBy>({
   key: 'column-0',
   order: TableV2SortOrder.DESC
@@ -63,7 +62,14 @@ const generateColumns = (length: number = 8, prefix: string = 'column-', props?:
     title: !columnIndex ? 'ID' : `${t('fintech-virt-table-header-column')} ${columnIndex}`,
     align: !columnIndex ? 'center' : null,
     width: 150,
-    sortable: !columnIndex
+    sortable: !columnIndex,
+    cellRenderer: ({ rowIndex }: { rowIndex: number }) => {
+      return h(
+        'p',
+        { style: 'text-overflow: ellipsis; overflow: hidden; white-space: nowrap;' },
+        `${t('fintech-virt-table-body-row')} ${rowIndex} - ${t('fintech-virt-table-body-col')} ${columnIndex}`
+      )
+    }
   }))
 
   // add tool column for control
@@ -119,8 +125,7 @@ const generateData = (columns: any[], length: number = 100, prefix: string = 'ro
           } else if (column.key === 'tools') {
             rowData[column.dataKey] = null
           } else {
-            rowData[column.dataKey] =
-              `${t('fintech-virt-table-body-row')} ${rowIndex} - ${t('fintech-virt-table-body-col')} ${columnIndex}`
+            rowData[column.dataKey] = `Row ${rowIndex} - Col ${columnIndex}`
           }
 
           return rowData
@@ -137,24 +142,6 @@ const generateData = (columns: any[], length: number = 100, prefix: string = 'ro
   data.value = rawData
 
   currIndex.value = currIndex.value + length
-}
-
-/**
- * Hovering by mouse on a row handler
- * @param {any} props data of the hovered row object
- */
-const cellProps = ({ columnIndex }: any) => {
-  const key = `hovering-col-${columnIndex}`
-
-  return {
-    ['data-key']: key,
-    onMouseenter: () => {
-      kls.value = key
-    },
-    onMouseleave: () => {
-      kls.value = ''
-    }
-  }
 }
 
 /**
@@ -266,8 +253,6 @@ const exportExcelLambda = async () => {
         <el-table-v2
           ref="virtTable"
           :columns="columns"
-          :cell-props="!isMobile ? cellProps : null"
-          :class="!isMobile ? kls : null"
           :data="data"
           :width="width"
           :height="height"
@@ -346,25 +331,5 @@ const exportExcelLambda = async () => {
 .overlay-scrolling-container {
   width: 100%;
   height: 100%;
-}
-</style>
-
-<style lang="scss">
-.hovering-col-1 [data-key='hovering-col-1'],
-.hovering-col-2 [data-key='hovering-col-2'],
-.hovering-col-3 [data-key='hovering-col-3'],
-.hovering-col-4 [data-key='hovering-col-4'],
-.hovering-col-5 [data-key='hovering-col-5'],
-.hovering-col-6 [data-key='hovering-col-6'],
-.hovering-col-7 [data-key='hovering-col-7'] {
-  background: var(--el-table-row-hover-bg-color);
-}
-
-[data-key='hovering-col-0'] {
-  font-weight: bold;
-}
-
-.el-table-v2__overlay {
-  z-index: var(--mid-z-index);
 }
 </style>
