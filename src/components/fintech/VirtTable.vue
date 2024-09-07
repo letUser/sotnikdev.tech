@@ -115,27 +115,10 @@ const generateData = (columns: any[], length: number = 100, prefix: string = 'ro
 
   // add new data to existing
   rawData = rawData.concat(
-    Array.from({ length }).map((_, index) => {
-      const rowIndex = currIndex.value + index
-
-      return columns.reduce(
-        (rowData, column, columnIndex) => {
-          if (!columnIndex) {
-            rowData[column.dataKey] = rowIndex
-          } else if (column.key === 'tools') {
-            rowData[column.dataKey] = null
-          } else {
-            rowData[column.dataKey] = `Row ${rowIndex} - Col ${columnIndex}`
-          }
-
-          return rowData
-        },
-        {
-          id: `${prefix}${rowIndex}`,
-          parentId: null
-        }
-      )
-    })
+    Array.from({ length }).map((_, index) => ({
+      id: `${prefix}${currIndex.value + index}`,
+      parentId: null
+    }))
   )
 
   // add new data to existing
