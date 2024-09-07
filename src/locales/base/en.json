@@ -2,5 +2,6 @@
   "under-development": "Under development",
   "loading": "Loading",
   "menu": "Menu",
-  "close": "Close"
+  "close": "Close",
+  "cookie-text": "This page uses Google Analytics to improve your website experience. This involves collecting information about how you use this site, such as pages visited and clicks. Your data is used to enhance this website and is not shared with third parties. By continuing to use this website, you consent to use of cookies."
 }

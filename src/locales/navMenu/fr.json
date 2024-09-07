@@ -1,0 +1,19 @@
+{
+  "nav-summary": "Résumé",
+  "nav-portfolio": "Portefeuille",
+  "nav-links-github": "Allez sur GitHub",
+  "nav-links-li": "Allez sur LinkedIn",
+  "nav-contact": "Contacts",
+  "nav-contact-call": "Appelle moi",
+  "nav-contact-tg": "DM moi",
+  "nav-contact-email": "Email moi",
+  "nav-theme": "Thème",
+  "cloud": "Cloud Native",
+  "ai": "Artificial intelligence (AI)",
+  "paas": "PaaS",
+  "fintech": "FinTech",
+  "bi": "Business intelligence (BI)",
+  "perf": "Performance",
+  "gis": "GIS",
+  "map": "Carte"
+}

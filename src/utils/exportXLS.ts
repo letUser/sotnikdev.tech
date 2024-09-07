@@ -1,4 +1,3 @@
-import 'element-plus/es/components/notification/style/css'
 import { ElNotification, ElMessage } from 'element-plus'
 import WorkerTableExportXLS from '../workers/tableExportXLS?worker'
 

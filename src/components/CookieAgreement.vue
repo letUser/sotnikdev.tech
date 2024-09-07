@@ -1,5 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useI18n } from 'petite-vue-i18n'
+
+// use translation
+const { t } = useI18n({ useScope: 'global' })
 
 const isClosed = ref(localStorage.getItem('sotnikdev.tech:cookieClosed') === 'true' ? true : false)
 
@@ -12,10 +16,7 @@ const onCookieClose = () => {
 <template>
   <div v-if="!isClosed" class="cookie">
     <p class="cookie-text">
-      This page uses Google Analytics to improve your website experience. This involves collecting
-      information about how you use this site, such as pages visited and clicks. Your data is used
-      to enhance this website and is not shared with third parties. By continuing to use this
-      website, you consent to use of cookies.
+      {{ t('cookie-text') }}
     </p>
     <el-button class="cookie-button" @click="onCookieClose()">Accept</el-button>
   </div>
@@ -59,6 +60,10 @@ const onCookieClose = () => {
     width: 95%;
     flex-direction: column;
     padding: 12px 12px 0 12px;
+
+    &-button {
+      width: 100%;
+    }
   }
 }
 

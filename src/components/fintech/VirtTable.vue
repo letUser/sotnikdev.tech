@@ -60,9 +60,7 @@ const generateColumns = (length: number = 8, prefix: string = 'column-', props?:
     ...props,
     key: `${prefix}${columnIndex}`,
     dataKey: `${prefix}${columnIndex}`,
-    title: !columnIndex
-      ? 'ID'
-      : `Column ${columnIndex}`,
+    title: !columnIndex ? 'ID' : `${t('fintech-virt-table-header-column')} ${columnIndex}`,
     align: !columnIndex ? 'center' : null,
     width: 150,
     sortable: !columnIndex
@@ -122,7 +120,7 @@ const generateData = (columns: any[], length: number = 100, prefix: string = 'ro
             rowData[column.dataKey] = null
           } else {
             rowData[column.dataKey] =
-              `Row ${rowIndex} - Col ${columnIndex}`
+              `${t('fintech-virt-table-body-row')} ${rowIndex} - ${t('fintech-virt-table-body-col')} ${columnIndex}`
           }
 
           return rowData
@@ -240,14 +238,14 @@ const exportExcelLambda = async () => {
       </div>
       <div class="virt-table-info-buttons">
         <el-button @click="generateData(columns, 1000)" :disabled="data.length > 536000">
-          {{ t('fintech-virt-table-add') }} 1,000
+          {{ isMobile ? t('fintech-virt-table-mobile-add') : t('fintech-virt-table-add') }} 1,000
         </el-button>
         <el-button
           type="primary"
           @click="generateData(columns, 100000)"
           :disabled="data.length > 436000"
         >
-          {{ t('fintech-virt-table-add') }} 100,000
+          {{ isMobile ? t('fintech-virt-table-mobile-add') : t('fintech-virt-table-add') }} 100,000
         </el-button>
         <PO_exportXLS :data="data" :exportLoading="exportLoading" @exportExcel="exportExcel" />
         <el-button

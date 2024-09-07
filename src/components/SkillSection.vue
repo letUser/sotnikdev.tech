@@ -4,10 +4,8 @@ import VueLogo from './icons/VueLogo.vue'
 import ReactLogo from './icons/ReactLogo.vue'
 import TypeScriptLogo from './icons/TypeScriptLogo.vue'
 import PythonLogo from './icons/PythonLogo.vue'
-import PostgresLogo from './icons/PostgresLogo.vue'
 import AwsLogo from './icons/AwsLogo.vue'
 import DockerLogo from './icons/DockerLogo.vue'
-import FigmaLogo from './icons/FigmaLogo.vue'
 
 // use translation
 const { t } = useI18n({ useScope: 'global' })
@@ -75,26 +73,6 @@ const { t } = useI18n({ useScope: 'global' })
         <div class="skills-item-info">
           <h4 class="skills-item-info-name">Docker</h4>
           <p class="skills-item-info-text">{{ t('skills-docker-text') }}</p>
-        </div>
-      </div>
-
-      <div class="skills-item">
-        <el-icon :size="48">
-          <postgres-logo />
-        </el-icon>
-        <div class="skills-item-info">
-          <h4 class="skills-item-info-name">PostgreSQL</h4>
-          <p class="skills-item-info-text">{{ t('skills-pg-text') }}</p>
-        </div>
-      </div>
-
-      <div class="skills-item">
-        <el-icon :size="48">
-          <figma-logo />
-        </el-icon>
-        <div class="skills-item-info">
-          <h4 class="skills-item-info-name">Figma</h4>
-          <p class="skills-item-info-text">{{ t('skills-figma-text') }}</p>
         </div>
       </div>
     </div>

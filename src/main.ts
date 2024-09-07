@@ -1,6 +1,7 @@
 import './assets/main.scss'
 import 'element-plus/theme-chalk/dark/css-vars.css'
 import 'element-plus/theme-chalk/src/message.scss'
+import 'element-plus/es/components/notification/style/css'
 
 import { createApp } from 'vue'
 import { createI18n } from 'petite-vue-i18n'
