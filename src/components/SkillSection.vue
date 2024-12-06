@@ -3,7 +3,7 @@ import { useI18n } from 'petite-vue-i18n'
 import VueLogo from './icons/VueLogo.vue'
 import ReactLogo from './icons/ReactLogo.vue'
 import TypeScriptLogo from './icons/TypeScriptLogo.vue'
-import PythonLogo from './icons/PythonLogo.vue'
+import NodeLogo from './icons/NodeLogo.vue'
 import AwsLogo from './icons/AwsLogo.vue'
 import DockerLogo from './icons/DockerLogo.vue'
 
@@ -48,10 +48,10 @@ const { t } = useI18n({ useScope: 'global' })
 
       <div class="skills-item">
         <el-icon :size="48">
-          <python-logo />
+          <node-logo />
         </el-icon>
         <div class="skills-item-info">
-          <h4 class="skills-item-info-name">Python</h4>
+          <h4 class="skills-item-info-name">Node.js</h4>
           <p class="skills-item-info-text">{{ t('skills-python-text') }}</p>
         </div>
       </div>

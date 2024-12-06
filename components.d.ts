@@ -50,6 +50,7 @@ declare module 'vue' {
     MenuIcon: typeof import('./src/components/icons/MenuIcon.vue')['default']
     MoonIcon: typeof import('./src/components/icons/MoonIcon.vue')['default']
     NavMenu: typeof import('./src/components/NavMenu.vue')['default']
+    NodeLogo: typeof import('./src/components/icons/NodeLogo.vue')['default']
     PaasComponent: typeof import('./src/components/cloud/PaasComponent.vue')['default']
     PO_exportXLS: typeof import('./src/components/popovers/PO_exportXLS.vue')['default']
     PostgresLogo: typeof import('./src/components/icons/PostgresLogo.vue')['default']

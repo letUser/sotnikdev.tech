@@ -73,7 +73,7 @@ const onMouseMove = ($ev: MouseEvent) => {
   text-align: center;
 
   &-item {
-    margin-bottom: 5rem;
+    margin-bottom: 2rem;
   }
 
   &-name {
